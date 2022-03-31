@@ -1,0 +1,10 @@
+D:\LOCALES\Locales\DataAccess\bin\Debug\DataAccess.dll
+D:\LOCALES\Locales\DataAccess\bin\Debug\DataAccess.pdb
+D:\LOCALES\Locales\DataAccess\obj\Debug\DataAccess.csprojAssemblyReference.cache
+D:\LOCALES\Locales\DataAccess\obj\Debug\DataAccess.csproj.CoreCompileInputs.cache
+D:\LOCALES\Locales\DataAccess\obj\Debug\DataAccess.dll
+D:\LOCALES\Locales\DataAccess\obj\Debug\DataAccess.pdb
+D:\LOCALES\Locales\DataAccess\bin\Debug\Common.dll
+D:\LOCALES\Locales\DataAccess\bin\Debug\Common.pdb
+D:\LOCALES\Locales\DataAccess\obj\Debug\DataAccess.csproj.CopyComplete
+D:\LOCALES\Locales\DataAccess\obj\Debug\DataAccess.csproj.ResolveComReference.cache

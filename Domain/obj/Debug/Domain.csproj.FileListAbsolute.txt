@@ -1,0 +1,11 @@
+D:\LOCALES\Locales\Domain\bin\Debug\Domain.dll
+D:\LOCALES\Locales\Domain\bin\Debug\Domain.pdb
+D:\LOCALES\Locales\Domain\bin\Debug\DataAccess.dll
+D:\LOCALES\Locales\Domain\bin\Debug\DataAccess.pdb
+D:\LOCALES\Locales\Domain\obj\Debug\Domain.csprojAssemblyReference.cache
+D:\LOCALES\Locales\Domain\obj\Debug\Domain.csproj.CoreCompileInputs.cache
+D:\LOCALES\Locales\Domain\obj\Debug\Domain.csproj.CopyComplete
+D:\LOCALES\Locales\Domain\obj\Debug\Domain.dll
+D:\LOCALES\Locales\Domain\obj\Debug\Domain.pdb
+D:\LOCALES\Locales\Domain\bin\Debug\Common.dll
+D:\LOCALES\Locales\Domain\bin\Debug\Common.pdb

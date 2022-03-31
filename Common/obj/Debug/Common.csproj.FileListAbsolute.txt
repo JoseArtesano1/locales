@@ -1,0 +1,7 @@
+D:\LOCALES\Locales\Common\bin\Debug\Common.dll
+D:\LOCALES\Locales\Common\bin\Debug\Common.pdb
+D:\LOCALES\Locales\Common\obj\Debug\Common.csprojAssemblyReference.cache
+D:\LOCALES\Locales\Common\obj\Debug\Common.csproj.CoreCompileInputs.cache
+D:\LOCALES\Locales\Common\obj\Debug\Common.dll
+D:\LOCALES\Locales\Common\obj\Debug\Common.pdb
+D:\LOCALES\Locales\Common\obj\Debug\Common.csproj.ResolveComReference.cache
