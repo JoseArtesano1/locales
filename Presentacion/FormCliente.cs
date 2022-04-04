@@ -32,22 +32,10 @@ namespace Presentacion
 
         #region CLIENTE
 
-        private void btneliminar_Click(object sender, EventArgs e)
-        {
-          //  tabControl1.TabPages.Add(tabPage2);
-            if (MessageBox.Show("Este proceso borra el cliente  de la bd, lo quieres hacer S/N", "CUIDADO", 
-                MessageBoxButtons.YesNo) == DialogResult.Yes)
-                           
-            {
-               
-            }
-
-
-        }
+      
 
         private void CrearControl(int pag)
         {
-
             switch (pag)
             {
                 case 1:
@@ -67,6 +55,12 @@ namespace Presentacion
             }
            
 
+        }
+
+
+        private void LlamarTab(TabPage page)
+        {
+            tabControl1.SelectedTab = page;
         }
 
         private void txtnombre_Validating(object sender, CancelEventArgs e)
@@ -120,6 +114,7 @@ namespace Presentacion
             MessageBox.Show(mensaje);
 
             Recarga();
+            LlamarTab(tabPage2);
         }
 
         private void datagridClientes_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -159,7 +154,7 @@ namespace Presentacion
 
         private void btnModificar_Click(object sender, EventArgs e)
         {
-            if (txtnombre.Text == "") { MessageBox.Show("Introduce el nombre"); txtnombre.Focus(); return; }
+            if (txtnombre.Text == "") { MessageBox.Show("Introduce el nombre o selecciona un cliente"); txtnombre.Focus(); return; }
             if (txtdni.Text == "") { MessageBox.Show("Introduce un dni/nie"); txtdni.Focus(); return; }
             if (txtdireccion.Text == "") { MessageBox.Show("Introducce una Dirección"); txtdireccion.Focus(); return; }
 
@@ -170,6 +165,23 @@ namespace Presentacion
             Recarga();
 
         }
+
+
+        private void btneliminar_Click(object sender, EventArgs e)
+        {
+            if (txtnombre.Text == "") { MessageBox.Show("Selecciona un cliente"); txtnombre.Focus(); return; }
+            //  tabControl1.TabPages.Add(tabPage2);
+            if (MessageBox.Show("Este proceso borra el cliente  de la bd, lo quieres hacer S/N", "CUIDADO",
+                MessageBoxButtons.YesNo) == DialogResult.Yes)
+
+            {
+                string mensaje = clienteModel.EliminarClientes(idCliente);
+                MessageBox.Show(mensaje);
+            }
+
+
+        }
+
 
         private void btnCancelarAlta_Click(object sender, EventArgs e)
         {
@@ -235,7 +247,7 @@ namespace Presentacion
         private void btnAltaMovil_Click(object sender, EventArgs e)
         {
             if (textmovil.Text == "") { MessageBox.Show("Introduce Un teléfono"); textmovil.Focus(); return; }
-            if (txtcorreo.Text == "") { MessageBox.Show("Introduce un Email"); txtcorreo.Focus(); return; }
+           // if (txtcorreo.Text == "") { MessageBox.Show("Introduce un Email"); txtcorreo.Focus(); return; }
 
             var correoMovil = new TelefonoModel(movil: int.Parse(textmovil.Text), idClient: idCliente, email: txtcorreo.Text);
 
@@ -246,13 +258,13 @@ namespace Presentacion
             }
             MessageBox.Show(mensaje);
             RecargaTelefono(idTelefCorreo);
-
+            LlamarTab(tabPage3);
         }
 
         private void btnmodifmovil_Click(object sender, EventArgs e)
         {
             if (textmovil.Text == "") { MessageBox.Show("Introduce Un teléfono"); textmovil.Focus(); return; }
-            if (txtcorreo.Text == "") { MessageBox.Show("Introduce un Email"); txtcorreo.Focus(); return; }
+          //  if (txtcorreo.Text == "") { MessageBox.Show("Introduce un Email"); txtcorreo.Focus(); return; }
 
             var correoMovilEdit = new TelefonoModel(idTelefono:idTelefCorreo, movil: int.Parse(textmovil.Text), idClient: idCliente, email: txtcorreo.Text);
              string mensaje=  correoMovilEdit.EditarTelefono();
@@ -263,7 +275,7 @@ namespace Presentacion
         private void btneliminarMovil_Click(object sender, EventArgs e)
         {
             if (textmovil.Text == "") { MessageBox.Show("Introduce Un teléfono"); textmovil.Focus(); return; }
-            if (txtcorreo.Text == "") { MessageBox.Show("Introduce un Email"); txtcorreo.Focus(); return; }
+           // if (txtcorreo.Text == "") { MessageBox.Show("Introduce un Email"); txtcorreo.Focus(); return; }
 
             if (MessageBox.Show("Este proceso borra el Teléfono y el correo del cliente de la bd, lo quieres hacer S/N", "CUIDADO",
                 MessageBoxButtons.YesNo) == DialogResult.Yes)

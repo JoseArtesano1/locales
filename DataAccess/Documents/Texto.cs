@@ -52,7 +52,7 @@ namespace DataAccess.Documents
                 objWord.Range f4 = objDocumento.Bookmarks.get_Item(ref fecha4).Range;
                 f4.Text = fech.ToShortDateString();
                 objWord.Range f5 = objDocumento.Bookmarks.get_Item(ref fecha5).Range;
-                f5.Text = fech.ToShortDateString();
+                f5.Text = fech.AddYears(1).ToShortDateString();
                 objWord.Range al = objDocumento.Bookmarks.get_Item(ref alquiler).Range;
                 al.Text = mivalor.ToString();
                 objWord.Range fi = objDocumento.Bookmarks.get_Item(ref fianza).Range;

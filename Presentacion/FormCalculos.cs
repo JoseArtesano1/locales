@@ -18,13 +18,20 @@ namespace Presentacion
 
         int idElectrico, idLocal, idCliente, idcli, numero, idlugar;
         string zona, milugar;
-        decimal consumo;
+        decimal consumo, miImporte;
         DateTime fecha1, fecha2;
 
         public FormCalculos()
         {
             InitializeComponent();
             cargarComboLugar();
+            CrearControl(1);
+        }
+
+
+        private void Recargar()
+        {
+            dataGridZona.DataSource = "";
             CrearControl(1);
         }
 
@@ -83,11 +90,14 @@ namespace Presentacion
             this.Close();
         }
 
+       
+
         private void cmbLugar_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (cmbLugar.SelectedIndex != -1)
             {
                 zona = cmbLugar.SelectedValue.ToString();
+               
             }
         }
 
@@ -110,8 +120,9 @@ namespace Presentacion
                 }
                 else
                 {
+                    btnZona.Enabled = true;
                     dataGridZona.DataSource = electricidad.CargaListadoElectricidad(zona, 0, 2);
-                   
+                    if (electricidad.CargaListadoElectricidad(zona, 0, 2).Rows.Count == 0) { btnZona.Enabled = false; }
                     CrearControl(3);
                     LlamarTab(tabPage3);
                 }
@@ -127,6 +138,7 @@ namespace Presentacion
             cmbLugar.ValueMember = "nombreLugar";
             // cmbLugar.ValueMember = "idLocal";
             cmbLugar.SelectedIndex = -1;
+
         }
 
 
@@ -137,6 +149,7 @@ namespace Presentacion
                 CrearControl(1);
                 if (datagridLocalCli.CurrentRow.Cells[0].Value.ToString() != "")
                 {
+                    btnIndiv.Enabled = true;
                     idLocal = int.Parse(datagridLocalCli.CurrentRow.Cells[0].Value.ToString());
                     milugar = datagridLocalCli.CurrentRow.Cells[1].Value.ToString();
                     idlugar = int.Parse(datagridLocalCli.CurrentRow.Cells[6].Value.ToString());
@@ -163,13 +176,16 @@ namespace Presentacion
 
         private void btnIndiv_Click(object sender, EventArgs e)
         {
-            if (datagridListado.CurrentRow.Cells[0].Value.ToString() == "") { MessageBox.Show("Selecciona un registro"); datagridListado.Focus(); return; }
-
-            decimal import= electricidad.ImporteTotalPot(fecha1, fecha2, idLocal, idCliente, milugar, consumo) + electricidad.ImporteTotalEnerg(fecha1, fecha2,idLocal,idCliente,consumo);
-            string mensaje= electricidad.EditarImporteIndividual(idElectrico, import);
-            MessageBox.Show(mensaje);
-            string mensaje2 = Calculos(consumo);
-            MessageBox.Show(mensaje2);
+            if (idElectrico!=0)
+            { 
+                decimal import = electricidad.ImporteTotalPot(fecha1, fecha2, idLocal, idCliente, milugar, consumo) + electricidad.ImporteTotalEnerg(fecha1, fecha2, idLocal, idCliente, consumo);
+                string mensaje = electricidad.EditarImporteIndividual(idElectrico, import);
+                MessageBox.Show(mensaje);
+                string mensaje2 = Calculos(consumo);
+                MessageBox.Show(mensaje2);
+            }
+            else
+            { MessageBox.Show("Selecciona un registro"); }
         }
 
         private void datagridListado_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -182,6 +198,8 @@ namespace Presentacion
                     fecha1 = DateTime.Parse(datagridListado.CurrentRow.Cells[5].Value.ToString());
                     fecha2 = DateTime.Parse(datagridListado.CurrentRow.Cells[6].Value.ToString());
                     consumo = decimal.Parse(datagridListado.CurrentRow.Cells[11].Value.ToString());
+                    miImporte = decimal.Parse(datagridListado.CurrentRow.Cells[9].Value.ToString());
+                    if (miImporte != 0) { btnIndiv.Enabled = false; }
                     
                 }
                 else
@@ -196,10 +214,11 @@ namespace Presentacion
         private void btnZona_Click(object sender, EventArgs e)
         {
             if (cmbLugar.SelectedIndex == -1) { MessageBox.Show("Selecciona un lugar"); cmbLugar.Focus(); return; }
+
             string mensaje=electricidad.EditarImporteZona(zona);
             MessageBox.Show(mensaje);
             electricidad.EditarAcumuladoZona(zona);
-            
+            Recargar();
         }
 
 

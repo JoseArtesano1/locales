@@ -146,6 +146,11 @@ namespace Domain
         }
 
 
+        public DateTime FechaContrato(int idlo, int idc)
+        {
+            return metodos.GetFecha("select fechaIni from Alquiler where idLoc=" + idlo + "and idCl=" + idc + ";", 0);
+        }
+
         public int GetNumero(int id)
         {         
                 return metodos.ObtenerInt("select * from Locales where idLocal=" + id + ";", 1);

@@ -15,6 +15,7 @@ namespace Presentacion
     {
         ElectricidadModel electricidad = new ElectricidadModel();
         LocalModel localModel = new LocalModel();
+        AlquilerModel alquiler = new AlquilerModel();
 
        public int idElectrico, idLocal, idCliente,numero;
          public string lugar, nombre;
@@ -25,7 +26,7 @@ namespace Presentacion
             InitializeComponent();
             cargarComboLugar();
             tabControl1.TabPages.Remove(tabPage2);
-            // datagridElec.DataSource = electricidad.CargaElectricidad();
+           
         }
 
         private void txtConsumo_Validating(object sender, CancelEventArgs e)
@@ -53,6 +54,15 @@ namespace Presentacion
         private void LlamarTab(TabPage page)
         {
             tabControl1.SelectedTab = page;
+        }
+
+        private void Recarga()
+        {
+            datagridElec.DataSource = electricidad.CargaElectricidad(idCliente);
+            txtConsumo.Clear();
+            checkboxEstado.Checked = false;
+            dateTimeInicio.Value = DateTime.Today;
+            dateTimeFin.Value = DateTime.Today;
         }
 
         private void datagridLocalCli_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -84,13 +94,17 @@ namespace Presentacion
         {
             if (txtConsumo.Text == "") { MessageBox.Show("Introducce un número"); txtConsumo.Focus(); return; }
             if (checkboxEstado.Checked) { MessageBox.Show("No se debe cambiar el estado"); checkboxEstado.Focus(); return; }
-         
+            if (DateTime.Compare(dateTimeInicio.Value.Date, dateTimeFin.Value.Date) > 0) 
+            { MessageBox.Show("la fecha del inicio debe ser inferior a la fecha final");dateTimeInicio.Focus(); return; }
+            if (DateTime.Compare(alquiler.FechaContrato(idLocal,idCliente), dateTimeInicio.Value.Date) < 0)
+            { MessageBox.Show("la fecha del inicio debe ser mayor a la fecha contrato"); dateTimeInicio.Focus(); return; }
+
             var NuevaElectricidad = new ElectricidadModel(fechaInicio: dateTimeInicio.Value, fechaFin: dateTimeFin.Value, idLoca: idLocal, idCli: idCliente, consumo: decimal.Parse(txtConsumo.Text), estado: checkboxEstado.Checked, importe: 0);
 
             string mensaje = NuevaElectricidad.NuevaElec();
             
             MessageBox.Show(mensaje);
-            datagridElec.DataSource = electricidad.CargaElectricidad(idCliente);
+            Recarga();
 
         }
 
@@ -137,25 +151,31 @@ namespace Presentacion
         private void btnModificar_Click(object sender, EventArgs e)
         {
             if (txtConsumo.Text == "") { MessageBox.Show("Introducce un número"); txtConsumo.Focus(); return; }
+            if (DateTime.Compare(dateTimeInicio.Value.Date, dateTimeFin.Value.Date) > 0)
+            { MessageBox.Show("la fecha del inicio debe ser inferior a la fecha final"); dateTimeInicio.Focus(); return; }
+            if (DateTime.Compare(alquiler.FechaContrato(idLocal, idCliente), dateTimeInicio.Value.Date) < 0)
+            { MessageBox.Show("la fecha del inicio debe ser mayor a la fecha contrato"); dateTimeInicio.Focus(); return; }
 
-           
             var EditarElectricidad = new ElectricidadModel(idElectricidad: idElectrico,fechaInicio: dateTimeInicio.Value, fechaFin: dateTimeFin.Value, consumo: decimal.Parse(txtConsumo.Text), estado: checkboxEstado.Checked, importe: 0);
 
             string mensaje = EditarElectricidad.EditarElectricidad();
            
             MessageBox.Show(mensaje);
-            datagridElec.DataSource = electricidad.CargaElectricidad(idCliente);
+            Recarga();
 
         }
 
 
         private void btneliminar_Click(object sender, EventArgs e)
         {
+            if (txtConsumo.Text == "") { MessageBox.Show("selecciona un registro"); txtConsumo.Focus(); return; }
+
             if (MessageBox.Show("Este proceso borra la electricidad del cliente de la bd, lo quieres hacer S/N", "CUIDADO",
                MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
                 string mensaje = electricidad.EliminarElectricidad(idElectrico);
                 MessageBox.Show(mensaje);
+                Recarga();
             }
         }
 

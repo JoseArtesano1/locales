@@ -57,7 +57,7 @@ namespace DataAccess.Data
                     }
                     else
                     {
-                        comando.CommandText = "Update Electricidad set consumo=@consumo, estado=@estado where idElectricidad=@idElec";
+                        comando.CommandText = "Update Electricidad set consumo=@consumo, estado=@estado, importe=0 where idElectricidad=@idElec";
                         comando.Parameters.AddWithValue("@consumo", cons);
                         comando.Parameters.AddWithValue("@estado", est);
                         comando.Parameters.AddWithValue("@idElec", idEl);

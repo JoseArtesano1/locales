@@ -152,7 +152,7 @@ namespace Domain
         {
             if (opcion == 1)
             {
-                return metodos.CargarGridoCmb("select idElectricidad, nombreLugar, numero, nombre, estado, fechaInicio, fechaFin, DATEDIFF(month, fechaInicio, fechaFin) as plazo, (consumo-acumulado) as Energia_gasto, importe,idLug, consumo from Electricidad,Locales,Clientes,Lugares where idLocal=idLoca  and idCliente=idCli and idLugar=idLug and nombreLugar='" + luga + "'and idCli=" + idcliente + ";");
+                return metodos.CargarGridoCmb("select idElectricidad, nombreLugar, numero, nombre, estado, fechaInicio, fechaFin, DATEDIFF(day, fechaInicio, fechaFin)/30 as plazo, (consumo-acumulado) as Energia_gasto, importe,idLug, consumo from Electricidad,Locales,Clientes,Lugares where idLocal=idLoca  and idCliente=idCli and idLugar=idLug and nombreLugar='" + luga + "'and idCli=" + idcliente + ";");
             }
             else
             {
@@ -228,23 +228,24 @@ namespace Domain
 
             //OBTENER EL % DE POTENCIA FINAL DEL CLIENTE, SEGUN EL TOTAL DE ENERGIA DE CADA LUGAR Y LA ENERGIA DE CADA CLIENTE
             decimal EnergiaTotalLugar = TotalEnergiaActualizado(lugar, fecha1, fecha2);
-            porcentaje = (GastoIndividual(idl, idcl, fecha1, fecha2, consumo) * 100 / EnergiaTotalLugar) / 100;
-            int numerolocales = NumeroLocales(lugar);
+            porcentaje = (GastoIndividual(idl, idcl, fecha1, fecha2, consumo) / EnergiaTotalLugar) * 100;
+           // int numerolocales = NumeroLocales(lugar);
             //LA POTENCIA DEL AÑO DE LA FECHA INICIAL
-                potencia1 = (PotenciaIndividual(lugar, fecha1)/numerolocales) * porcentaje;
+                potencia1 = (PotenciaIndividual(lugar, fecha1) * porcentaje)/100;
         
            // int diasTotales = metodos.ObtenerDias(fecha1, fecha2, idl, idcl,2);
-           int diasTotales= (fecha2 - fecha1).Days;
-            int meses=0, i=0;
+           decimal diasTotales= (fecha2 - fecha1).Days;
+            
+            decimal meses = 0; int i=0;
             decimal mesesFinales = fecha2.Month;
             //RECORRER FECHAS FINALES COMPARANDO CON LA INICIAL + 1 AÑO PARA OBTENER LOS MESES
             foreach (var item in fechasFinales)
             {
                 if (fecha2 > item && fecha1.Year == item.Year)
                 {
-                    int diasInicio = (item - fecha1).Days; 
+                    decimal diasInicio = (item - fecha1).Days; 
                      meses = (diasTotales - diasInicio) / 30;  //meses restantes años intermedios y meses año fecha final
-     
+                    meses = decimal.Round(meses, 2);
                     if (meses != 0)
                     {  importeInicial = potencia1 * (diasInicio / 30); }
                     else { importeInicial = 0; }
@@ -252,17 +253,18 @@ namespace Domain
                 }
              }
             //PARA AÑOS INTERMEDIOS ENTRE EL AÑO DE FECHA INICIAL Y EL AÑO DE FECHA FINAL
-            while (meses > 12)
+            decimal mess = decimal.Round(meses, 0);
+            while (mess > 12)
             {
                 i++;
                 fecha1 = fecha1.AddYears(i);
-                decimal potencia2 = (PotenciaIndividual(lugar, fecha1)/numerolocales) * porcentaje;
+                decimal potencia2 = (PotenciaIndividual(lugar, fecha1) * porcentaje)/100;
                 valor += potencia2 * 12;
-                meses -= 12;
+                mess -= 12;
                 i--;
             }
 
-            decimal potencia3 = (PotenciaIndividual(lugar, fecha2)/numerolocales) * porcentaje;
+            decimal potencia3 = (PotenciaIndividual(lugar, fecha2) * porcentaje)/100;
             importeFinal = potencia3 * mesesFinales;
  
             return importeInicial + valor + importeFinal;
@@ -286,10 +288,10 @@ namespace Domain
             return potenciaYear;
         }
 
-        public int NumeroLocales(string lugar)
-        {
-            return metodos.ObtenerInt("select count(numero) as inquilinos from Locales, Lugares where idLug=idLugar and nombreLugar='" + lugar + "';", 0);
-        }
+        //public int NumeroLocales(string lugar)
+        //{
+        //    return metodos.ObtenerInt("select count(numero) as inquilinos from Locales, Lugares where idLug=idLugar and nombreLugar='" + lugar + "';", 0);
+        //}
 
        
 
@@ -298,12 +300,29 @@ namespace Domain
         //obtenemos la suma total de energia de un periodo
 
         public decimal TotalEnergiaYears(string lugar, DateTime fecha1, DateTime fecha2)
-        {
+        { 
+            int mesesFinales, i=0; decimal valor1=0, valor2=0, valor3=0;
             int meses = ((fecha2 - fecha1).Days)/30;
-            decimal total = metodos.ObtenerNumero("select sum(Energia) as total from PotEnerg, Lugares where idLu=idLugar and nombreLugar= '" + lugar + "'and anno between '" + fecha1.Year + "'and '" + fecha2.Year + "';", 0);
-            decimal totalFinal=total* meses;
+            int mesesIniciales = 13-fecha1.Month;
+            valor1 = metodos.ObtenerNumero("select Energia from PotEnerg, Lugares where idLu=idLugar and nombreLugar= '" + lugar + "'and anno='" + fecha1.Year + "';", 0)*mesesIniciales;
 
-            return totalFinal;
+            if (fecha1.Year == fecha2.Year) { mesesFinales = 0; } else {  mesesFinales = fecha2.Month;}
+            
+            int mesesIntermedios = meses - mesesIniciales;
+
+            while (mesesIntermedios > 12)
+            {
+                i++;
+                fecha1 = fecha1.AddYears(i);
+                decimal energia =metodos.ObtenerNumero("select Energia  from PotEnerg, Lugares where idLu=idLugar and nombreLugar= '" + lugar + "'and anno='"+fecha1.Year + "';", 0); 
+                valor2 += energia * 12;
+                mesesIntermedios -= 12;
+                i--;
+            }
+
+           valor3 = metodos.ObtenerNumero("select Energia from PotEnerg, Lugares where idLu=idLugar and nombreLugar= '" + lugar + "'and anno between '" + fecha1.Year + "'and '" + fecha2.Year + "';", 0)*mesesFinales;
+     
+            return valor1+valor2+valor3;
         }
 
        

@@ -73,7 +73,7 @@ namespace Domain
         {
             try
             {
-               // string dniValidado = ControlDni(dni, idCliente);
+               
                if(!metodos.Existe("Select * from Clientes where dni='" + dni + "';"))
                 {
                     clienteDao.ModificarCliente(nombre, dni, direccion, activo, tipo, idCliente,true);
@@ -93,22 +93,7 @@ namespace Domain
             }
         }
 
-        //public string ControlDni(string dniNif, int id)
-        //{
-        //    string dniControl = "";
-        //    string Dni = metodos.Obtenerdato("Select * from Clientes where idCliente=" + id + ";",0);
-
-        //        if (metodos.Existe("Select * from Clientes where dni='" + dniNif + "';"))
-        //        {
-        //            return dniControl = Dni;
-        //        }
-        //        else
-        //        {
-        //            return dniControl = dniNif;
-        //        }
-
-        //}
-
+       
 
         public bool ComprobarString(string valor)
         {
@@ -155,6 +140,25 @@ namespace Domain
         }
 
 
+
+        public string EliminarClientes(int idC)
+        {
+            try
+            { if(!metodos.Existe("select * from Telefono where idClient=" + idC + ";"))
+                {
+                    clienteDao.EliminarCliente(idC);
+                    return "Cliente eliminado";
+                }
+                else
+                {
+                    return "El cliente tiene vinculaciones";
+                }
+
+            }catch(Exception ex)
+            {
+                return "no puede eliminarse" + ex;
+            }
+        }
 
 
 

@@ -47,7 +47,7 @@ namespace DataAccess.Data
                         comando.Parameters.AddWithValue("@ttal", total);
                         comando.Parameters.AddWithValue("@idlo", idloc);
                          comando.CommandType = CommandType.Text;
-                        comando.ExecuteNonQuery();
+                         comando.ExecuteNonQuery();
                 }
             }
         }

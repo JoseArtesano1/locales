@@ -398,8 +398,8 @@
             // 
             // btnZona
             // 
-            this.btnZona.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnZona.Location = new System.Drawing.Point(1056, 103);
+            this.btnZona.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnZona.Location = new System.Drawing.Point(816, 292);
             this.btnZona.Name = "btnZona";
             this.btnZona.Size = new System.Drawing.Size(154, 55);
             this.btnZona.TabIndex = 75;
@@ -409,8 +409,8 @@
             // 
             // dataGridZona
             // 
-            this.dataGridZona.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
+            this.dataGridZona.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.dataGridZona.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dataGridZona.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(66)))), ((int)(((byte)(91)))));
             this.dataGridZona.BorderStyle = System.Windows.Forms.BorderStyle.None;
@@ -449,7 +449,7 @@
             this.dataGridZona.RowsDefaultCellStyle = dataGridViewCellStyle9;
             this.dataGridZona.RowTemplate.Height = 28;
             this.dataGridZona.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridZona.Size = new System.Drawing.Size(972, 183);
+            this.dataGridZona.Size = new System.Drawing.Size(1128, 183);
             this.dataGridZona.TabIndex = 72;
             // 
             // label2
