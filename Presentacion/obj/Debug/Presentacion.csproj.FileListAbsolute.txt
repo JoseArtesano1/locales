@@ -26,3 +26,4 @@ D:\LOCALES\Locales\Presentacion\obj\Debug\Presentacion.FormLocales.resources
 D:\LOCALES\Locales\Presentacion\obj\Debug\Presentacion.FormCliente.resources
 D:\LOCALES\Locales\Presentacion\obj\Debug\Presentacion.FormElectricidad.resources
 D:\LOCALES\Locales\Presentacion\obj\Debug\Presentacion.FormCalculos.resources
+D:\LOCALES\Locales\Presentacion\obj\Debug\Presentacion.FormConsulta.resources

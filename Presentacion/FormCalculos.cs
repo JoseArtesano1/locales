@@ -16,7 +16,7 @@ namespace Presentacion
         ElectricidadModel electricidad = new ElectricidadModel();
         LocalModel localModel = new LocalModel();
 
-        int idElectrico, idLocal, idCliente, idcli, numero, idlugar;
+        int idElectrico, idLocal, idCliente,  numero, idlugar;
         string zona, milugar;
         decimal consumo, miImporte;
         DateTime fecha1, fecha2;
@@ -26,15 +26,22 @@ namespace Presentacion
             InitializeComponent();
             cargarComboLugar();
             CrearControl(1);
+           
         }
 
 
         private void Recargar()
         {
             dataGridZona.DataSource = "";
+            dataGridZona.Columns.Clear();
             CrearControl(1);
         }
 
+        private void ColumnasOcultas()
+        {
+            datagridLocalCli.Columns[0].Visible = false; datagridLocalCli.Columns[3].Visible = false;
+            datagridLocalCli.Columns[6].Visible = false;
+        }
 
         private void CrearControl(int pag)
         {
@@ -48,11 +55,15 @@ namespace Presentacion
                 case 2:
                     tabControl1.TabPages.Add(tabpg2);
                     tabControl1.TabPages.Remove(tabPage3);
+                    datagridListado.DataSource = electricidad.CargaListadoElectricidad(zona, idCliente, 1);
+                    datagridListado.Columns[0].Visible = false;
                     break;
 
                 case 3:
                     tabControl1.TabPages.Add(tabPage3);
                     tabControl1.TabPages.Remove(tabpg2);
+                    dataGridZona.DataSource = electricidad.CargaListadoElectricidad(zona, 0, 2);
+                    dataGridZona.Columns[0].Visible = false;
                     break;
             }
 
@@ -63,7 +74,9 @@ namespace Presentacion
             tabControl1.SelectedTab = page;
         }
 
-        private void txtNumero_Validating(object sender, CancelEventArgs e)
+      
+
+        private void txtNumero_Validating_1(object sender, CancelEventArgs e)
         {
             if (txtNumero.Text != "")
             {
@@ -73,6 +86,7 @@ namespace Presentacion
                 }
             }
         }
+
 
         private void txtnombre_Validating_1(object sender, CancelEventArgs e)
         {
@@ -90,7 +104,7 @@ namespace Presentacion
             this.Close();
         }
 
-       
+      
 
         private void cmbLugar_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -101,30 +115,43 @@ namespace Presentacion
             }
         }
 
+        private void btnLimpia_Click(object sender, EventArgs e)
+        {
+            txtnombre.Clear(); txtNumero.Clear(); cmbLugar.SelectedIndex = -1; datagridLocalCli.DataSource = "";
+        }
+
         private void btnBuscar_Click_1(object sender, EventArgs e)
         {
-             
-            CrearControl(1);
+            Recargar();
+           
 
             if (!txtnombre.Text.Trim().Equals(""))
             {
-                datagridLocalCli.DataSource = electricidad.CargaLocalesClientes("", 0, txtnombre.Text.Trim(), 2);
+                datagridLocalCli.DataSource = electricidad.CargaLocalesClientes("", 0, txtnombre.Text.Trim(), 2,0);
+                ColumnasOcultas();
             }
 
             if (cmbLugar.SelectedIndex != -1)
             {
                 if (!txtNumero.Text.Trim().Equals(""))
                 {
-                    datagridLocalCli.DataSource = electricidad.CargaLocalesClientes(cmbLugar.SelectedValue.ToString(), int.Parse(txtNumero.Text.Trim()), "", 1);
-                    
+                    datagridLocalCli.DataSource = electricidad.CargaLocalesClientes(cmbLugar.SelectedValue.ToString(), int.Parse(txtNumero.Text.Trim()), "", 1,0);
+                    ColumnasOcultas();
                 }
                 else
                 {
-                    btnZona.Enabled = true;
-                    dataGridZona.DataSource = electricidad.CargaListadoElectricidad(zona, 0, 2);
-                    if (electricidad.CargaListadoElectricidad(zona, 0, 2).Rows.Count == 0) { btnZona.Enabled = false; }
-                    CrearControl(3);
-                    LlamarTab(tabPage3);
+                    btnZona.Enabled = false;
+            
+                    if (electricidad.CargaListadoElectricidad(zona, 0, 2).Rows.Count != 0) 
+                    {
+                        datagridLocalCli.DataSource = "";
+                        btnZona.Enabled = true; 
+                         CrearControl(3);
+                         LlamarTab(tabPage3);
+
+                    }
+
+              
                 }
             }
         }
@@ -136,7 +163,6 @@ namespace Presentacion
             cmbLugar.DataSource = electricidad.CargaComboLugar();
             cmbLugar.DisplayMember = "nombreLugar";
             cmbLugar.ValueMember = "nombreLugar";
-            // cmbLugar.ValueMember = "idLocal";
             cmbLugar.SelectedIndex = -1;
 
         }
@@ -149,16 +175,20 @@ namespace Presentacion
                 CrearControl(1);
                 if (datagridLocalCli.CurrentRow.Cells[0].Value.ToString() != "")
                 {
-                    btnIndiv.Enabled = true;
+                    btnIndiv.Enabled = false;
                     idLocal = int.Parse(datagridLocalCli.CurrentRow.Cells[0].Value.ToString());
                     milugar = datagridLocalCli.CurrentRow.Cells[1].Value.ToString();
                     idlugar = int.Parse(datagridLocalCli.CurrentRow.Cells[6].Value.ToString());
                     numero = int.Parse(datagridLocalCli.CurrentRow.Cells[2].Value.ToString());
                     idCliente = int.Parse(datagridLocalCli.CurrentRow.Cells[3].Value.ToString());
-                  
-                    datagridListado.DataSource = electricidad.CargaListadoElectricidad(zona, idCliente, 1);
-                    CrearControl(2);
-                    LlamarTab(tabpg2);
+
+                    if(electricidad.CargaListadoElectricidad(zona, idCliente, 1).Rows.Count != 0)
+                    { 
+                      btnIndiv.Enabled = true;
+                      CrearControl(2);
+                      LlamarTab(tabpg2);
+                    }
+                                
                 }
                 else
                 {
@@ -166,6 +196,9 @@ namespace Presentacion
                 }
             }
         }
+
+
+     
 
 
         private string Calculos( decimal consum)
@@ -188,6 +221,7 @@ namespace Presentacion
             { MessageBox.Show("Selecciona un registro"); }
         }
 
+
         private void datagridListado_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex != -1)
@@ -197,7 +231,7 @@ namespace Presentacion
                     idElectrico = int.Parse(datagridListado.CurrentRow.Cells[0].Value.ToString());
                     fecha1 = DateTime.Parse(datagridListado.CurrentRow.Cells[5].Value.ToString());
                     fecha2 = DateTime.Parse(datagridListado.CurrentRow.Cells[6].Value.ToString());
-                    consumo = decimal.Parse(datagridListado.CurrentRow.Cells[11].Value.ToString());
+                    consumo = decimal.Parse(datagridListado.CurrentRow.Cells[10].Value.ToString());
                     miImporte = decimal.Parse(datagridListado.CurrentRow.Cells[9].Value.ToString());
                     if (miImporte != 0) { btnIndiv.Enabled = false; }
                     

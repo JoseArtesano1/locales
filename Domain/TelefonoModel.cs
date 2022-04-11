@@ -122,7 +122,7 @@ namespace Domain
 
         public DataTable CargarTablaTef(int id)
         {
-            return metodos.CargarGridoCmb("Select * from Telefono where idClient=" +id+";");
+            return metodos.CargarGridoCmb("Select idTelefono as id, movil, email from Telefono where idClient=" +id+";");
         }
 
 

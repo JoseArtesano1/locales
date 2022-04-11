@@ -17,15 +17,14 @@ namespace Presentacion
         TelefonoModel telefonoModel = new TelefonoModel();
         AlquilerModel alquiler = new AlquilerModel();
 
-        int idCliente, idTelefCorreo, idLocales, idAlquileres;
+        int idCliente, idTelefCorreo,  idAlquileres;
 
         public FormCliente()
         {
             InitializeComponent();
             datagridClientes.DataSource = clienteModel.CargarCliente();
-            cargarComboLugar();
-          //  cargarComboNumero();
-             CrearControl(1);
+            datagridClientes.Columns[0].Visible = false;
+            CrearControl(1);
 
         }
 
@@ -49,8 +48,13 @@ namespace Presentacion
                     break;
 
                 case 3:
-                   // tabControl1.TabPages.Add(tabPage2);
+                   
                     tabControl1.TabPages.Add(tabPage3);
+                    cargarComboLugar();
+                    break;
+
+                case 4:
+                    tabControl1.TabPages.Remove(tabPage3);
                     break;
             }
            
@@ -61,6 +65,14 @@ namespace Presentacion
         private void LlamarTab(TabPage page)
         {
             tabControl1.SelectedTab = page;
+        }
+
+
+        private void Limpiar()
+        {          
+            cmblugar.SelectedIndex = -1; cmbNumero.SelectedIndex = -1;
+            txtfianza.Clear(); txtImporte.Clear(); richtextObserv.Clear(); datepickerFechaIn.Value = DateTime.Today;
+            checkImp.Checked = false;
         }
 
         private void txtnombre_Validating(object sender, CancelEventArgs e)
@@ -102,7 +114,7 @@ namespace Presentacion
             if (txtdni.Text == "") { MessageBox.Show("Introduce un dni/nie"); txtdni.Focus(); return; }
             if (txtdireccion.Text == "") { MessageBox.Show("Introducce una Dirección"); txtdireccion.Focus(); return; }
             if (!CheckActivo.Checked) { MessageBox.Show("Activa el Cliente"); CheckActivo.Focus(); return; }
-          //  if (!checkboxTipo.Checked) { MessageBox.Show("Activa el Tipo"); checkboxTipo.Focus(); return; }
+         
 
             var cliente = new ClienteModel(nombre: txtnombre.Text, dni: txtdni.Text, direccion: txtdireccion.Text, activo: CheckActivo.Checked, tipo: checkboxTipo.Checked);
 
@@ -114,16 +126,19 @@ namespace Presentacion
             MessageBox.Show(mensaje);
 
             Recarga();
+            dataGridcontacto.DataSource = "";
             LlamarTab(tabPage2);
         }
+
 
         private void datagridClientes_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex != -1)
             {
-                CrearControl(1);
+                
                 if (datagridClientes.CurrentRow.Cells[0].Value.ToString() != "")
                 {
+                     CrearControl(1); 
                     idCliente = int.Parse( datagridClientes.CurrentRow.Cells[0].Value.ToString());
                     txtnombre.Text = datagridClientes.CurrentRow.Cells[1].Value.ToString();
                     lblCliente.Text = datagridClientes.CurrentRow.Cells[1].Value.ToString();
@@ -141,8 +156,11 @@ namespace Presentacion
                     }
                     else { checkboxTipo.Checked = false; }
 
-                    dataGridcontacto.DataSource = telefonoModel.CargarTablaTef(idCliente);
-                    dataGridAlquiler.DataSource = alquiler.CargarTablaAlquiler(idCliente);
+                   
+                    RecargaTelefono(idCliente);
+                   
+                    Limpiar();
+                   
                     CrearControl(2);
                 }
                 else
@@ -151,6 +169,22 @@ namespace Presentacion
                 }
             }
         }
+
+
+        private void datagridClientes_SelectionChanged(object sender, EventArgs e)
+        {
+            if (datagridClientes.SelectedRows != null)
+            {
+                dataGridcontacto.DataSource = telefonoModel.CargarTablaTef(idCliente);
+                dataGridcontacto.Columns[0].Visible = false;
+                dataGridAlquiler.DataSource = alquiler.CargarTablaAlquiler(idCliente);
+                dataGridAlquiler.Columns[0].Visible = false; dataGridAlquiler.Columns[5].Visible = false;
+              
+             
+            }
+
+        }
+
 
         private void btnModificar_Click(object sender, EventArgs e)
         {
@@ -170,13 +204,14 @@ namespace Presentacion
         private void btneliminar_Click(object sender, EventArgs e)
         {
             if (txtnombre.Text == "") { MessageBox.Show("Selecciona un cliente"); txtnombre.Focus(); return; }
-            //  tabControl1.TabPages.Add(tabPage2);
+           
             if (MessageBox.Show("Este proceso borra el cliente  de la bd, lo quieres hacer S/N", "CUIDADO",
                 MessageBoxButtons.YesNo) == DialogResult.Yes)
 
             {
                 string mensaje = clienteModel.EliminarClientes(idCliente);
                 MessageBox.Show(mensaje);
+                Recarga();
             }
 
 
@@ -189,12 +224,14 @@ namespace Presentacion
             txtdni.Clear();
             txtdireccion.Clear();
             CheckActivo.Checked = false;  checkboxTipo.Checked = false;
+            CrearControl(1);
         }
 
 
         private void Recarga()
         {
             datagridClientes.DataSource = clienteModel.CargarCliente();
+            datagridClientes.Columns[0].Visible = false;
             txtnombre.Clear(); txtnombre.Clear(); txtdireccion.Clear();
             CheckActivo.Checked = false; checkboxTipo.Checked = false;
         }
@@ -203,6 +240,7 @@ namespace Presentacion
         private void RecargaAlquiler(int id)
         {
             dataGridAlquiler.DataSource = alquiler.CargarTablaAlquiler(id);
+            
             cmblugar.SelectedIndex = -1;
             cmbNumero.SelectedIndex = -1;
             datepickerFechaIn.Value = DateTime.Today;
@@ -247,8 +285,7 @@ namespace Presentacion
         private void btnAltaMovil_Click(object sender, EventArgs e)
         {
             if (textmovil.Text == "") { MessageBox.Show("Introduce Un teléfono"); textmovil.Focus(); return; }
-           // if (txtcorreo.Text == "") { MessageBox.Show("Introduce un Email"); txtcorreo.Focus(); return; }
-
+   
             var correoMovil = new TelefonoModel(movil: int.Parse(textmovil.Text), idClient: idCliente, email: txtcorreo.Text);
 
             string mensaje = correoMovil.NuevoTelefono();
@@ -261,21 +298,24 @@ namespace Presentacion
             LlamarTab(tabPage3);
         }
 
+
+
         private void btnmodifmovil_Click(object sender, EventArgs e)
         {
             if (textmovil.Text == "") { MessageBox.Show("Introduce Un teléfono"); textmovil.Focus(); return; }
-          //  if (txtcorreo.Text == "") { MessageBox.Show("Introduce un Email"); txtcorreo.Focus(); return; }
-
+      
             var correoMovilEdit = new TelefonoModel(idTelefono:idTelefCorreo, movil: int.Parse(textmovil.Text), idClient: idCliente, email: txtcorreo.Text);
              string mensaje=  correoMovilEdit.EditarTelefono();
             MessageBox.Show(mensaje);
             RecargaTelefono(idTelefCorreo);
         }
 
+
+
         private void btneliminarMovil_Click(object sender, EventArgs e)
         {
             if (textmovil.Text == "") { MessageBox.Show("Introduce Un teléfono"); textmovil.Focus(); return; }
-           // if (txtcorreo.Text == "") { MessageBox.Show("Introduce un Email"); txtcorreo.Focus(); return; }
+           
 
             if (MessageBox.Show("Este proceso borra el Teléfono y el correo del cliente de la bd, lo quieres hacer S/N", "CUIDADO",
                 MessageBoxButtons.YesNo) == DialogResult.Yes)
@@ -292,18 +332,24 @@ namespace Presentacion
         {
             textmovil.Clear();
             txtcorreo.Clear();
+            CrearControl(4);
         }
+
 
         private void dataGridcontacto_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex != -1)
             {
-                tabControl1.TabPages.Remove(tabPage3);
+                tabControl1.TabPages.Remove(tabPage3); 
                 if (dataGridcontacto.CurrentRow.Cells[0].Value.ToString() != "")
-                {
+                {                  
                     idTelefCorreo = int.Parse( dataGridcontacto.CurrentRow.Cells[0].Value.ToString());
                     textmovil.Text = dataGridcontacto.CurrentRow.Cells[1].Value.ToString();
-                    txtcorreo.Text= dataGridcontacto.CurrentRow.Cells[3].Value.ToString();
+                    txtcorreo.Text= dataGridcontacto.CurrentRow.Cells[2].Value.ToString();
+                  
+                    RecargaAlquiler(idCliente);
+                    Limpiar();
+                    
                     CrearControl(3);
                 }
                 else
@@ -312,6 +358,9 @@ namespace Presentacion
                 }
             }
         }
+
+     
+
 
 
         #endregion
@@ -326,14 +375,14 @@ namespace Presentacion
                 if (dataGridAlquiler.CurrentRow.Cells[0].Value.ToString() != "")
                 {
                     idAlquileres = int.Parse( dataGridAlquiler.CurrentRow.Cells[0].Value.ToString());
-                    // idLocales = int.Parse(dataGridAlquiler.CurrentRow.Cells[0].Value.ToString());
+                     cmbNumero.SelectedValue = int.Parse( dataGridAlquiler.CurrentRow.Cells[5].Value.ToString());
                     cmblugar.SelectedValue = alquiler.GetLugar(int.Parse(dataGridAlquiler.CurrentRow.Cells[5].Value.ToString()));
-                    cmbNumero.SelectedValue = alquiler.GetNumero(int.Parse(dataGridAlquiler.CurrentRow.Cells[5].Value.ToString()));
+                 
                     datepickerFechaIn.Value = DateTime.Parse(dataGridAlquiler.CurrentRow.Cells[1].Value.ToString());
                     txtfianza.Text = dataGridAlquiler.CurrentRow.Cells[2].Value.ToString();
                     txtImporte.Text = dataGridAlquiler.CurrentRow.Cells[3].Value.ToString();
                     richtextObserv.Text = dataGridAlquiler.CurrentRow.Cells[4].Value.ToString();
-                    if (bool.Parse(dataGridAlquiler.CurrentRow.Cells[7].Value.ToString()))
+                    if (bool.Parse(dataGridAlquiler.CurrentRow.Cells[6].Value.ToString()))
                     {
                         checkImp.Checked = true;
                     }
@@ -342,14 +391,16 @@ namespace Presentacion
                 }
                 else
                 {
-                    MessageBox.Show("Selecciona un cliente");
+                    MessageBox.Show("Selecciona un Alquiler");
                 }
             }
         }
 
+      
 
         private void cargarComboLugar()
-        {           
+        {
+            
             cmblugar.DataSource = alquiler.CargarComboLugar();
             cmblugar.DisplayMember = "nombreLugar";
             cmblugar.ValueMember = "nombreLugar";
@@ -366,17 +417,59 @@ namespace Presentacion
             }
         }
 
+      
+
         private void cargarComboNumero()
-        {           
+        {               
             cmbNumero.DataSource = alquiler.CargarComboLocal(cmblugar.SelectedValue.ToString());
             cmbNumero.DisplayMember = "numero";
             cmbNumero.ValueMember = "idLocal";
             cmbNumero.SelectedIndex = -1;
         }
 
+
+        private void txtfianza_Validating(object sender, CancelEventArgs e)
+        {
+            if (txtfianza.Text != "")
+            {
+                if (!clienteModel.ComprobarDecimal(txtfianza.Text))
+                {
+                    MessageBox.Show("Introduce una fianza"); e.Cancel = true;
+                }
+            }
+        }
+
+
+        private void txtImporte_Validating(object sender, CancelEventArgs e)
+        {
+            if (txtImporte.Text != "")
+            {
+                if (!clienteModel.ComprobarDecimal(txtImporte.Text))
+                {
+                    MessageBox.Show("Introduce un importe"); e.Cancel = true;
+                }
+            }
+        }
+
+        private void richtextObserv_Validating(object sender, CancelEventArgs e)
+        {
+            if (richtextObserv.Text != "")
+            {
+                if (!clienteModel.ComprobarString(richtextObserv.Text))
+                {
+                    MessageBox.Show("Introduce un texto"); e.Cancel = true;
+                }
+            }
+        }
+
+
         private void btnaltaAlq_Click(object sender, EventArgs e)
         {
-            Control();
+            if (cmblugar.SelectedIndex == -1) { MessageBox.Show("Selecciona un lugar"); cmblugar.Focus(); return; }
+            if (cmbNumero.SelectedIndex == -1) { MessageBox.Show("Selecciona un número"); cmbNumero.Focus(); return; }
+            if (txtfianza.Text == "") { MessageBox.Show("Introduce la fianza"); txtfianza.Focus(); return; }
+            if (txtImporte.Text == "") { MessageBox.Show("Introduce un importe"); txtImporte.Focus(); return; }
+
             string ruta1 = Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + "\\contrato1.docx";
             string ruta2 = Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + "\\contrato2.docx";
             
@@ -402,31 +495,69 @@ namespace Presentacion
             RecargaAlquiler(idCliente);
         }
 
+
+
+        private void EditarAlquileres(int option)
+        {
+            if (option == 2)
+            { var EditAlquiler = new AlquilerModel(idAlquiler: idAlquileres, fechaIni: datepickerFechaIn.Value, fianza: int.Parse(txtfianza.Text), importe: decimal.Parse(txtImporte.Text), observaciones: richtextObserv.Text, modelo: checkImp.Checked);
+              string mensaje = EditAlquiler.EditarAlquiler(2);
+              MessageBox.Show(mensaje);
+                
+            }
+            else
+            {
+                var EditarAlquiler = new AlquilerModel(idAlquiler: idAlquileres, fechaIni: datepickerFechaIn.Value, fianza: int.Parse(txtfianza.Text), importe: decimal.Parse(txtImporte.Text), observaciones: richtextObserv.Text, idLoc: int.Parse(cmbNumero.SelectedValue.ToString()), modelo: checkImp.Checked);
+                string mensaje = EditarAlquiler.EditarAlquiler(1);
+                MessageBox.Show(mensaje);
+                
+            }
+           
+        }
+
         private void btnmodAlq_Click(object sender, EventArgs e)
         {
-            Control();
+            if (cmblugar.SelectedIndex == -1) { MessageBox.Show("Selecciona un lugar"); cmblugar.Focus(); return; }
+            if (txtfianza.Text == "") { MessageBox.Show("Introduce la fianza"); txtfianza.Focus(); return; }
+            if (txtImporte.Text == "") { MessageBox.Show("Introduce un importe"); txtImporte.Focus(); return; }
+           
+                if (cmbNumero.SelectedIndex == -1) 
+                { 
+                  if (MessageBox.Show("¿Quiere comprobar la disponibilidad de locales?", "COMPROBAR", MessageBoxButtons.YesNo) == DialogResult.Yes )
+                  {
+                    cmbNumero.Focus(); return;
 
-            var EditarAlquiler = new AlquilerModel(idAlquiler: idAlquileres, fechaIni: datepickerFechaIn.Value, fianza: int.Parse(txtfianza.Text), importe: decimal.Parse(txtImporte.Text), observaciones: richtextObserv.Text, idLoc: int.Parse(cmbNumero.ValueMember), modelo: checkImp.Checked);
+                  }
+                  else
+                  {
+                    if (cmbNumero.SelectedIndex == -1)
+                    {
+                        EditarAlquileres(2); 
+                    }
+                    else
+                    {
+                        EditarAlquileres(1); 
+                    }
+                  }
+               
+                }
+                else
+              {
+                EditarAlquileres(1);
+              }
 
-            string mensaje = EditarAlquiler.EditarAlquiler();
-            MessageBox.Show(mensaje);
             RecargaAlquiler(idCliente);
         }
 
-        private void txtfianza_Validating(object sender, CancelEventArgs e)
-        {
-            if (txtfianza.Text!="")
-            {
-                if (!clienteModel.ComprobarDecimal(txtfianza.Text))
-                {
-                    MessageBox.Show("Introduce una fianza"); e.Cancel = true;
-                }
-            }
-        }
+       
 
         private void btneliminarAlq_Click(object sender, EventArgs e)
         {
-            Control();
+            if (cmblugar.SelectedIndex == -1) { MessageBox.Show("Selecciona un lugar"); cmblugar.Focus(); return; }
+      
+            if (txtfianza.Text == "") { MessageBox.Show("Introduce la fianza"); txtfianza.Focus(); return; }
+            if (txtImporte.Text == "") { MessageBox.Show("Introduce un importe"); txtImporte.Focus(); return; }
+
             if (MessageBox.Show("Este proceso borra el Alquiler del cliente de la bd, lo quieres hacer S/N", "CUIDADO",
                 MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
@@ -435,6 +566,8 @@ namespace Presentacion
                 RecargaAlquiler(idCliente);
             }
         }
+
+     
 
         private void btnCancelarAlq_Click(object sender, EventArgs e)
         {
@@ -446,43 +579,14 @@ namespace Presentacion
 
         }
 
+        
+
         private void btnCerrar_Click(object sender, EventArgs e)
         {
             this.Close();
         }
 
-        private void txtImporte_Validating(object sender, CancelEventArgs e)
-        {
-            if (txtImporte.Text != "")
-            {
-                if (!clienteModel.ComprobarDecimal(txtImporte.Text))
-                {
-                    MessageBox.Show("Introduce un importe"); e.Cancel = true;
-                }
-            }
-        }
-
-        private void richtextObserv_Validating(object sender, CancelEventArgs e)
-        {
-            if (richtextObserv.Text != "")
-            {
-                if (!clienteModel.ComprobarString(richtextObserv.Text))
-                {
-                    MessageBox.Show("Introduce un texto"); e.Cancel = true;
-                }
-            }
-        }
-
-
-        private void Control()
-        {
-            if (cmblugar.SelectedIndex == -1) { MessageBox.Show("Selecciona un lugar"); cmblugar.Focus(); return; }
-            if (cmbNumero.SelectedIndex == -1) { MessageBox.Show("Selecciona un número"); cmbNumero.Focus(); return; }
-            if (txtfianza.Text == "") { MessageBox.Show("Introduce la fianza"); txtfianza.Focus(); return; }
-            if (txtImporte.Text == "") { MessageBox.Show("Introduce un importe"); txtImporte.Focus(); return; }
-        }
-        
-
+       
         #endregion
 
     }

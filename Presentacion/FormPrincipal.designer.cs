@@ -34,6 +34,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.panelMenu = new System.Windows.Forms.Panel();
+            this.btnConsulta = new System.Windows.Forms.Button();
             this.btnCalculo = new System.Windows.Forms.Button();
             this.btnCli = new System.Windows.Forms.Button();
             this.lblnombre = new System.Windows.Forms.Label();
@@ -109,6 +110,7 @@
             // panelMenu
             // 
             this.panelMenu.BackColor = System.Drawing.Color.DarkRed;
+            this.panelMenu.Controls.Add(this.btnConsulta);
             this.panelMenu.Controls.Add(this.btnCalculo);
             this.panelMenu.Controls.Add(this.btnCli);
             this.panelMenu.Controls.Add(this.lblnombre);
@@ -122,6 +124,25 @@
             this.panelMenu.Name = "panelMenu";
             this.panelMenu.Size = new System.Drawing.Size(291, 777);
             this.panelMenu.TabIndex = 1;
+            // 
+            // btnConsulta
+            // 
+            this.btnConsulta.FlatAppearance.BorderSize = 0;
+            this.btnConsulta.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(50)))), ((int)(((byte)(70)))));
+            this.btnConsulta.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(12)))), ((int)(((byte)(61)))), ((int)(((byte)(92)))));
+            this.btnConsulta.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnConsulta.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnConsulta.ForeColor = System.Drawing.Color.Gainsboro;
+            this.btnConsulta.Image = ((System.Drawing.Image)(resources.GetObject("btnConsulta.Image")));
+            this.btnConsulta.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnConsulta.Location = new System.Drawing.Point(3, 561);
+            this.btnConsulta.Name = "btnConsulta";
+            this.btnConsulta.Size = new System.Drawing.Size(279, 62);
+            this.btnConsulta.TabIndex = 8;
+            this.btnConsulta.Text = "CONSULTAS";
+            this.btnConsulta.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.btnConsulta.UseVisualStyleBackColor = true;
+            this.btnConsulta.Click += new System.EventHandler(this.btnConsulta_Click);
             // 
             // btnCalculo
             // 
@@ -361,6 +382,7 @@
         private System.Windows.Forms.Button btnElectricidad;
         private System.Windows.Forms.Button btnCli;
         private System.Windows.Forms.Button btnCalculo;
+        private System.Windows.Forms.Button btnConsulta;
     }
 }
 

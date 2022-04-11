@@ -119,72 +119,7 @@ namespace DataAccess
             return dato;
         }
 
-        public int ObtenerYear( DateTime fecha)
-        {
-            int dato = 0;
-            using (var conexion = GetConnection())
-            {
-                conexion.Open();
-                try
-                {
-                    using (var comando = new SqlCommand())
-                    {
-                        comando.Connection = conexion;
-                        comando.CommandText = "select datepart(YEAR, @fecha) from Electricidad";
-                        comando.Parameters.AddWithValue("@fecha", fecha);
-                        comando.CommandType = CommandType.Text;
-                        SqlDataReader reader = comando.ExecuteReader();
-
-                        while (reader.Read())
-                        { dato = reader.GetInt32(0); }
-                    }
-                }
-                catch (Exception ex) { MessageBox.Show("Error: " + ex.Message); }
-            }
-
-            return dato;
-        }
-
-
-        public int ObtenerDias(DateTime fechaIn, DateTime fechaFin, int idl, int idc, int opcion)
-        {
-            int dato = 0;
-            using (var conexion = GetConnection())
-            {
-                conexion.Open();
-                try
-                {
-                    using (var comando = new SqlCommand())
-                    {
-                        comando.Connection = conexion;
-                        if (opcion == 1)
-                        {
-                            comando.CommandText = "select DATEDIFF(day, @fecha1, @fecha2) from Electricidad"; 
-                            comando.Parameters.AddWithValue("@fecha1", fechaIn);
-                            comando.Parameters.AddWithValue("@fecha2", fechaFin);
-                           
-                        }
-                        else
-                        {
-                            comando.CommandText = "select DATEDIFF(day, @fecha1, @fecha2) from Electricidad where idLoca=@idlocal and idCli=@idcliente";
-                            comando.Parameters.AddWithValue("@fecha1", fechaIn);
-                            comando.Parameters.AddWithValue("@fecha2", fechaFin);
-                            comando.Parameters.AddWithValue("@idlocal", idl);
-                            comando.Parameters.AddWithValue("@idcliente", idc);
-                        }
-                       
-                        comando.CommandType = CommandType.Text;
-                        SqlDataReader reader = comando.ExecuteReader();
-
-                        while (reader.Read())
-                        { dato = reader.GetInt32(0); }
-                    }
-                }
-                catch (Exception ex) { MessageBox.Show("Error: " + ex.Message); }
-            }
-
-            return dato;
-        }
+       
 
 
         public DateTime GetFecha(string sql, int posicion)
@@ -243,6 +178,8 @@ namespace DataAccess
             return estado;
         }
 
+
+
         public DataTable CargarGridoCmb(string sql)
         {
             DataTable dt = new DataTable();
@@ -292,8 +229,8 @@ namespace DataAccess
         {
             return txtbox.All(char.IsDigit);
         }
-       
 
+       
 
         public List<T> CreaLista<T>(params T[] pars)
         {

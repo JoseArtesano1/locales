@@ -82,7 +82,7 @@ namespace Domain
                       localDao.EditarPotEng(idPotEnergy, Potencia, Energia, idLu, anno, importeEnergia, false);
                       return "Modificado, menos el año";
                 }
-                  // int year= controlYear(anno, idLocl,idPotEnergy);
+                  
                  
             }
             catch(Exception ex)
@@ -92,36 +92,14 @@ namespace Domain
         }
 
 
-        //evitar repetir años para un local
-        //public int controlYear(int anno, int id, int idp)
-        //{
-           
-        //    var years =localDao.listadoYears("Select anno from PotEnerg where idLocal=" + id + ";");
-        //    int valor = 0;
-        //    for (int i=0;i<years.Count; i++) { 
-        //        if (anno ==years[i])
-        //        {
-        //            int year = Decimal.ToInt32(metodos.ObtenerNumero("Select*from PotEnerg where idPotEnergy=" + idp + "and idLocal=" + id + ";", 1));
-        //            return valor= year; //  año guardado
-        //        }
-        //        else
-        //        {
-        //        return valor= anno;//  año seleccionado
-        //        }
-           
-        //    }
-
-        //    return valor;
-        //}
+        
 
 
-
-        public string EliminarPotEnergia(int year, int idlocal, int idLugar)
+        public string EliminarPotEnergia(int year, int idLugar)
         {
             try                 //controlar que el año no este en electricidad activo
-            {
-                if (!metodos.Existe("select*from Electricidad where YEAR(fechaInicio)=" + year + "and YEAR(fechaFin)=" + year + "and idLoca=" + idlocal + "and estado=1")){
-
+            {               
+                if (!metodos.Existe("select * from Electricidad, Locales where idLoca= idLocal and " + year + " between year (fechaInicio) and year (fechaFin) and estado=0 and idlug="+idLugar+";")) { 
                     localDao.EliminarPotenciaEnergia(idLugar, year);
                     return "Eliminado correctamente";
                 }
@@ -140,13 +118,15 @@ namespace Domain
 
         public DataTable CargaPotenciaEnergia(int id)
         {
-            return metodos.CargarGridoCmb("select * from PotEnerg where idLu=" + id);
+            return metodos.CargarGridoCmb("select idPotEnergy as id, anno as año, Energia as Energia_Total, Potencia, importeEnergia as Energia$ from PotEnerg where idLu=" + id);
         }
 
         public List<int> CargaYears()
         {
             return metodos.CreaLista<int>(2019, 2020, 2021, 2022, 2023, 2024, 2025, 2026, 2027, 2028, 2029, 2030);
         }
+
+       
 
     }
 }

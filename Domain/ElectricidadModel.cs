@@ -50,6 +50,8 @@ namespace Domain
         }
 
 
+
+
         public string NuevaElec()
         {
             try
@@ -122,7 +124,7 @@ namespace Domain
 
 
         //buscador por lugar y numero de local o por nombre cliente
-        public DataTable CargaLocalesClientes(string lugar, int numero, string nombre, int opcion)
+        public DataTable CargaLocalesClientes(string lugar, int numero, string nombre, int opcion, int idluga)
         {
             switch (opcion)
             {
@@ -135,7 +137,7 @@ namespace Domain
                    
             }
 
-            return metodos.CargarGridoCmb("select idLocal, nombreLugar, numero, idCliente, nombre from Locales,Lugares, Clientes, Alquiler where idLocal=idLoc and idLugar=idLug and idCliente=idCl and nombreLugar='" + lugar + "';");
+            return metodos.CargarGridoCmb("select idLocal, nombreLugar, numero, idCliente, nombre from Locales,Lugares, Clientes, Alquiler where idLocal=idLoc and idLugar=idLug and idCliente=idCl and idLugar=" + idluga + ";");
         }
 
 
@@ -143,7 +145,7 @@ namespace Domain
         public DataTable CargaElectricidad(int idCliente)
         {            
 
-            return metodos.CargarGridoCmb("select idElectricidad, nombreLugar, numero, nombre, estado, fechaInicio, fechaFin, consumo, importe from Electricidad,Locales,Clientes,Lugares where idLocal=idLoca  and idCliente=idCli and idLugar=idLug and idCliente=" + idCliente + ";");
+            return metodos.CargarGridoCmb("select idElectricidad as id, nombreLugar as Lugar, numero as Nº, nombre, estado, fechaInicio as Inicio, fechaFin as Fin, consumo from Electricidad,Locales,Clientes,Lugares where idLocal=idLoca  and idCliente=idCli and idLugar=idLug and idCliente=" + idCliente + ";");
 
         }
 
@@ -152,11 +154,11 @@ namespace Domain
         {
             if (opcion == 1)
             {
-                return metodos.CargarGridoCmb("select idElectricidad, nombreLugar, numero, nombre, estado, fechaInicio, fechaFin, DATEDIFF(day, fechaInicio, fechaFin)/30 as plazo, (consumo-acumulado) as Energia_gasto, importe,idLug, consumo from Electricidad,Locales,Clientes,Lugares where idLocal=idLoca  and idCliente=idCli and idLugar=idLug and nombreLugar='" + luga + "'and idCli=" + idcliente + ";");
+                return metodos.CargarGridoCmb("select idElectricidad as id, nombreLugar as Lugar, numero, nombre, estado, fechaInicio as Inicio, fechaFin as Fin, DATEDIFF(day, fechaInicio, fechaFin)/30 as plazo, (consumo-acumulado) as Gasto, importe, consumo from Electricidad,Locales,Clientes,Lugares where idLocal=idLoca  and idCliente=idCli and idLugar=idLug and importe=0 and nombreLugar='" + luga + "'and idCli=" + idcliente + ";");
             }
             else
             {
-                return metodos.CargarGridoCmb("select idElectricidad, nombreLugar, numero, nombre, estado, fechaInicio, fechaFin, DATEDIFF(month, fechaInicio, fechaFin) as plazo, (consumo-acumulado) as Energia_gasto, importe,idLug from Electricidad,Locales,Clientes,Lugares where idLocal=idLoca  and idCliente=idCli and idLugar=idLug and importe=0 and nombreLugar='" + luga + "';");
+                return metodos.CargarGridoCmb("select idElectricidad as id, nombreLugar as Lugar, numero, nombre, estado, fechaInicio as Inicio, fechaFin as Fin, DATEDIFF(day, fechaInicio, fechaFin)/30 as plazo, (consumo-acumulado) as Gasto, importe from Electricidad,Locales,Clientes,Lugares where idLocal=idLoca  and idCliente=idCli and idLugar=idLug and importe=0 and nombreLugar='" + luga + "';");
             }
  
         }
@@ -183,7 +185,6 @@ namespace Domain
 
 
 
-
         public bool ComprobarDecimal(string valor)
         {
             if (metodos.isnumericDecimal(valor))
@@ -194,7 +195,6 @@ namespace Domain
         }
 
 
-      
 
         public bool ComprobarString(string valor)
         {
@@ -287,11 +287,6 @@ namespace Domain
         
             return potenciaYear;
         }
-
-        //public int NumeroLocales(string lugar)
-        //{
-        //    return metodos.ObtenerInt("select count(numero) as inquilinos from Locales, Lugares where idLug=idLugar and nombreLugar='" + lugar + "';", 0);
-        //}
 
        
 

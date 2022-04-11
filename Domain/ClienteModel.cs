@@ -115,14 +115,7 @@ namespace Domain
         }
 
 
-        //public bool ComprobarInt(string valor)
-        //{
-        //    if (metodos.isnumeric(valor))
-        //    {
-        //        return true;
-        //    }
-        //    return false;
-        //}
+       
 
         public bool ComprobarTelefono(string valor)
         {
@@ -160,7 +153,14 @@ namespace Domain
             }
         }
 
+        public List<string> CargaConsulta()
+        {
+            return metodos.CreaLista<string>("CONTACTO", "ALQUILER", "ELECTRICIDAD");
+        }
 
-
+        public List<string> CargaConsulta2()
+        {
+            return metodos.CreaLista<string>( "VACIOS", "CARTERA");
+        }
     }
 }

@@ -26,7 +26,7 @@ namespace Presentacion
             InitializeComponent();
             cargarComboLugar();
             tabControl1.TabPages.Remove(tabPage2);
-           
+          
         }
 
         private void txtConsumo_Validating(object sender, CancelEventArgs e)
@@ -44,31 +44,36 @@ namespace Presentacion
 
         private void cargarComboLugar()
         {
-            cmbLugar.DataSource = electricidad.CargaComboLugar();
+            cmbLugar.DataSource = alquiler.CargarComboLugar();
             cmbLugar.DisplayMember = "nombreLugar";
-            cmbLugar.ValueMember = "nombreLugar";
-            // cmbLugar.ValueMember = "idLocal";
+            cmbLugar.ValueMember = "idLugar";
             cmbLugar.SelectedIndex = -1;
         }
 
         private void LlamarTab(TabPage page)
         {
             tabControl1.SelectedTab = page;
+            Recarga();
+           
         }
 
         private void Recarga()
-        {
+        {            
             datagridElec.DataSource = electricidad.CargaElectricidad(idCliente);
+            datagridElec.Columns[0].Visible = false;
             txtConsumo.Clear();
             checkboxEstado.Checked = false;
             dateTimeInicio.Value = DateTime.Today;
             dateTimeFin.Value = DateTime.Today;
         }
 
+
+
         private void datagridLocalCli_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex != -1)
             {
+               
                 tabControl1.TabPages.Remove(tabPage2);
                 if (datagridLocalCli.CurrentRow.Cells[0].Value.ToString() != "")
                 {
@@ -77,9 +82,10 @@ namespace Presentacion
                     numero= int.Parse(datagridLocalCli.CurrentRow.Cells[2].Value.ToString());
                     idCliente = int.Parse(datagridLocalCli.CurrentRow.Cells[3].Value.ToString());
                     nombre = datagridLocalCli.CurrentRow.Cells[4].Value.ToString();
-                    datagridElec.DataSource = electricidad.CargaElectricidad(idCliente);
-                    tabControl1.TabPages.Add(tabPage2);
-                    LlamarTab(tabPage2);
+                  
+                      tabControl1.TabPages.Add(tabPage2);
+                      LlamarTab(tabPage2);
+       
                 }
                 else
                 {
@@ -88,7 +94,9 @@ namespace Presentacion
             }
         }
 
-     
+
+      
+
 
         private void btnAlta_Click(object sender, EventArgs e)
         {
@@ -108,12 +116,30 @@ namespace Presentacion
 
         }
 
-        private void cmbLugar_SelectedIndexChanged(object sender, EventArgs e)
+     
+
+        private void cmbLugar_SelectionChangeCommitted(object sender, EventArgs e)
         {
-            if (cmbLugar.SelectedIndex != -1 )
-            {         
-              datagridLocalCli.DataSource = electricidad.CargaLocalesClientes(cmbLugar.SelectedValue.ToString(), 0, "", 3);
+            if(cmbLugar.SelectedIndex != -1)
+            {
+                datagridLocalCli.DataSource = electricidad.CargaLocalesClientes("", 0, "", 3, int.Parse(cmbLugar.SelectedValue.ToString()));
+                datagridLocalCli.Columns[0].Visible = false; datagridLocalCli.Columns[3].Visible = false;
+
+                if (electricidad.CargaLocalesClientes("", 0, "", 3, int.Parse(cmbLugar.SelectedValue.ToString())).Rows.Count == 0)
+                {
+                   tabControl1.TabPages.Remove(tabPage2);
+                }
+            
+                    
             }
+        }
+
+        private void btnCancelar_Click(object sender, EventArgs e)
+        {
+            txtConsumo.Clear();
+            checkboxEstado.Checked = false;
+            dateTimeInicio.Value = DateTime.Today;
+            dateTimeFin.Value = DateTime.Today;
         }
 
         private void btnCerrar_Click(object sender, EventArgs e)

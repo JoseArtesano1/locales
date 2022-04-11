@@ -49,6 +49,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.txtusuario = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
+            this.checkboxVer = new System.Windows.Forms.CheckBox();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.grupboxDatos.SuspendLayout();
@@ -308,12 +309,25 @@
             this.label3.TabIndex = 68;
             this.label3.Text = "USUARIO";
             // 
+            // checkboxVer
+            // 
+            this.checkboxVer.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.checkboxVer.AutoSize = true;
+            this.checkboxVer.Location = new System.Drawing.Point(107, 474);
+            this.checkboxVer.Name = "checkboxVer";
+            this.checkboxVer.Size = new System.Drawing.Size(306, 30);
+            this.checkboxVer.TabIndex = 65;
+            this.checkboxVer.Text = "MOSTRAR CONTRASEÑA";
+            this.checkboxVer.UseVisualStyleBackColor = true;
+            this.checkboxVer.CheckedChanged += new System.EventHandler(this.checkboxVer_CheckedChanged);
+            // 
             // FormUsuarios2
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(13F, 26F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.IndianRed;
             this.ClientSize = new System.Drawing.Size(1389, 586);
+            this.Controls.Add(this.checkboxVer);
             this.Controls.Add(this.grupboxDatos);
             this.Controls.Add(this.linklblperfil);
             this.Controls.Add(this.lblnombre);
@@ -361,5 +375,6 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox txtusuario;
         private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.CheckBox checkboxVer;
     }
 }

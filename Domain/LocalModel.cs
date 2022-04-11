@@ -99,9 +99,7 @@ namespace Domain
         public string ActualizarAcumulado()
         {
             try
-            {
-               // decimal valor = consumo - acumulado;
-               //decimal acumulado1 = acumulado + valor;
+            {               
                 localDao.EditarLocal(idLocal, idLug, numero, acumulado, false);
                 return "Acumulado Actualizado";
             }

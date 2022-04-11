@@ -18,8 +18,12 @@ namespace Presentacion
         public FormUsuarios2()
         {
             InitializeComponent();
-            mostrar();
+            lblnombre.Text = UserLoginCache.nombre;
+            lblusuario.Text = UserLoginCache.nombreUsuario;
+            lblpass.Text = UserLoginCache.passUser;
+         
             txtConfirm.Visible = false; lblconfir.Visible = false; grupboxDatos.Visible = false;
+            txtpass.UseSystemPasswordChar = true; txtConfirm.UseSystemPasswordChar = true; lblpass.Visible = false;
         }
 
         private void btnModificar_Click(object sender, EventArgs e)
@@ -55,7 +59,7 @@ namespace Presentacion
             txtnombre.Text = UserLoginCache.nombre;
             txtusuario.Text = UserLoginCache.nombreUsuario;
             txtpass.Text = UserLoginCache.passUser;
-            txtConfirm.Text= UserLoginCache.passUser;
+           
 
         }
 
@@ -70,18 +74,22 @@ namespace Presentacion
 
         private void linklblperfil_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
+            mostrar();
             grupboxDatos.Visible = true;
-           
+            txtConfirm.Visible = false; lblconfir.Visible = false;
         }
 
         private void txtpass_TextChanged(object sender, EventArgs e)
         {
             txtConfirm.Visible = true; lblconfir.Visible = true;
+           
         }
 
         private void btnCancelar_Click(object sender, EventArgs e)
         {
             Limpiar();
+            txtConfirm.Visible = false; lblconfir.Visible = false;
+            
         }
 
         private void txtnombre_Validating(object sender, CancelEventArgs e)
@@ -109,6 +117,25 @@ namespace Presentacion
         private void btnCerrar_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void checkboxVer_CheckedChanged(object sender, EventArgs e)
+        {
+            string text = txtpass.Text;
+            string text1 = txtConfirm.Text;
+           
+            if (checkboxVer.Checked)
+            {
+                txtpass.UseSystemPasswordChar = false;  txtConfirm.UseSystemPasswordChar = false; 
+                txtpass.Text = text; txtConfirm.Text = text1;
+                lblpass.Visible = true;
+            }
+            else
+            {
+                txtpass.UseSystemPasswordChar = true; txtConfirm.UseSystemPasswordChar = true;
+                txtpass.Text = text; txtConfirm.Text = text1;
+                lblpass.Visible = false;
+            }
         }
     }
 }

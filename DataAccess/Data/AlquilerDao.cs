@@ -34,7 +34,7 @@ namespace DataAccess.Data
         }
 
 
-        public void EditarAlquiler(DateTime fecha, int fianza, decimal import, string obs, int idl, int idc, int idAlq, bool mod)
+        public void EditarAlquiler(DateTime fecha, int fianza, decimal import, string obs, int idl,  int idAlq, bool mod, int opcion)
         {
             using (var conexion = GetConnection())
             {
@@ -42,15 +42,27 @@ namespace DataAccess.Data
                 using (var comando = new SqlCommand())
                 {
                     comando.Connection = conexion;
-                    comando.CommandText = "Update Alquiler set fechaIni=@fecha,fianza=@fia,importe=@im,observaciones=@obser, idLoc=@idL, idCl=@idC, modelo=@model where idAlquiler=@idA";
-                    comando.Parameters.AddWithValue("@fecha", fecha);
-                    comando.Parameters.AddWithValue("@fia", fianza);
-                    comando.Parameters.AddWithValue("@im", import);
-                    comando.Parameters.AddWithValue("@obser", obs);
-                    comando.Parameters.AddWithValue("@idL", idl);
-                    comando.Parameters.AddWithValue("@idC", idc);
-                    comando.Parameters.AddWithValue("@idA", idAlq);
-                    comando.Parameters.AddWithValue("@model", mod);
+                    if (opcion == 1)
+                    { comando.CommandText = "Update Alquiler set fechaIni=@fecha,fianza=@fia,importe=@im,observaciones=@obser, idLoc=@idL, modelo=@model where idAlquiler=@idA";
+                        comando.Parameters.AddWithValue("@fecha", fecha);
+                        comando.Parameters.AddWithValue("@fia", fianza);
+                        comando.Parameters.AddWithValue("@im", import);
+                        comando.Parameters.AddWithValue("@obser", obs);
+                        comando.Parameters.AddWithValue("@idL", idl);
+                        comando.Parameters.AddWithValue("@idA", idAlq);
+                        comando.Parameters.AddWithValue("@model", mod);
+                    }
+                    else
+                    {
+                        comando.CommandText = "Update Alquiler set fechaIni=@fecha,fianza=@fia,importe=@im,observaciones=@obser,  modelo=@model where idAlquiler=@idA";
+                        comando.Parameters.AddWithValue("@fecha", fecha);
+                        comando.Parameters.AddWithValue("@fia", fianza);
+                        comando.Parameters.AddWithValue("@im", import);
+                        comando.Parameters.AddWithValue("@obser", obs);
+                        comando.Parameters.AddWithValue("@idA", idAlq);
+                        comando.Parameters.AddWithValue("@model", mod);
+                    }
+                  
                     comando.CommandType = CommandType.Text;
                     comando.ExecuteNonQuery();
                 }

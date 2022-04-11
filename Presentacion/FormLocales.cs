@@ -23,10 +23,24 @@ namespace Presentacion
         {
             InitializeComponent();
             datagridLocales.DataSource=localModel.CargaLocales();
+            datagridLocales.Columns[0].Visible = false; datagridLocales.Columns[3].Visible = false; 
+            datagridLocales.Columns[4].Visible = false;
             CargaCmbox(); cargarCmbLugar();  cargarGrupbox();
+            CrearPag(1);
         }
 
     
+        private void CrearPag(int pag)
+        {
+            if (pag == 1)
+            {
+                tabControl1.TabPages.Remove(tabPage2);
+            }
+            else
+            {
+                tabControl1.TabPages.Add(tabPage2);
+            }
+        }
 
         private void txtlugar_Validating(object sender, CancelEventArgs e)
         {
@@ -39,7 +53,7 @@ namespace Presentacion
             }
         }
 
-        private void txtnumero_Validating(object sender, CancelEventArgs e)
+        private void txtnumero_Validating_1(object sender, CancelEventArgs e)
         {
             if (txtnumero.Text != "")
             {
@@ -49,6 +63,7 @@ namespace Presentacion
                 }
             }
         }
+
 
         private void txtacumulado_Validating(object sender, CancelEventArgs e)
         {
@@ -128,8 +143,7 @@ namespace Presentacion
         }
 
         private void btnAltaLocal_Click(object sender, EventArgs e)
-        {
-            //if (txtlugar.Text == "") { MessageBox.Show("Introducce una Dirección");txtlugar.Focus(); return; }
+        {           
             if (txtnumero.Text == "") { MessageBox.Show("Introducce un número"); txtnumero.Focus(); return; }
             if (txtacumulado.Text == "") { MessageBox.Show("Introducce Energía acumulada"); txtacumulado.Focus(); return; }
             if (cmbLugar.SelectedIndex == -1) { MessageBox.Show("Debe seleccionar un lugar"); cmbLugar.Focus(); return; }
@@ -192,18 +206,20 @@ namespace Presentacion
         {
             if (e.RowIndex != -1)
             {
+                CrearPag(1); 
                 if (datagridLocales.CurrentRow.Cells[0].Value.ToString() != "")
                 {
                    idLocal = int.Parse( datagridLocales.CurrentRow.Cells[0].Value.ToString());
                     idLugar = int.Parse(datagridLocales.CurrentRow.Cells[4].Value.ToString());
                     dato = datagridLocales.CurrentRow.Cells[5].Value.ToString();
                     numero = int.Parse(datagridLocales.CurrentRow.Cells[1].Value.ToString());
-                    dataGridpotencia.DataSource = energiaModel.CargaPotenciaEnergia(idLocal); 
-                    lblLugarNum.Text = "Trastero: " + dato + " " + numero;
-                    txtlugar.Text = dato;
+                    lblLugarNum.Text = "Trastero: " + dato + " Nº " + numero;
+                    txtlugar.Text = dato.ToString();
                     txtnumero.Text = numero.ToString();
                     txtacumulado.Text = datagridLocales.CurrentRow.Cells[2].Value.ToString();
-                    
+                    cmbLugar.SelectedValue = idLugar;
+                    Recarga2(idLugar);
+                    CrearPag(2);
                 }
                 else
                 {
@@ -214,11 +230,32 @@ namespace Presentacion
                 
         }
 
+        private void datagridLocales_SelectionChanged(object sender, EventArgs e)
+        {
+            if (datagridLocales.SelectedRows != null)
+            {
+                dataGridpotencia.DataSource = energiaModel.CargaPotenciaEnergia(idLugar);
+                dataGridpotencia.Columns[0].Visible = false;
+            }
+        }
+
+        private void btnCancelarAlta_Click(object sender, EventArgs e)
+        {
+            Limpiar();
+        }
 
         private void Recarga()
         {
             datagridLocales.DataSource = localModel.CargaLocales();
-            cmbLugar.SelectedIndex = -1; txtnumero.Clear(); txtacumulado.Clear();
+            datagridLocales.Columns[0].Visible = false; datagridLocales.Columns[3].Visible = false;
+            datagridLocales.Columns[4].Visible = false;
+            Limpiar();
+        }
+
+
+        private void Limpiar()
+        {
+            cmbLugar.SelectedIndex = -1; txtnumero.Clear(); txtacumulado.Clear(); txtlugar.Clear();
         }
 
         #endregion
@@ -238,17 +275,21 @@ namespace Presentacion
             Recarga2(idLugar);
         }
 
+
+
         private void btnCancelarPot_Click(object sender, EventArgs e)
         {
-            textpot.Clear(); txtenerg.Clear(); cmbanno.SelectedIndex = -1;
+            textpot.Clear(); txtenerg.Clear(); cmbanno.SelectedIndex = -1; txtImpEnerg.Clear();
         }
+
+
 
         private void btneliminarPot_Click(object sender, EventArgs e)
         {
             if (textpot.Text == "") { MessageBox.Show("Seleccione Potencia y Energía"); textpot.Focus(); return; }
             if (MessageBox.Show("Este proceso borra el la potencia y la energía del año " + year + " de la bd, lo quieres hacer S/N", "CUIDADO", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
-                string mensaje = energiaModel.EliminarPotEnergia(year,idLocal,idLugar);
+                string mensaje = energiaModel.EliminarPotEnergia(year,idLugar);
                 MessageBox.Show(mensaje);
                 Recarga2(idLugar);
             }
@@ -282,7 +323,7 @@ namespace Presentacion
                     cmbanno.SelectedItem = year;
                     txtenerg.Text = dataGridpotencia.CurrentRow.Cells[2].Value.ToString();
                     textpot.Text= dataGridpotencia.CurrentRow.Cells[3].Value.ToString();
-                    txtImpEnerg.Text= dataGridpotencia.CurrentRow.Cells[5].Value.ToString();
+                    txtImpEnerg.Text= dataGridpotencia.CurrentRow.Cells[4].Value.ToString();
                 }
                 else
                 {
@@ -295,7 +336,7 @@ namespace Presentacion
         private void Recarga2(int id)
         {
             dataGridpotencia.DataSource = energiaModel.CargaPotenciaEnergia(id);
-            textpot.Clear(); txtenerg.Clear(); cmbanno.SelectedIndex = -1;
+            textpot.Clear(); txtenerg.Clear(); cmbanno.SelectedIndex = -1; txtImpEnerg.Clear();
         }
 
         public void CargaCmbox()

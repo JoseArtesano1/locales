@@ -161,10 +161,18 @@ namespace Presentacion
         }
 
 
+        private void btnConsulta_Click(object sender, EventArgs e)
+        {
+            AbrirFormulario<FormConsulta>();
+            btnConsulta.BackColor = Color.FromArgb(12, 61, 92);
+        }
+
         [DllImport("user32.DLL", EntryPoint = "SendMessage")]
         private extern static void SendMessage(System.IntPtr hWnd, int wMsg, int wParam, int lParam);
 
-       
+      
+
+
 
 
         #endregion
@@ -192,17 +200,20 @@ namespace Presentacion
         }
         private void CloseForms(object sender,FormClosedEventArgs e) {
             if (Application.OpenForms["FormUsuario"] == null)
-                button1.BackColor = Color.FromArgb(4, 41, 68);
+                button1.BackColor = Color.DarkRed;
             if (Application.OpenForms["FormUsuarios2"] == null)
-                button2.BackColor = Color.FromArgb(4, 41, 68);
+                button2.BackColor = Color.DarkRed;
             if (Application.OpenForms["FormLocales"] == null)
-                button3.BackColor = Color.FromArgb(4, 41, 68);
+                button3.BackColor = Color.DarkRed;
             if (Application.OpenForms["FormCliente"] == null)
-                btnCli.BackColor = Color.FromArgb(4, 41, 68);
+                btnCli.BackColor = Color.DarkRed;
             if (Application.OpenForms["FormElectricidad"] == null)
-                btnElectricidad.BackColor = Color.FromArgb(4, 41, 68);
+                btnElectricidad.BackColor = Color.DarkRed;
             if (Application.OpenForms["FormCalculos"] == null)
-                btnCalculo.BackColor = Color.FromArgb(4, 41, 68);
+                //btnCalculo.BackColor = Color.FromArgb(4, 41, 68);
+                btnCalculo.BackColor = Color.DarkRed;
+            if (Application.OpenForms["FormConsulta"] == null)
+                btnConsulta.BackColor = Color.DarkRed;
         }
     }
 }

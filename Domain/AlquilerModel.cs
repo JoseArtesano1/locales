@@ -26,6 +26,7 @@ namespace Domain
         int idCl;
         bool modelo;
 
+
         public AlquilerModel(int idAlquiler, DateTime fechaIni, int fianza, decimal importe, string observaciones, int idLoc,  bool modelo)
         {
             this.idAlquiler = idAlquiler;
@@ -37,11 +38,21 @@ namespace Domain
             this.modelo = modelo;
         }
 
+
         public AlquilerModel()
         {
         }
 
-     
+        public AlquilerModel(int idAlquiler, DateTime fechaIni, int fianza, decimal importe, string observaciones, bool modelo)
+        {
+            this.idAlquiler = idAlquiler;
+            this.fechaIni = fechaIni;
+            this.fianza = fianza;
+            this.importe = importe;
+            this.observaciones = observaciones;
+            this.modelo = modelo;
+        }
+
         public AlquilerModel(DateTime fechaIni, int fianza, decimal importe, string observaciones, int idLoc, int idCl, bool modelo)
         {
             this.fechaIni = fechaIni;
@@ -83,12 +94,21 @@ namespace Domain
         }
 
 
-        public string EditarAlquiler()
+        public string EditarAlquiler(int opcion)
         {
             try
-            {  
-                alquilerDao.EditarAlquiler(fechaIni, fianza, importe, observaciones, idLoc, idCl, idAlquiler, modelo);
-                return "Alquiler modificado";
+            {
+                if (opcion == 1)
+                {
+                  alquilerDao.EditarAlquiler(fechaIni, fianza, importe, observaciones, idLoc,  idAlquiler, modelo, 1);
+                  return "Alquiler modificado";
+                }
+                else
+                {
+                    alquilerDao.EditarAlquiler(fechaIni, fianza, importe, observaciones, 0, idAlquiler, modelo, 2);
+                    return "Alquiler modificado, Salvo el local";
+                }
+                
             }
             catch(Exception ex)
             {
@@ -111,21 +131,21 @@ namespace Domain
             }
             catch (Exception ex)
             {
-                return "no se ha podido eliminar";
+                return "no se ha podido eliminar" + ex;
             }
         }
 
 
         public DataTable CargarTablaAlquiler(int id)
         {
-            return metodos.CargarGridoCmb("Select * from Alquiler where idCl=" + id + ";");
+            return metodos.CargarGridoCmb("Select idAlquiler as id, fechaIni as Inicio, fianza, importe, observaciones as Notas, idLoc as idLocal, modelo from Alquiler where idCl=" + id + ";");
         }
 
 
 
        public DataTable CargarComboLocal(string lug)
         {
-            return metodos.CargarGridoCmb("Select idLocal,numero, nombreLugar  from Lugares, Locales where not exists (select * from Alquiler where idLoc=idLocal and not exists(select*from Clientes where idCl=idCliente and activo=0)) and idLug=idLugar and nombreLugar='" + lug+ "';");
+            return metodos.CargarGridoCmb("Select idLocal,numero from Lugares, Locales where not exists (select * from Alquiler where idLoc=idLocal and not exists(select*from Clientes where idCl=idCliente and activo=0)) and idLug=idLugar and nombreLugar='" + lug+ "';");
         }
 
 
@@ -133,6 +153,8 @@ namespace Domain
         {
             return metodos.CargarGridoCmb("Select idLugar, nombreLugar from Lugares");
         }
+
+       
 
         public string GetLugar(int id)
         {
@@ -152,8 +174,8 @@ namespace Domain
         }
 
         public int GetNumero(int id)
-        {         
-                return metodos.ObtenerInt("select * from Locales where idLocal=" + id + ";", 1);
+        {
+            return metodos.ObtenerInt("select * from Locales where idLocal=" + id + ";", 1);
         }
 
 
@@ -195,5 +217,47 @@ namespace Domain
             return false;
         }
 
+
+
+        public DataTable ConsultaCliente(int lugar)
+        {
+            return metodos.CargarGridoCmb("select idCliente,  nombre, dni, direccion, activo, tipo from Clientes, Alquiler, Locales  where idCliente=idCl and idLoc=idLocal and activo=1 and idLug=" + lugar + ";");
+        }
+
+
+        public DataTable ConsultaCartera(int lugar)
+        {
+            return metodos.CargarGridoCmb("select idCliente,  nombre, dni, direccion, observaciones, importe from Clientes, Alquiler, Locales  where idCliente=idCl and idLoc=idLocal and activo=1 and tipo=1 and modelo=1 and idLug=" + lugar + ";");
+        }
+
+        public DataTable ConsultaInactivo(int lugar)
+        {
+            return metodos.CargarGridoCmb("select idLocal, numero as Numero_Trastero from Locales where not exists(select*from Alquiler where idLoc = idLocal or exists(select*from Clientes where idCl=idCliente and activo=0)) and idLug =" + lugar + ";");
+
+        }
+
+        public DataTable ConsultaAlquiler(int cliente, int lugar)
+        {
+            return metodos.CargarGridoCmb("select idAlquiler,  fechaIni, fianza, importe, observaciones, modelo from  Alquiler, Locales  where idLoc=idLocal and idLug=" + lugar + "and  idCl=" + cliente + ";");
+        }
+
+
+        public DataTable ConsultaElectricidad(int cliente, int lugar)
+        {
+           return metodos.CargarGridoCmb("select idElectricidad as id,  numero as Trastero,  fechaInicio as Inicio, fechaFin as Fin, DATEDIFF(day, fechaInicio, fechaFin)/30 as Meses, (consumo-acumulado) as Gasto,  consumo, importe as Importe from Electricidad,Locales,Clientes where idLocal=idLoca  and idCliente=idCli and idLug=" + lugar + "and idCli=" + cliente + ";");
+        }
+
+        public DataTable ConsultaTelefono(int id)
+        {
+            return metodos.CargarGridoCmb("select * from Telefono  where  idClient=" + id + ";");
+        }
+
+
+      
+
     }
+
+
+   
+
 }
