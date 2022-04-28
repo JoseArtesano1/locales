@@ -140,6 +140,7 @@ namespace Presentacion
             checkboxEstado.Checked = false;
             dateTimeInicio.Value = DateTime.Today;
             dateTimeFin.Value = DateTime.Today;
+            btnAlta.Enabled = true;
         }
 
         private void btnCerrar_Click(object sender, EventArgs e)
@@ -162,7 +163,7 @@ namespace Presentacion
                         checkboxEstado.Checked = true;
                     }
                     else { checkboxEstado.Checked = false; }
-                   
+                    btnAlta.Enabled = false;
                 }
                 else
                 {
@@ -179,7 +180,7 @@ namespace Presentacion
             if (txtConsumo.Text == "") { MessageBox.Show("Introducce un número"); txtConsumo.Focus(); return; }
             if (DateTime.Compare(dateTimeInicio.Value.Date, dateTimeFin.Value.Date) > 0)
             { MessageBox.Show("la fecha del inicio debe ser inferior a la fecha final"); dateTimeInicio.Focus(); return; }
-            if (DateTime.Compare(alquiler.FechaContrato(idLocal, idCliente), dateTimeInicio.Value.Date) < 0)
+            if (DateTime.Compare(alquiler.FechaContrato(idLocal, idCliente), dateTimeInicio.Value.Date) > 0)
             { MessageBox.Show("la fecha del inicio debe ser mayor a la fecha contrato"); dateTimeInicio.Focus(); return; }
 
             var EditarElectricidad = new ElectricidadModel(idElectricidad: idElectrico,fechaInicio: dateTimeInicio.Value, fechaFin: dateTimeFin.Value, consumo: decimal.Parse(txtConsumo.Text), estado: checkboxEstado.Checked, importe: 0);
@@ -188,7 +189,7 @@ namespace Presentacion
            
             MessageBox.Show(mensaje);
             Recarga();
-
+            btnAlta.Enabled = true;
         }
 
 
@@ -202,6 +203,7 @@ namespace Presentacion
                 string mensaje = electricidad.EliminarElectricidad(idElectrico);
                 MessageBox.Show(mensaje);
                 Recarga();
+                btnAlta.Enabled = true;
             }
         }
 

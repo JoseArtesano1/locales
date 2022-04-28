@@ -98,8 +98,7 @@ namespace Presentacion
             if (txtnombre.Text == "") { MessageBox.Show("Selecciona un Usuario"); datagridUsuarios.Focus(); return; }
             if (txtusuario.Text == "") { MessageBox.Show("Introduce el usuario"); txtusuario.Focus(); return; }
             if (txtpass.Text == "") { MessageBox.Show("Introduce la contraseña"); txtpass.Focus(); return; }
-            //if (txtpass.Text == txtConfirm.Text)
-            //{                                              
+                                                         
             var user = new UserModel(idUsuario:id ,nombre: txtnombre.Text, passUser: txtpass.Text, 
                 rol: cmbAutoriza.SelectedItem.ToString(), nombreUsuario: txtusuario.Text);
                 
@@ -107,14 +106,9 @@ namespace Presentacion
                 MessageBox.Show(mensaje);
                 Recarga();
                 ConfPasstext(true, true, true);
-            
-            //}
-            //else
-            //{
-            //    MessageBox.Show("No coincide la contraseña, repite de nuevo");
-            //    txtpass.Text = ""; txtConfirm.Text = ""; txtpass.Focus();
-            //}
+          
         }
+
 
         private void btneliminar_Click(object sender, EventArgs e)
         {

@@ -139,8 +139,7 @@ namespace Presentacion
             button3.BackColor = Color.FromArgb(12, 61, 92);
         }
 
-       
-
+   
         private void btnElectricidad_Click(object sender, EventArgs e)
         {
             AbrirFormulario<FormElectricidad>();
@@ -167,10 +166,19 @@ namespace Presentacion
             btnConsulta.BackColor = Color.FromArgb(12, 61, 92);
         }
 
+
+        private void btnfactura_Click(object sender, EventArgs e)
+        {
+            AbrirFormulario<FormImporte>();
+            btnfactura.BackColor= Color.FromArgb(12, 61, 92);
+        }
+
         [DllImport("user32.DLL", EntryPoint = "SendMessage")]
         private extern static void SendMessage(System.IntPtr hWnd, int wMsg, int wParam, int lParam);
 
       
+
+
 
 
 
@@ -214,6 +222,9 @@ namespace Presentacion
                 btnCalculo.BackColor = Color.DarkRed;
             if (Application.OpenForms["FormConsulta"] == null)
                 btnConsulta.BackColor = Color.DarkRed;
+            if (Application.OpenForms["FormImporte"] == null)
+                btnfactura.BackColor = Color.DarkRed;
+
         }
     }
 }

@@ -12,8 +12,8 @@ namespace DataAccess.MailServicios
         {
             senderMail = "correoempresa";
             password = "";
-            host = ""; //nombre del servidor
-            port =111;
+            host = ""; //nombre del servidor smtp.gmail.com
+            port =111;  //587
             ssl = true; //cifrado
             IniciarSmtpCliente();
         }

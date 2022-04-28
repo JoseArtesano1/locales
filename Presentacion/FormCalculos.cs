@@ -118,6 +118,7 @@ namespace Presentacion
         private void btnLimpia_Click(object sender, EventArgs e)
         {
             txtnombre.Clear(); txtNumero.Clear(); cmbLugar.SelectedIndex = -1; datagridLocalCli.DataSource = "";
+            CrearControl(1);
         }
 
         private void btnBuscar_Click_1(object sender, EventArgs e)

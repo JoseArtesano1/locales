@@ -72,8 +72,7 @@ namespace Domain
         public string EditarCliente()
         {
             try
-            {
-               
+            {               
                if(!metodos.Existe("Select * from Clientes where dni='" + dni + "';"))
                 {
                     clienteDao.ModificarCliente(nombre, dni, direccion, activo, tipo, idCliente,true);
@@ -153,14 +152,21 @@ namespace Domain
             }
         }
 
+
         public List<string> CargaConsulta()
         {
             return metodos.CreaLista<string>("CONTACTO", "ALQUILER", "ELECTRICIDAD");
         }
 
+
         public List<string> CargaConsulta2()
         {
             return metodos.CreaLista<string>( "VACIOS", "CARTERA");
         }
+
+
+
+
+
     }
 }

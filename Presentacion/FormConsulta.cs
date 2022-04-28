@@ -24,6 +24,7 @@ namespace Presentacion
             CargarCmbConsulta();
             CargarConsultas2();
             OcultarControles(true, false);
+            btnInforme.Enabled = false;
         }
 
 
@@ -31,7 +32,7 @@ namespace Presentacion
         {
             cmbConsulta.Visible = falso; lblInformar.Visible = falso; cmbConsulta2.Visible = falso;
             lblINFORMACION.Visible = verdad; datagridConsultas.Visible = falso; dataGridDatos.Visible = falso;
-            cmbZonas.Visible = falso; lblzona.Visible = falso; lblInfZona.Visible = falso;
+            cmbZonas.Visible = falso; lblzona.Visible = falso; lblInfZona.Visible = falso; lblconsulta.Visible = falso; lbldato.Visible = falso;
         }
 
         public void EditCtl(System.Windows.Forms.ComboBox combo, bool valor, System.Windows.Forms.ComboBox combo1, bool valor1, System.Windows.Forms.Label label1, System.Windows.Forms.Label label2)
@@ -84,6 +85,8 @@ namespace Presentacion
                 if (rdbtnZona.Checked == true) { cmbConsulta2.Visible = true; lblInfZona.Visible = true;  }
                 datagridConsultas.DataSource = alquiler.ConsultaCliente(int.Parse(cmbZonas.SelectedValue.ToString()));
                 datagridConsultas.Columns[0].Visible = false;
+
+                btnInforme.Enabled = true;
             }
         }
 
@@ -98,7 +101,7 @@ namespace Presentacion
                 {
                     dataGridDatos.DataSource = ""; cmbConsulta.SelectedIndex = -1;
                     idCliente = int.Parse(datagridConsultas.CurrentRow.Cells[0].Value.ToString());
-                    EditCtl(cmbConsulta, true, cmbConsulta2, false,lblInformar,lblInformar);
+                    EditCtl(cmbConsulta, true, cmbConsulta2, false,lblInformar,lblInfZona);
                    
                 }
                 else
@@ -159,44 +162,52 @@ namespace Presentacion
 
         private void rdbtnZona_CheckedChanged(object sender, EventArgs e)
         {
-            lblINFORMACION.Visible = false;
+            lblINFORMACION.Visible = false; btnInforme.Enabled = false;
             datagridConsultas.DataSource = null;
             if (rdbtnZona.Checked == true)
             {
                 Recarga(); 
-                datagridConsultas.Visible = false;
-                dataGridDatos.Location = new Point(55, 80);
-                dataGridDatos.Visible = true;
+                datagridConsultas.Visible = false; lblconsulta.Visible = false;
+                dataGridDatos.Location = new Point(55, 80); lbldato.Location = new Point(32, 58);
+                dataGridDatos.Visible = true; lbldato.Visible = true;
                 EditCtl(cmbZonas, true, cmbConsulta, false, lblzona, lblInformar);
                
             }
             else
             {
-                datagridConsultas.Visible = true;
-                
+                datagridConsultas.Visible = true; lblconsulta.Visible = true;
+
             }
         }
 
         private void rdbtnIndividuo_CheckedChanged(object sender, EventArgs e)
         {
-            lblINFORMACION.Visible = false;
+            lblINFORMACION.Visible = false; btnInforme.Enabled = false;
             datagridConsultas.DataSource = null;
             if (rdbtnIndividuo.Checked == true)
             {
                 Recarga();
-                datagridConsultas.Visible = true;
-                dataGridDatos.Location = new Point(90, 400);
-                dataGridDatos.Visible = true;
+                datagridConsultas.Visible = true; lblconsulta.Visible = true;
+                dataGridDatos.Location = new Point(90, 410); lbldato.Location = new Point(65, 385);
+                dataGridDatos.Visible = true; lbldato.Visible = true; lbldato.Text = "DATOS";
                 EditCtl(cmbZonas, true, cmbConsulta2, false, lblzona, lblInfZona);
                
             }
             else
             {
               
-                datagridConsultas.Visible = false;
+                datagridConsultas.Visible = false; lblconsulta.Visible = false;
             }
         }
 
-     
+        private void btnInforme_Click(object sender, EventArgs e)
+        {
+            if (cmbZonas.SelectedIndex != -1)
+            {                              
+                if (alquiler.isFileOpen(Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + "/DocumentosLocales/" + "\\Informe.pdf")) { MessageBox.Show("cierre el documento"); return; }
+                string mensaje= electricidad.GenerarInforme( int.Parse(cmbZonas.SelectedValue.ToString()));
+                MessageBox.Show(mensaje);
+            }
+        }
     }
 }

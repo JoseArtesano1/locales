@@ -1,5 +1,6 @@
 ﻿using DataAccess;
 using DataAccess.Data;
+using DataAccess.Documents;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -14,6 +15,7 @@ namespace Domain
         MetodosCommon metodos = new MetodosCommon();
         ElectricidadDao electricidadDao = new ElectricidadDao();
         LocalDao localDao = new LocalDao();
+        Pdfs pdf = new Pdfs();
 
         int idElectricidad;
         DateTime fechaInicio;
@@ -86,16 +88,26 @@ namespace Domain
         {
             try
             {
-                if (!metodos.Existe("select * from Electricidad where fechaInicio between '" + fechaInicio + "' and '" + fechaFin + "';") && !metodos.Existe("select * from Electricidad where fechaFin between '" + fechaInicio + "' and '" + fechaFin + "';"))
+                if(metodos.Existe("select * from Electricidad where importe=0 and idElectricidad=" +idElectricidad + ";"))
                 {
-                    electricidadDao.EditarElectricidad(fechaInicio, fechaFin, consumo, estado, idElectricidad,importe,1);
-                    return "Modificado";
+                    if (!metodos.Existe("select * from Electricidad where fechaInicio='" + fechaInicio + "' and fechaFin= '" + fechaFin + "';"))
+                    {
+                        electricidadDao.EditarElectricidad(fechaInicio, fechaFin, consumo, estado, idElectricidad, importe, 0);
+                        return "Modificado";
+                    }
+                    else
+                    {
+                        electricidadDao.EditarElectricidad(fechaInicio, fechaFin, consumo, estado, idElectricidad, importe, 1);
+                        return "Modificado resto de datos, salvo fechas";
+                    }
                 }
                 else
                 {
-                    electricidadDao.EditarElectricidad(fechaInicio, fechaFin, consumo, estado, idElectricidad, importe, 0);
-                    return "Modificado resto de datos, salvo fechas";
+                    electricidadDao.EditarElectricidad(fechaInicio, fechaFin, consumo, estado, idElectricidad, importe, 2);
+                    return "Solo se puede modificar el estado";
                 }
+
+               
 
             } catch (Exception ex)
             {
@@ -109,7 +121,7 @@ namespace Domain
         {
             try
             {
-                if (!metodos.ObtenerBooleano("select * from Electricidad where idElectricidad=" + idElectricidad + ";", 6))
+                if (!metodos.Existe("select * from Electricidad where estado=0 and idElectricidad=" + id + ";"))
                 {
                     electricidadDao.EliminarElectricidad(id);
                     return "Electricidad eliminada";
@@ -118,7 +130,7 @@ namespace Domain
             }
             catch (Exception ex)
             {
-                return "no se ha podido eliminar";
+                return "no se ha podido eliminar" + ex;
             }
         }
 
@@ -128,16 +140,19 @@ namespace Domain
         {
             switch (opcion)
             {
+                case 0:
+                    return metodos.CargarGridoCmb("select idLocal,  numero, idCliente, nombre, activo,idLugar, dni, direccion, importe from Locales, Lugares, Clientes, Alquiler where idLocal=idLoc and idLugar=idLug and idCliente=idCl and activo=1 and tipo=0 and modelo=0 and nombreLugar='" + lugar + "';");
+
                 case 1:
 
-                    return metodos.CargarGridoCmb("select idLocal, nombreLugar, numero, idCliente, nombre, activo,idLugar from Locales,Lugares, Clientes, Alquiler where idLocal=idLoc and idLugar=idLug and idCliente=idCl and nombreLugar='" + lugar + "' and numero=" + numero + ";");
+                    return metodos.CargarGridoCmb("select idLocal, nombreLugar, numero, idCliente, nombre, activo,idLugar from Locales,Lugares, Clientes, Alquiler where idLocal=idLoc and idLugar=idLug and idCliente=idCl and activo=1 and nombreLugar='" + lugar + "' and numero=" + numero + ";");
    
                 case 2:
-                    return metodos.CargarGridoCmb("select idLocal, nombreLugar, numero, idCliente, nombre,activo, idLugar from Locales, Lugares, Clientes, Alquiler where idLocal=idLoc and idLugar=idLug and idCliente=idCl and nombre='" + nombre + "';");
+                    return metodos.CargarGridoCmb("select idLocal, nombreLugar, numero, idCliente, nombre,activo, idLugar from Locales, Lugares, Clientes, Alquiler where idLocal=idLoc and idLugar=idLug and idCliente=idCl and activo=1 and nombre='" + nombre + "';");
                    
             }
 
-            return metodos.CargarGridoCmb("select idLocal, nombreLugar, numero, idCliente, nombre from Locales,Lugares, Clientes, Alquiler where idLocal=idLoc and idLugar=idLug and idCliente=idCl and idLugar=" + idluga + ";");
+            return metodos.CargarGridoCmb("select idLocal, nombreLugar, numero, idCliente, nombre from Locales,Lugares, Clientes, Alquiler where idLocal=idLoc and idLugar=idLug and idCliente=idCl and activo=1 and idLugar=" + idluga + ";");
         }
 
 
@@ -154,11 +169,11 @@ namespace Domain
         {
             if (opcion == 1)
             {
-                return metodos.CargarGridoCmb("select idElectricidad as id, nombreLugar as Lugar, numero, nombre, estado, fechaInicio as Inicio, fechaFin as Fin, DATEDIFF(day, fechaInicio, fechaFin)/30 as plazo, (consumo-acumulado) as Gasto, importe, consumo from Electricidad,Locales,Clientes,Lugares where idLocal=idLoca  and idCliente=idCli and idLugar=idLug and importe=0 and nombreLugar='" + luga + "'and idCli=" + idcliente + ";");
+                return metodos.CargarGridoCmb("select idElectricidad as id, nombreLugar as Lugar, numero, nombre, estado, fechaInicio as Inicio, fechaFin as Fin, DATEDIFF(day, fechaInicio, fechaFin)/30 as plazo, (consumo-acumulado) as Gasto, importe, consumo from Electricidad,Locales,Clientes,Lugares where idLocal=idLoca  and idCliente=idCli and idLugar=idLug and activo=1 and importe=0 and nombreLugar='" + luga + "'and idCli=" + idcliente + ";");
             }
             else
             {
-                return metodos.CargarGridoCmb("select idElectricidad as id, nombreLugar as Lugar, numero, nombre, estado, fechaInicio as Inicio, fechaFin as Fin, DATEDIFF(day, fechaInicio, fechaFin)/30 as plazo, (consumo-acumulado) as Gasto, importe from Electricidad,Locales,Clientes,Lugares where idLocal=idLoca  and idCliente=idCli and idLugar=idLug and importe=0 and nombreLugar='" + luga + "';");
+                return metodos.CargarGridoCmb("select idElectricidad as id, nombreLugar as Lugar, numero, nombre, estado, fechaInicio as Inicio, fechaFin as Fin, DATEDIFF(day, fechaInicio, fechaFin)/30 as plazo, (consumo-acumulado) as Gasto, importe from Electricidad,Locales,Clientes,Lugares where idLocal=idLoca  and idCliente=idCli and idLugar=idLug and activo=1 and importe=0 and nombreLugar='" + luga + "';");
             }
  
         }
@@ -177,9 +192,9 @@ namespace Domain
         {
             if (opcion == 1)
             {
-                return metodos.CargarGridoCmb("select idElectricidad, idLoca, idCli, fechaInicio, fechaFin, consumo,idLug from Electricidad,Locales,Clientes,Lugares where idLocal=idLoca  and idCliente=idCli and idLugar=idLug and importe= 0 and nombreLugar='" + luga + "';");
+                return metodos.CargarGridoCmb("select idElectricidad, idLoca, idCli, fechaInicio, fechaFin, consumo,idLug from Electricidad,Locales,Clientes,Lugares where idLocal=idLoca  and idCliente=idCli and idLugar=idLug and activo=1 and importe= 0 and nombreLugar='" + luga + "';");
             }
-            return metodos.CargarGridoCmb("select idElectricidad, idLoca, consumo, idLug from Electricidad,Locales, Clientes,Lugares where idLocal=idLoca  and idCliente=idCli and idLugar=idLug  and nombreLugar='" + luga + "';");
+            return metodos.CargarGridoCmb("select idElectricidad, idLoca, consumo, idLug from Electricidad,Locales, Clientes,Lugares where idLocal=idLoca  and idCliente=idCli and idLugar=idLug and activo=1 and nombreLugar='" + luga + "';");
 
         }
 
@@ -410,9 +425,24 @@ namespace Domain
             }
             catch(Exception ex)
             {
-                return "No se ha podido Actualizar el importe";
+                return "No se ha podido Actualizar el importe" + ex;
             }
            
+        }
+
+
+
+        public string GenerarInforme( int idl)
+        {
+            try
+            {               
+                pdf.GenerarPdf( idl);
+                return "Informe generado";
+            }
+            catch (Exception ex)
+            {
+                return "No se ha podido Generar el informe" + ex;
+            }
         }
 
     }

@@ -58,7 +58,7 @@ namespace Domain
         {
             try
             {
-                if (!metodos.Existe("select * from Lugares where nombreLocal='" + nombreLugar + "';"))
+                if (!metodos.Existe("select * from Lugares where nombreLugar='" + nombreLugar + "';"))
                 {
                     lugarDao.EditarLugar(nombreLugar,idLugar);
                     return "Modificado";

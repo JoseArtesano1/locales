@@ -47,6 +47,7 @@
             this.btnMinimizar = new System.Windows.Forms.PictureBox();
             this.btnMaximizar = new System.Windows.Forms.PictureBox();
             this.btnCerrar = new System.Windows.Forms.PictureBox();
+            this.btnfactura = new System.Windows.Forms.Button();
             this.panelContenedor.SuspendLayout();
             this.panelformularios.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -110,6 +111,7 @@
             // panelMenu
             // 
             this.panelMenu.BackColor = System.Drawing.Color.DarkRed;
+            this.panelMenu.Controls.Add(this.btnfactura);
             this.panelMenu.Controls.Add(this.btnConsulta);
             this.panelMenu.Controls.Add(this.btnCalculo);
             this.panelMenu.Controls.Add(this.btnCli);
@@ -135,7 +137,7 @@
             this.btnConsulta.ForeColor = System.Drawing.Color.Gainsboro;
             this.btnConsulta.Image = ((System.Drawing.Image)(resources.GetObject("btnConsulta.Image")));
             this.btnConsulta.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnConsulta.Location = new System.Drawing.Point(3, 561);
+            this.btnConsulta.Location = new System.Drawing.Point(3, 571);
             this.btnConsulta.Name = "btnConsulta";
             this.btnConsulta.Size = new System.Drawing.Size(279, 62);
             this.btnConsulta.TabIndex = 8;
@@ -336,6 +338,25 @@
             this.btnCerrar.TabStop = false;
             this.btnCerrar.Click += new System.EventHandler(this.btnCerrar_Click);
             // 
+            // btnfactura
+            // 
+            this.btnfactura.FlatAppearance.BorderSize = 0;
+            this.btnfactura.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(50)))), ((int)(((byte)(70)))));
+            this.btnfactura.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(12)))), ((int)(((byte)(61)))), ((int)(((byte)(92)))));
+            this.btnfactura.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnfactura.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnfactura.ForeColor = System.Drawing.Color.Gainsboro;
+            this.btnfactura.Image = ((System.Drawing.Image)(resources.GetObject("btnfactura.Image")));
+            this.btnfactura.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnfactura.Location = new System.Drawing.Point(6, 648);
+            this.btnfactura.Name = "btnfactura";
+            this.btnfactura.Size = new System.Drawing.Size(279, 62);
+            this.btnfactura.TabIndex = 9;
+            this.btnfactura.Text = "FACTURAS";
+            this.btnfactura.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.btnfactura.UseVisualStyleBackColor = true;
+            this.btnfactura.Click += new System.EventHandler(this.btnfactura_Click);
+            // 
             // FormPrincipal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
@@ -383,6 +404,7 @@
         private System.Windows.Forms.Button btnCli;
         private System.Windows.Forms.Button btnCalculo;
         private System.Windows.Forms.Button btnConsulta;
+        private System.Windows.Forms.Button btnfactura;
     }
 }
 

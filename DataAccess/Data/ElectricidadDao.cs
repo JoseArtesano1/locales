@@ -45,25 +45,32 @@ namespace DataAccess.Data
                 using(var comando= new SqlCommand())
                 {
                     comando.Connection = conexion;
-                    if (opcion == 1)
+                    switch (opcion)
                     {
-                        comando.CommandText = "Update Electricidad set fechaInicio=@fi, fechaFin=@ff, consumo=@consumo, estado=@estado, importe=@impor where idElectricidad=@idElec";
-                        comando.Parameters.AddWithValue("@fi", fini);
-                        comando.Parameters.AddWithValue("@ff", ffin);
-                        comando.Parameters.AddWithValue("@consumo", cons);
-                        comando.Parameters.AddWithValue("@estado", est);
-                        comando.Parameters.AddWithValue("@idElec", idEl);
-                        comando.Parameters.AddWithValue("@impor", importe);
+                        case 0:
+                             comando.CommandText = "Update Electricidad set fechaInicio=@fi, fechaFin=@ff, consumo=@consumo, estado=@estado, importe=@impor where idElectricidad=@idElec";
+                            comando.Parameters.AddWithValue("@fi", fini);
+                            comando.Parameters.AddWithValue("@ff", ffin);
+                            comando.Parameters.AddWithValue("@consumo", cons);
+                            comando.Parameters.AddWithValue("@estado", est);
+                            comando.Parameters.AddWithValue("@idElec", idEl);
+                            comando.Parameters.AddWithValue("@impor", importe);
+                            break;
+
+                        case 1:
+                            comando.CommandText = "Update Electricidad set consumo=@consumo, estado=@estado, importe=0 where idElectricidad=@idElec";
+                            comando.Parameters.AddWithValue("@consumo", cons);
+                            comando.Parameters.AddWithValue("@estado", est);
+                            comando.Parameters.AddWithValue("@idElec", idEl);
+                            break;
+
+                        case 2:
+                            comando.CommandText = "Update Electricidad set estado=@estado where idElectricidad=@idElec";
+                            comando.Parameters.AddWithValue("@estado", est);
+                            comando.Parameters.AddWithValue("@idElec", idEl);
+                            break;
                     }
-                    else
-                    {
-                        comando.CommandText = "Update Electricidad set consumo=@consumo, estado=@estado, importe=0 where idElectricidad=@idElec";
-                        comando.Parameters.AddWithValue("@consumo", cons);
-                        comando.Parameters.AddWithValue("@estado", est);
-                        comando.Parameters.AddWithValue("@idElec", idEl);
-                       
-                    }
-                  
+                
                     comando.CommandType = CommandType.Text;
                     comando.ExecuteNonQuery();
                 }

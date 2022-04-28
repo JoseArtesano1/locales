@@ -164,6 +164,7 @@ namespace Presentacion
                 var lugar = new LugarModel(idLugar: idLugar, nombreLugar: txtlugar.Text);
                 string mensaje = lugar.EditarLugarlocal();
                 MessageBox.Show(mensaje);
+                cargarCmbLugar(); CrearPag(1);
             }
            
             if (MessageBox.Show("¿Quiere modificar el local?", "CUIDADO", MessageBoxButtons.YesNo) == DialogResult.Yes)
@@ -175,11 +176,12 @@ namespace Presentacion
                    var local = new LocalModel(idLocal: idLocal, idLug:int.Parse(cmbLugar.SelectedValue.ToString()), numero: int.Parse(txtnumero.Text), acumulado: decimal.Parse(txtacumulado.Text));
 
                    string mensaje = local.EditarLocal();
-                   MessageBox.Show(mensaje);
-               }
+                   MessageBox.Show(mensaje); CrearPag(1);
+            }
            
-            Recarga();
-
+            Recarga(); 
+            btnAltaLocal.Enabled = true;
+            btnlugar.Enabled = true;
         }
 
         private void btneliminar_Click(object sender, EventArgs e)
@@ -189,7 +191,8 @@ namespace Presentacion
             {
                 string mensaje = lugar.EliminarLugar(idLugar);
                 MessageBox.Show(mensaje);
-                Recarga();
+                Recarga(); cargarCmbLugar();
+                btnlugar.Enabled = true; CrearPag(1);
             }
 
 
@@ -199,7 +202,9 @@ namespace Presentacion
                 string mensaje = localModel.EliminarLocal(idLocal);
                 MessageBox.Show(mensaje);
                 Recarga();
+                btnAltaLocal.Enabled = true; CrearPag(1);
             }
+
         }
 
         private void datagridLocales_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -219,6 +224,8 @@ namespace Presentacion
                     txtacumulado.Text = datagridLocales.CurrentRow.Cells[2].Value.ToString();
                     cmbLugar.SelectedValue = idLugar;
                     Recarga2(idLugar);
+                    btnAltaLocal.Enabled = false;
+                    btnlugar.Enabled = false;
                     CrearPag(2);
                 }
                 else
@@ -241,7 +248,9 @@ namespace Presentacion
 
         private void btnCancelarAlta_Click(object sender, EventArgs e)
         {
-            Limpiar();
+            Limpiar(); CrearPag(1);
+            btnAltaLocal.Enabled = true;
+            btnlugar.Enabled = true;
         }
 
         private void Recarga()
@@ -280,6 +289,7 @@ namespace Presentacion
         private void btnCancelarPot_Click(object sender, EventArgs e)
         {
             textpot.Clear(); txtenerg.Clear(); cmbanno.SelectedIndex = -1; txtImpEnerg.Clear();
+            btnAltaPot.Enabled = true;
         }
 
 
@@ -292,6 +302,7 @@ namespace Presentacion
                 string mensaje = energiaModel.EliminarPotEnergia(year,idLugar);
                 MessageBox.Show(mensaje);
                 Recarga2(idLugar);
+                btnAltaPot.Enabled = true;
             }
 
         }
@@ -309,6 +320,7 @@ namespace Presentacion
            string mensaje=   potEnerg.EditarPotEnergia();
             MessageBox.Show(mensaje);
             Recarga2(idLugar);
+            btnAltaPot.Enabled = true;
         }
 
 
@@ -324,6 +336,7 @@ namespace Presentacion
                     txtenerg.Text = dataGridpotencia.CurrentRow.Cells[2].Value.ToString();
                     textpot.Text= dataGridpotencia.CurrentRow.Cells[3].Value.ToString();
                     txtImpEnerg.Text= dataGridpotencia.CurrentRow.Cells[4].Value.ToString();
+                    btnAltaPot.Enabled = false;
                 }
                 else
                 {

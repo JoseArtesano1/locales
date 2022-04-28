@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -17,7 +18,7 @@ namespace Presentacion
         TelefonoModel telefonoModel = new TelefonoModel();
         AlquilerModel alquiler = new AlquilerModel();
 
-        int idCliente, idTelefCorreo,  idAlquileres;
+        int idCliente,  idTelefCorreo,  idAlquileres;
 
         public FormCliente()
         {
@@ -155,7 +156,7 @@ namespace Presentacion
                         checkboxTipo.Checked = true;
                     }
                     else { checkboxTipo.Checked = false; }
-
+                    btnAltaCliente.Enabled = false;
                    
                     RecargaTelefono(idCliente);
                    
@@ -196,8 +197,8 @@ namespace Presentacion
 
            string mensaje= clienteMod.EditarCliente();
             MessageBox.Show(mensaje);
-            Recarga();
-
+            Recarga(); CrearControl(1);
+            btnAltaCliente.Enabled = true;
         }
 
 
@@ -211,9 +212,9 @@ namespace Presentacion
             {
                 string mensaje = clienteModel.EliminarClientes(idCliente);
                 MessageBox.Show(mensaje);
-                Recarga();
+                Recarga(); CrearControl(1);
+                btnAltaCliente.Enabled = true;
             }
-
 
         }
 
@@ -225,6 +226,7 @@ namespace Presentacion
             txtdireccion.Clear();
             CheckActivo.Checked = false;  checkboxTipo.Checked = false;
             CrearControl(1);
+            btnAltaCliente.Enabled = true;
         }
 
 
@@ -232,7 +234,7 @@ namespace Presentacion
         {
             datagridClientes.DataSource = clienteModel.CargarCliente();
             datagridClientes.Columns[0].Visible = false;
-            txtnombre.Clear(); txtnombre.Clear(); txtdireccion.Clear();
+            txtnombre.Clear(); txtnombre.Clear(); txtdireccion.Clear(); txtdni.Clear();
             CheckActivo.Checked = false; checkboxTipo.Checked = false;
         }
 
@@ -294,7 +296,7 @@ namespace Presentacion
                 CrearControl(3);
             }
             MessageBox.Show(mensaje);
-            RecargaTelefono(idTelefCorreo);
+            RecargaTelefono(idCliente);
             LlamarTab(tabPage3);
         }
 
@@ -307,7 +309,8 @@ namespace Presentacion
             var correoMovilEdit = new TelefonoModel(idTelefono:idTelefCorreo, movil: int.Parse(textmovil.Text), idClient: idCliente, email: txtcorreo.Text);
              string mensaje=  correoMovilEdit.EditarTelefono();
             MessageBox.Show(mensaje);
-            RecargaTelefono(idTelefCorreo);
+            RecargaTelefono(idCliente);
+            btnAltaMovil.Enabled = true;
         }
 
 
@@ -322,7 +325,8 @@ namespace Presentacion
             {
                 string mensaje = telefonoModel.EliminarTelefono(idTelefCorreo);
                 MessageBox.Show(mensaje);
-                RecargaTelefono(idTelefCorreo);
+                RecargaTelefono(idCliente);
+                btnAltaMovil.Enabled = true;
             }
         }
 
@@ -332,6 +336,7 @@ namespace Presentacion
         {
             textmovil.Clear();
             txtcorreo.Clear();
+            btnAltaMovil.Enabled = true;
             CrearControl(4);
         }
 
@@ -346,7 +351,7 @@ namespace Presentacion
                     idTelefCorreo = int.Parse( dataGridcontacto.CurrentRow.Cells[0].Value.ToString());
                     textmovil.Text = dataGridcontacto.CurrentRow.Cells[1].Value.ToString();
                     txtcorreo.Text= dataGridcontacto.CurrentRow.Cells[2].Value.ToString();
-                  
+                    btnAltaMovil.Enabled = false;
                     RecargaAlquiler(idCliente);
                     Limpiar();
                     
@@ -382,12 +387,13 @@ namespace Presentacion
                     txtfianza.Text = dataGridAlquiler.CurrentRow.Cells[2].Value.ToString();
                     txtImporte.Text = dataGridAlquiler.CurrentRow.Cells[3].Value.ToString();
                     richtextObserv.Text = dataGridAlquiler.CurrentRow.Cells[4].Value.ToString();
+
                     if (bool.Parse(dataGridAlquiler.CurrentRow.Cells[6].Value.ToString()))
                     {
                         checkImp.Checked = true;
                     }
                     else { checkImp.Checked = false; }
-
+                    btnaltaAlq.Enabled = false;
                 }
                 else
                 {
@@ -455,7 +461,7 @@ namespace Presentacion
         {
             if (richtextObserv.Text != "")
             {
-                if (!clienteModel.ComprobarString(richtextObserv.Text))
+                if (clienteModel.ComprobarString(richtextObserv.Text))
                 {
                     MessageBox.Show("Introduce un texto"); e.Cancel = true;
                 }
@@ -470,26 +476,28 @@ namespace Presentacion
             if (txtfianza.Text == "") { MessageBox.Show("Introduce la fianza"); txtfianza.Focus(); return; }
             if (txtImporte.Text == "") { MessageBox.Show("Introduce un importe"); txtImporte.Focus(); return; }
 
-            string ruta1 = Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + "\\contrato1.docx";
-            string ruta2 = Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + "\\contrato2.docx";
+            string carpeta = Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + "/DocumentosLocales/";
+            if (!Directory.Exists(carpeta)) { Directory.CreateDirectory(carpeta); }
+            string ruta1 = carpeta + "\\contrato1.docx";
+            string ruta2 = carpeta + "\\contrato2.docx";
             
             var NuevoAlquiler = new AlquilerModel(fechaIni: datepickerFechaIn.Value.Date, fianza: int.Parse (txtfianza.Text), importe: decimal.Parse(txtImporte.Text), observaciones: richtextObserv.Text, idLoc:  cmbNumero.SelectedValue.GetHashCode(), idCl: idCliente, modelo: checkImp.Checked);
 
-           string mensaje = NuevoAlquiler.NuevoAlquiler();
-            MessageBox.Show(mensaje);
-           
+              string mensaje = NuevoAlquiler.NuevoAlquiler();
+              MessageBox.Show(mensaje);
+            
 
             if (cmblugar.SelectedValue.ToString().StartsWith("P"))
             {
                 if (alquiler.isFileOpen(ruta1)) { MessageBox.Show("cierre el documento"); return; }
 
-                string resultado=  NuevoAlquiler.NuevoContrato(lblCliente.Text, datagridClientes.CurrentRow.Cells[3].Value.ToString(), datagridClientes.CurrentRow.Cells[2].Value.ToString(), cmblugar.SelectedValue.ToString(), int.Parse(cmbNumero.SelectedValue.ToString()), int.Parse(dataGridcontacto.CurrentRow.Cells[1].Value.ToString()), dataGridcontacto.CurrentRow.Cells[3].Value.ToString(), ruta1);
+                string resultado=  NuevoAlquiler.NuevoContrato(lblCliente.Text, datagridClientes.CurrentRow.Cells[3].Value.ToString(), datagridClientes.CurrentRow.Cells[2].Value.ToString(), cmblugar.SelectedValue.ToString(), int.Parse(cmbNumero.SelectedValue.ToString()), int.Parse(dataGridcontacto.CurrentRow.Cells[1].Value.ToString()), dataGridcontacto.CurrentRow.Cells[2].Value.ToString(), ruta1);
                 MessageBox.Show(resultado);
             }
             else
             {
                 if (alquiler.isFileOpen(ruta2)) { MessageBox.Show("cierre el documento"); return; }
-                string resultado1=  NuevoAlquiler.NuevoContrato(lblCliente.Text, datagridClientes.CurrentRow.Cells[3].Value.ToString(), datagridClientes.CurrentRow.Cells[2].Value.ToString(), cmblugar.SelectedValue.ToString(), int.Parse(cmbNumero.SelectedValue.ToString()), int.Parse(dataGridcontacto.CurrentRow.Cells[1].Value.ToString()), dataGridcontacto.CurrentRow.Cells[3].Value.ToString(), ruta2);
+                string resultado1=  NuevoAlquiler.NuevoContrato(lblCliente.Text, datagridClientes.CurrentRow.Cells[3].Value.ToString(), datagridClientes.CurrentRow.Cells[2].Value.ToString(), cmblugar.SelectedValue.ToString(), int.Parse(cmbNumero.SelectedValue.ToString()), int.Parse(dataGridcontacto.CurrentRow.Cells[1].Value.ToString()), dataGridcontacto.CurrentRow.Cells[2].Value.ToString(), ruta2);
                 MessageBox.Show(resultado1);
             }
             RecargaAlquiler(idCliente);
@@ -501,14 +509,14 @@ namespace Presentacion
         {
             if (option == 2)
             { var EditAlquiler = new AlquilerModel(idAlquiler: idAlquileres, fechaIni: datepickerFechaIn.Value, fianza: int.Parse(txtfianza.Text), importe: decimal.Parse(txtImporte.Text), observaciones: richtextObserv.Text, modelo: checkImp.Checked);
-              string mensaje = EditAlquiler.EditarAlquiler(2);
+              string mensaje = EditAlquiler.EditarAlquiler(2, int.Parse(dataGridAlquiler.CurrentRow.Cells[5].Value.ToString()),idCliente);
               MessageBox.Show(mensaje);
                 
             }
             else
             {
                 var EditarAlquiler = new AlquilerModel(idAlquiler: idAlquileres, fechaIni: datepickerFechaIn.Value, fianza: int.Parse(txtfianza.Text), importe: decimal.Parse(txtImporte.Text), observaciones: richtextObserv.Text, idLoc: int.Parse(cmbNumero.SelectedValue.ToString()), modelo: checkImp.Checked);
-                string mensaje = EditarAlquiler.EditarAlquiler(1);
+                string mensaje = EditarAlquiler.EditarAlquiler(1, int.Parse(dataGridAlquiler.CurrentRow.Cells[5].Value.ToString()),idCliente);
                 MessageBox.Show(mensaje);
                 
             }
@@ -547,6 +555,7 @@ namespace Presentacion
               }
 
             RecargaAlquiler(idCliente);
+            btnaltaAlq.Enabled = true;
         }
 
        
@@ -561,9 +570,10 @@ namespace Presentacion
             if (MessageBox.Show("Este proceso borra el Alquiler del cliente de la bd, lo quieres hacer S/N", "CUIDADO",
                 MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
-                string mensaje = alquiler.EliminarAlquiler(idAlquileres);
+                string mensaje = alquiler.EliminarAlquiler(idAlquileres, idCliente);
                 MessageBox.Show(mensaje);
                 RecargaAlquiler(idCliente);
+                btnaltaAlq.Enabled = true;
             }
         }
 
@@ -576,7 +586,7 @@ namespace Presentacion
             txtfianza.Clear();
             txtImporte.Clear();
             richtextObserv.Clear();
-
+            btnaltaAlq.Enabled = true;
         }
 
         

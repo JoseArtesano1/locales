@@ -39,6 +39,7 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.btnLimpia = new System.Windows.Forms.Button();
             this.label8 = new System.Windows.Forms.Label();
             this.btnBuscar = new System.Windows.Forms.Button();
             this.cmbLugar = new System.Windows.Forms.ComboBox();
@@ -61,7 +62,6 @@
             this.panel4 = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
             this.panel3 = new System.Windows.Forms.Panel();
-            this.btnLimpia = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.datagridLocalCli)).BeginInit();
@@ -109,6 +109,18 @@
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "BUSCAR";
             // 
+            // btnLimpia
+            // 
+            this.btnLimpia.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnLimpia.BackColor = System.Drawing.Color.White;
+            this.btnLimpia.Location = new System.Drawing.Point(872, 181);
+            this.btnLimpia.Name = "btnLimpia";
+            this.btnLimpia.Size = new System.Drawing.Size(139, 51);
+            this.btnLimpia.TabIndex = 60;
+            this.btnLimpia.Text = "CANCELAR";
+            this.btnLimpia.UseVisualStyleBackColor = false;
+            this.btnLimpia.Click += new System.EventHandler(this.btnLimpia_Click);
+            // 
             // label8
             // 
             this.label8.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -126,12 +138,13 @@
             // btnBuscar
             // 
             this.btnBuscar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnBuscar.BackColor = System.Drawing.Color.White;
             this.btnBuscar.Location = new System.Drawing.Point(872, 68);
             this.btnBuscar.Name = "btnBuscar";
             this.btnBuscar.Size = new System.Drawing.Size(110, 55);
             this.btnBuscar.TabIndex = 51;
             this.btnBuscar.Text = "BUSCAR";
-            this.btnBuscar.UseVisualStyleBackColor = true;
+            this.btnBuscar.UseVisualStyleBackColor = false;
             this.btnBuscar.Click += new System.EventHandler(this.btnBuscar_Click_1);
             // 
             // cmbLugar
@@ -258,12 +271,13 @@
             // btnIndiv
             // 
             this.btnIndiv.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnIndiv.BackColor = System.Drawing.Color.White;
             this.btnIndiv.Location = new System.Drawing.Point(721, 305);
             this.btnIndiv.Name = "btnIndiv";
             this.btnIndiv.Size = new System.Drawing.Size(154, 55);
             this.btnIndiv.TabIndex = 69;
             this.btnIndiv.Text = "CALCULAR";
-            this.btnIndiv.UseVisualStyleBackColor = true;
+            this.btnIndiv.UseVisualStyleBackColor = false;
             this.btnIndiv.Click += new System.EventHandler(this.btnIndiv_Click);
             // 
             // datagridListado
@@ -328,12 +342,13 @@
             // btnZona
             // 
             this.btnZona.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnZona.BackColor = System.Drawing.Color.White;
             this.btnZona.Location = new System.Drawing.Point(816, 292);
             this.btnZona.Name = "btnZona";
             this.btnZona.Size = new System.Drawing.Size(154, 55);
             this.btnZona.TabIndex = 75;
             this.btnZona.Text = "CALCULAR";
-            this.btnZona.UseVisualStyleBackColor = true;
+            this.btnZona.UseVisualStyleBackColor = false;
             this.btnZona.Click += new System.EventHandler(this.btnZona_Click);
             // 
             // dataGridZona
@@ -415,12 +430,13 @@
             // btnCerrar
             // 
             this.btnCerrar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnCerrar.BackColor = System.Drawing.Color.White;
             this.btnCerrar.Location = new System.Drawing.Point(1168, 3);
             this.btnCerrar.Name = "btnCerrar";
             this.btnCerrar.Size = new System.Drawing.Size(102, 45);
             this.btnCerrar.TabIndex = 1;
             this.btnCerrar.Text = "CERRAR";
-            this.btnCerrar.UseVisualStyleBackColor = true;
+            this.btnCerrar.UseVisualStyleBackColor = false;
             this.btnCerrar.Click += new System.EventHandler(this.btnCerrar_Click);
             // 
             // panel4
@@ -454,17 +470,6 @@
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(1288, 60);
             this.panel3.TabIndex = 28;
-            // 
-            // btnLimpia
-            // 
-            this.btnLimpia.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnLimpia.Location = new System.Drawing.Point(872, 181);
-            this.btnLimpia.Name = "btnLimpia";
-            this.btnLimpia.Size = new System.Drawing.Size(139, 51);
-            this.btnLimpia.TabIndex = 60;
-            this.btnLimpia.Text = "CANCELAR";
-            this.btnLimpia.UseVisualStyleBackColor = true;
-            this.btnLimpia.Click += new System.EventHandler(this.btnLimpia_Click);
             // 
             // FormCalculos
             // 

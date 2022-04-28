@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.IO;
 using objWord = Microsoft.Office.Interop.Word;
+using Common.Cache;
 
 namespace DataAccess.Documents
 {
@@ -13,22 +14,23 @@ namespace DataAccess.Documents
 
         public void GenerarWordContrato(string elnombre, string ladire, string eldni, string elLug, int minum, DateTime fech, 
             int mifianza, decimal mivalor, int miTelef, string micorreo, decimal miacumul, string ruta)
-        {            
-
+        {  
               object ObjMiss = System.Reflection.Missing.Value;
 
-               // Trabajador trabajador = moduloInicio.TrabajadoresEmpresa().Where(x => x.Nombre == valor).FirstOrDefault();
-                //documento referencias en el word las pasamos a objetos
+            // Trabajador trabajador = moduloInicio.TrabajadoresEmpresa().Where(x => x.Nombre == valor).FirstOrDefault();
+            //documento referencias en el word las pasamos a objetos
+            double valorToString = (double)(mivalor)/ 1.21;
+            string importeLetra=  Conversor.enletras(valorToString);  string fianzaLetra= Conversor.enletras(mifianza);
 
-                objWord.Application objAplicacion = new objWord.Application();
+            objWord.Application objAplicacion = new objWord.Application();
 
                 object miruta = ruta;
                 object nombre = "cliente"; object direccion = "direccion"; object dni = "dni";
                 object lugar = "lugar"; object num = "numero";
                 object fecha1 = "fech1"; object fecha2 = "fech2"; object fecha3 = "fech3"; 
-                object fecha4 = "fech4";  object fecha5 = "fech5";
+                object fecha4 = "fech4";  object fecha5 = "fech5"; object cifraletra = "valorLetra";
                 object alquiler = "valor"; object fianza = "fianz"; object acumulado = "electrico";
-                object movil = "telefono"; object correo = "email";
+                object movil = "telefono"; object correo = "email"; object fianzaLe = "fianzLetra";
                
                 
                 objWord.Document objDocumento = objAplicacion.Documents.Open(miruta, ref ObjMiss);
@@ -52,11 +54,15 @@ namespace DataAccess.Documents
                 objWord.Range f4 = objDocumento.Bookmarks.get_Item(ref fecha4).Range;
                 f4.Text = fech.ToShortDateString();
                 objWord.Range f5 = objDocumento.Bookmarks.get_Item(ref fecha5).Range;
-                f5.Text = fech.AddYears(1).ToShortDateString();
+                f5.Text = fech.AddMonths(1).ToShortDateString();
                 objWord.Range al = objDocumento.Bookmarks.get_Item(ref alquiler).Range;
                 al.Text = mivalor.ToString();
+                objWord.Range aletra = objDocumento.Bookmarks.get_Item(ref cifraletra).Range;
+                aletra.Text = importeLetra.ToString();
                 objWord.Range fi = objDocumento.Bookmarks.get_Item(ref fianza).Range;
                 fi.Text = mifianza.ToString();
+                objWord.Range fibis = objDocumento.Bookmarks.get_Item(ref fianzaLe).Range;
+                fibis.Text = fianzaLetra.ToString();
                 objWord.Range acu = objDocumento.Bookmarks.get_Item(ref acumulado).Range;
                 acu.Text = miacumul.ToString();
                 objWord.Range tel = objDocumento.Bookmarks.get_Item(ref movil).Range;
@@ -65,15 +71,16 @@ namespace DataAccess.Documents
                 corr.Text = micorreo;
                 //rango
                 object rango1 = nom; object rango5 = nume; object rango6 = f1; object rango7 = f2; object rango8 = f3;
-                object rango2 = di; object rango9 = f4; object rango10 = f5; object rango11 = al; object rango12 = fi;
-                object rango3 = nie; object rango13 = acu; object rango14 = tel; object rango15 = corr;
-                object rango4 = lug; 
+                object rango2 = di; object rango9 = f4; object rango10 = f5; object rango11 = al; object rango11b = aletra;
+                object rango12 = fi; object rango3 = nie; object rango13 = acu; object rango14 = tel; object rango15 = corr;
+                object rango4 = lug; object rango12b = fibis;
                 objDocumento.Bookmarks.Add("cliente", ref rango1); objDocumento.Bookmarks.Add("direccion", ref rango2);
                 objDocumento.Bookmarks.Add("dni", ref rango3); objDocumento.Bookmarks.Add("lugar", ref rango4);
                 objDocumento.Bookmarks.Add("numero", ref rango5);
                 objDocumento.Bookmarks.Add("fech1", ref rango6); objDocumento.Bookmarks.Add("fech2", ref rango7);
                 objDocumento.Bookmarks.Add("fech3", ref rango8); objDocumento.Bookmarks.Add("fech4", ref rango9);
                 objDocumento.Bookmarks.Add("fech5", ref rango10); objDocumento.Bookmarks.Add("valor", ref rango11);
+                objDocumento.Bookmarks.Add("valorLetra", ref rango11b); objDocumento.Bookmarks.Add("fianzLetra", ref rango12b);
                 objDocumento.Bookmarks.Add("fianz", ref rango12); objDocumento.Bookmarks.Add("electrico", ref rango13);
                 objDocumento.Bookmarks.Add("telefono", ref rango14); objDocumento.Bookmarks.Add("email", ref rango15);
                 

@@ -63,7 +63,7 @@
             // 
             // btnminimizar
             // 
-            this.btnminimizar.BackColor = System.Drawing.SystemColors.ButtonFace;
+            this.btnminimizar.BackColor = System.Drawing.Color.WhiteSmoke;
             this.btnminimizar.Image = ((System.Drawing.Image)(resources.GetObject("btnminimizar.Image")));
             this.btnminimizar.Location = new System.Drawing.Point(777, 9);
             this.btnminimizar.Name = "btnminimizar";
@@ -89,12 +89,14 @@
             // 
             this.btnaceptar.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.btnaceptar.AutoSize = true;
+            this.btnaceptar.BackColor = System.Drawing.Color.White;
+            this.btnaceptar.ForeColor = System.Drawing.Color.Black;
             this.btnaceptar.Location = new System.Drawing.Point(409, 354);
             this.btnaceptar.Name = "btnaceptar";
             this.btnaceptar.Size = new System.Drawing.Size(191, 49);
             this.btnaceptar.TabIndex = 10;
             this.btnaceptar.Text = "ACEPTAR";
-            this.btnaceptar.UseVisualStyleBackColor = true;
+            this.btnaceptar.UseVisualStyleBackColor = false;
             this.btnaceptar.Click += new System.EventHandler(this.btnaceptar_Click);
             // 
             // txtUsuario

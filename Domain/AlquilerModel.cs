@@ -16,6 +16,7 @@ namespace Domain
         MetodosCommon metodos = new MetodosCommon();
         AlquilerDao alquilerDao = new AlquilerDao();
         Texto texto = new Texto();
+        Excels excels = new Excels();
 
         int idAlquiler;
         DateTime fechaIni;
@@ -94,20 +95,29 @@ namespace Domain
         }
 
 
-        public string EditarAlquiler(int opcion)
+        public string EditarAlquiler(int opcion, int idlocal, int idcliente)
         {
             try
-            {
-                if (opcion == 1)
+            { 
+                if(!metodos.Existe("select * from  Electricidad where idLoca=" + idlocal+ "and idCli=" + idcliente+" and fechaInicio <='" + fechaIni + "';"))
                 {
-                  alquilerDao.EditarAlquiler(fechaIni, fianza, importe, observaciones, idLoc,  idAlquiler, modelo, 1);
-                  return "Alquiler modificado";
+                    if (opcion == 1)
+                    {
+                        alquilerDao.EditarAlquiler(fechaIni, fianza, importe, observaciones, idLoc, idAlquiler, modelo, 1);
+                        return "Alquiler modificado";
+                    }
+                    else
+                    {
+                        alquilerDao.EditarAlquiler(fechaIni, fianza, importe, observaciones, 0, idAlquiler, modelo, 2);
+                        return "Alquiler modificado, Salvo el local";
+                    }
+
                 }
                 else
                 {
-                    alquilerDao.EditarAlquiler(fechaIni, fianza, importe, observaciones, 0, idAlquiler, modelo, 2);
-                    return "Alquiler modificado, Salvo el local";
+                    return "la fecha de Inicio no puede ser mayor que las fechas de electricidad";
                 }
+               
                 
             }
             catch(Exception ex)
@@ -118,16 +128,16 @@ namespace Domain
 
 
 
-        public string EliminarAlquiler(int id)
+        public string EliminarAlquiler(int id, int idc)
         {
             try
             {
-                if (!metodos.ObtenerBooleano("select * from Clientes where idCliente=" + idCl + ";",4))
+                if (!metodos.Existe("select * from Clientes where activo= 1 and idCliente=" + idc + ";"))
                 {
                     alquilerDao.EliminarAlquiler(id);
                     return "Alquiler Eliminado";
                 }
-                else { return "No es posible, Tiene vinculaciones activas"; }
+                else { return "No es posible, Tiene vinculaciones activas, Desactivar cliente"; }
             }
             catch (Exception ex)
             {
@@ -138,7 +148,7 @@ namespace Domain
 
         public DataTable CargarTablaAlquiler(int id)
         {
-            return metodos.CargarGridoCmb("Select idAlquiler as id, fechaIni as Inicio, fianza, importe, observaciones as Notas, idLoc as idLocal, modelo from Alquiler where idCl=" + id + ";");
+            return metodos.CargarGridoCmb("Select idAlquiler as id, fechaIni as Inicio, fianza, importe, observaciones as Notas, idLoc as idLocal, modelo,numero as Trastero from Alquiler, Locales where idLoc=idLocal and idCl=" + id + ";");
         }
 
 
@@ -161,7 +171,7 @@ namespace Domain
             try
             {
                 return metodos.Obtenerdato("select nombreLugar from Lugares, Locales where idLug=idLugar and idLocal=" + id + ";",0);
-            }catch(Exception ex)
+            } catch(Exception ex)
             {
                 return "error" + ex;
             }
@@ -181,8 +191,7 @@ namespace Domain
 
 
         public string NuevoContrato( string nombre, string direccion, string dni, string lugar, int idlocal, int telefono, string correo, string ruta)
-        {
-            
+        {            
             try
             {
                 if (System.IO.File.Exists(ruta))
@@ -253,7 +262,51 @@ namespace Domain
         }
 
 
-      
+        public string NuevasFacturas(string carpeta, string archivo, string lugar, DateTime fecha, int numero)
+        {
+            try
+            {
+                if (System.IO.File.Exists(carpeta+archivo))
+                {
+                    excels.GenerarExcel(carpeta, archivo, lugar, fecha, numero);
+                    return "facturas generadas";
+                }
+                else
+                {
+                    return "no se ha encontrado el archivo en el escritorio";
+                }
+
+            } catch(Exception ex)
+            {
+                return "No se pueden crear las facturas" +ex;
+            }
+           
+        }
+
+
+        public string NuevaFactura(string carpeta, string archivo, string nombre, string dir, string dni, string lugar, double importe, DateTime fecha, int numero)
+        {
+            try
+            {
+                if (System.IO.File.Exists(carpeta + archivo))
+                {
+                    excels.GenerarExcelIndividual(carpeta, archivo, nombre,dir,dni, lugar, importe, fecha, numero);
+                    return "factura generada";
+                }
+                else
+                {
+                    return "no se ha encontrado el archivo en el escritorio";
+                }
+
+            }
+            catch (Exception ex)
+            {
+                return "No se pueden crear la factura" + ex;
+            }
+
+        }
+
+
 
     }
 

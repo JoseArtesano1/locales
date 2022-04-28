@@ -82,7 +82,7 @@ namespace Domain
             }
             catch (Exception ex)
             {
-                return "El usuario no se puede modificar";
+                return "El usuario no se puede modificar" + ex;
             }
 
         }
@@ -97,58 +97,28 @@ namespace Domain
             }
             catch(Exception ex)
             {
-                return "El usuario ya existe";
+                return "El usuario ya existe" + ex;
             }
 
         }
 
 
-        public void RecargarUsuario(string pass)
-        {
-             userDao.datosUsuario(pass,"select * from Usuarios where idUsuario=" + UserLoginCache.idUsuario );
-        }
-
-
-
-        //public UserModel ObtenerUsuarios(string sql)
+        //public void RecargarUsuario(string pass)
         //{
-           
-        //   UserModel p = new UserModel();
-        //    using (var conexion = GetConnection())
-        //    {
-        //        conexion.Open();
-        //        try
-        //        {
-        //            using (var comando = new SqlCommand())
-        //            {
-        //                comando.Connection = conexion;
-        //                comando.CommandText = sql;
-        //                comando.CommandType = CommandType.Text;
-        //                SqlDataReader reader = comando.ExecuteReader();
-
-        //                while (reader.Read())
-        //                { p.nombre = reader.GetString(1);
-        //                    p.passUser = reader.GetString(2);
-        //                    p.rol = reader.GetString(3);
-        //                    p.nombreUsuario = reader.GetString(4);
-
-        //                }
-        //            }
-        //        }
-        //        catch (Exception ex) {  }
-        //    }
-        //    return p;
+        //     userDao.datosUsuario(pass,"select * from Usuarios where idUsuario=" + UserLoginCache.idUsuario );
         //}
 
+               
 
-        public bool OpcionEditarUsuario(int user)
-        {
-            if (user == UserLoginCache.idUsuario)
-            {
-                return true;
-            }
-            else { return false; }
-        }
+
+        //public bool OpcionEditarUsuario(int user)
+        //{
+        //    if (user == UserLoginCache.idUsuario)
+        //    {
+        //        return true;
+        //    }
+        //    else { return false; }
+        //}
 
 
         public bool ControlRol()
@@ -189,7 +159,7 @@ namespace Domain
                 return "eliminado Correctamente";
             }catch(Exception ex)
             {
-                return "no se ha podido eliminar";
+                return "no se ha podido eliminar" + ex;
             }
         }
 
@@ -211,9 +181,9 @@ namespace Domain
            return false;
         }
 
-        public  string Encriptar(string pas)
-        {
-            return userDao.GetSHA256(pas);
-        }
+        //public  string Encriptar(string pas)
+        //{
+        //    return userDao.GetSHA256(pas);
+        //}
     }
 }

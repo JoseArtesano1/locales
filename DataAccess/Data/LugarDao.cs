@@ -39,7 +39,7 @@ namespace DataAccess.Data
                 using (var comando = new SqlCommand())
                 {
                     comando.Connection = conexion;
-                    comando.CommandText = "Update Lugares set nombreLugar=@lugar where idLugar=@idLugar)";
+                    comando.CommandText = "Update Lugares set nombreLugar=@lugar where idLugar=@idLugar";
                     comando.Parameters.AddWithValue("@lugar", lugares);
                     comando.Parameters.AddWithValue("@idLugar", id);
                     comando.CommandType = CommandType.Text;
