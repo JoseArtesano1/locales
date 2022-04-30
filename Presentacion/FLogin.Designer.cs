@@ -90,6 +90,7 @@
             this.btnaceptar.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.btnaceptar.AutoSize = true;
             this.btnaceptar.BackColor = System.Drawing.Color.White;
+            this.btnaceptar.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnaceptar.ForeColor = System.Drawing.Color.Black;
             this.btnaceptar.Location = new System.Drawing.Point(409, 354);
             this.btnaceptar.Name = "btnaceptar";

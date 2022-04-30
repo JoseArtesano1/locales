@@ -254,6 +254,7 @@
             this.btnCancelarAlta.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnCancelarAlta.BackColor = System.Drawing.Color.White;
             this.btnCancelarAlta.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnCancelarAlta.ForeColor = System.Drawing.Color.Black;
             this.btnCancelarAlta.Location = new System.Drawing.Point(203, 508);
             this.btnCancelarAlta.Name = "btnCancelarAlta";
             this.btnCancelarAlta.Size = new System.Drawing.Size(164, 46);
@@ -362,6 +363,7 @@
             this.btneliminarPot.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btneliminarPot.BackColor = System.Drawing.Color.White;
             this.btneliminarPot.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btneliminarPot.ForeColor = System.Drawing.Color.Black;
             this.btneliminarPot.Location = new System.Drawing.Point(56, 515);
             this.btneliminarPot.Name = "btneliminarPot";
             this.btneliminarPot.Size = new System.Drawing.Size(108, 42);
@@ -375,6 +377,7 @@
             this.btnmodifPot.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btnmodifPot.BackColor = System.Drawing.Color.White;
             this.btnmodifPot.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnmodifPot.ForeColor = System.Drawing.Color.Black;
             this.btnmodifPot.Location = new System.Drawing.Point(252, 515);
             this.btnmodifPot.Name = "btnmodifPot";
             this.btnmodifPot.Size = new System.Drawing.Size(122, 42);
@@ -435,6 +438,7 @@
             this.btnCancelarPot.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnCancelarPot.BackColor = System.Drawing.Color.White;
             this.btnCancelarPot.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnCancelarPot.ForeColor = System.Drawing.Color.Black;
             this.btnCancelarPot.Location = new System.Drawing.Point(510, 478);
             this.btnCancelarPot.Name = "btnCancelarPot";
             this.btnCancelarPot.Size = new System.Drawing.Size(126, 46);
@@ -448,6 +452,7 @@
             this.btnAltaPot.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnAltaPot.BackColor = System.Drawing.Color.White;
             this.btnAltaPot.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnAltaPot.ForeColor = System.Drawing.Color.Black;
             this.btnAltaPot.Location = new System.Drawing.Point(389, 478);
             this.btnAltaPot.Name = "btnAltaPot";
             this.btnAltaPot.Size = new System.Drawing.Size(84, 46);
@@ -498,7 +503,7 @@
             this.lblconfir.Name = "lblconfir";
             this.lblconfir.Size = new System.Drawing.Size(270, 25);
             this.lblconfir.TabIndex = 47;
-            this.lblconfir.Text = "ENERGIA TOTAL AÑO/MES";
+            this.lblconfir.Text = "ENERGIA TOTAL MES/AÑO";
             // 
             // cmbanno
             // 
@@ -536,6 +541,7 @@
             // 
             this.btnCerrar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnCerrar.BackColor = System.Drawing.Color.White;
+            this.btnCerrar.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnCerrar.ForeColor = System.Drawing.Color.Black;
             this.btnCerrar.Location = new System.Drawing.Point(1130, 4);
             this.btnCerrar.Margin = new System.Windows.Forms.Padding(4);
@@ -559,6 +565,8 @@
             // 
             this.btneliminar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btneliminar.BackColor = System.Drawing.Color.White;
+            this.btneliminar.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btneliminar.ForeColor = System.Drawing.Color.Black;
             this.btneliminar.Location = new System.Drawing.Point(55, 593);
             this.btneliminar.Name = "btneliminar";
             this.btneliminar.Size = new System.Drawing.Size(139, 42);
@@ -627,6 +635,7 @@
             // 
             this.btnModificar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btnModificar.BackColor = System.Drawing.Color.White;
+            this.btnModificar.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnModificar.ForeColor = System.Drawing.Color.Black;
             this.btnModificar.Location = new System.Drawing.Point(251, 593);
             this.btnModificar.Name = "btnModificar";
@@ -662,10 +671,10 @@
             this.label6.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.label6.AutoSize = true;
-            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label6.Location = new System.Drawing.Point(940, 21);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(201, 25);
+            this.label6.Size = new System.Drawing.Size(218, 26);
             this.label6.TabIndex = 10;
             this.label6.Text = "GESTION LOCALES";
             // 
@@ -674,10 +683,10 @@
             this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.Location = new System.Drawing.Point(113, 21);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(198, 25);
+            this.label1.Size = new System.Drawing.Size(213, 26);
             this.label1.TabIndex = 9;
             this.label1.Text = "LISTADO LOCALES";
             // 

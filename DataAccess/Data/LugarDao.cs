@@ -21,7 +21,7 @@ namespace DataAccess.Data
                 {
                     comando.Connection = conexion;
                     comando.CommandText = "Insert into Lugares (nombreLugar) values(@lugar)";
-                    comando.Parameters.AddWithValue("@lugar", lugares);
+                    comando.Parameters.AddWithValue("@lugar", lugares.ToUpper());
                     comando.CommandType= CommandType.Text;
                     comando.ExecuteNonQuery();
                 }
@@ -40,7 +40,7 @@ namespace DataAccess.Data
                 {
                     comando.Connection = conexion;
                     comando.CommandText = "Update Lugares set nombreLugar=@lugar where idLugar=@idLugar";
-                    comando.Parameters.AddWithValue("@lugar", lugares);
+                    comando.Parameters.AddWithValue("@lugar", lugares.ToUpper());
                     comando.Parameters.AddWithValue("@idLugar", id);
                     comando.CommandType = CommandType.Text;
                     comando.ExecuteNonQuery();

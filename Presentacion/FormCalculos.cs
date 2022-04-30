@@ -111,7 +111,7 @@ namespace Presentacion
             if (cmbLugar.SelectedIndex != -1)
             {
                 zona = cmbLugar.SelectedValue.ToString();
-               
+                CrearControl(1);
             }
         }
 

@@ -34,6 +34,8 @@
             this.label1 = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.panelMenu = new System.Windows.Forms.Panel();
+            this.btnexit = new System.Windows.Forms.Button();
+            this.btnfactura = new System.Windows.Forms.Button();
             this.btnConsulta = new System.Windows.Forms.Button();
             this.btnCalculo = new System.Windows.Forms.Button();
             this.btnCli = new System.Windows.Forms.Button();
@@ -47,7 +49,6 @@
             this.btnMinimizar = new System.Windows.Forms.PictureBox();
             this.btnMaximizar = new System.Windows.Forms.PictureBox();
             this.btnCerrar = new System.Windows.Forms.PictureBox();
-            this.btnfactura = new System.Windows.Forms.Button();
             this.panelContenedor.SuspendLayout();
             this.panelformularios.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -111,6 +112,7 @@
             // panelMenu
             // 
             this.panelMenu.BackColor = System.Drawing.Color.DarkRed;
+            this.panelMenu.Controls.Add(this.btnexit);
             this.panelMenu.Controls.Add(this.btnfactura);
             this.panelMenu.Controls.Add(this.btnConsulta);
             this.panelMenu.Controls.Add(this.btnCalculo);
@@ -127,6 +129,42 @@
             this.panelMenu.Size = new System.Drawing.Size(291, 777);
             this.panelMenu.TabIndex = 1;
             // 
+            // btnexit
+            // 
+            this.btnexit.FlatAppearance.BorderSize = 0;
+            this.btnexit.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(50)))), ((int)(((byte)(70)))));
+            this.btnexit.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(12)))), ((int)(((byte)(61)))), ((int)(((byte)(92)))));
+            this.btnexit.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnexit.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnexit.ForeColor = System.Drawing.Color.Gainsboro;
+            this.btnexit.Image = ((System.Drawing.Image)(resources.GetObject("btnexit.Image")));
+            this.btnexit.Location = new System.Drawing.Point(106, 715);
+            this.btnexit.Name = "btnexit";
+            this.btnexit.Size = new System.Drawing.Size(74, 62);
+            this.btnexit.TabIndex = 10;
+            this.btnexit.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.btnexit.UseVisualStyleBackColor = true;
+            this.btnexit.Click += new System.EventHandler(this.btnexit_Click);
+            // 
+            // btnfactura
+            // 
+            this.btnfactura.FlatAppearance.BorderSize = 0;
+            this.btnfactura.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(50)))), ((int)(((byte)(70)))));
+            this.btnfactura.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(12)))), ((int)(((byte)(61)))), ((int)(((byte)(92)))));
+            this.btnfactura.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnfactura.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnfactura.ForeColor = System.Drawing.Color.Gainsboro;
+            this.btnfactura.Image = ((System.Drawing.Image)(resources.GetObject("btnfactura.Image")));
+            this.btnfactura.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnfactura.Location = new System.Drawing.Point(3, 596);
+            this.btnfactura.Name = "btnfactura";
+            this.btnfactura.Size = new System.Drawing.Size(279, 62);
+            this.btnfactura.TabIndex = 9;
+            this.btnfactura.Text = "FACTURAS";
+            this.btnfactura.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.btnfactura.UseVisualStyleBackColor = true;
+            this.btnfactura.Click += new System.EventHandler(this.btnfactura_Click);
+            // 
             // btnConsulta
             // 
             this.btnConsulta.FlatAppearance.BorderSize = 0;
@@ -137,7 +175,7 @@
             this.btnConsulta.ForeColor = System.Drawing.Color.Gainsboro;
             this.btnConsulta.Image = ((System.Drawing.Image)(resources.GetObject("btnConsulta.Image")));
             this.btnConsulta.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnConsulta.Location = new System.Drawing.Point(3, 571);
+            this.btnConsulta.Location = new System.Drawing.Point(3, 528);
             this.btnConsulta.Name = "btnConsulta";
             this.btnConsulta.Size = new System.Drawing.Size(279, 62);
             this.btnConsulta.TabIndex = 8;
@@ -156,7 +194,7 @@
             this.btnCalculo.ForeColor = System.Drawing.Color.Gainsboro;
             this.btnCalculo.Image = ((System.Drawing.Image)(resources.GetObject("btnCalculo.Image")));
             this.btnCalculo.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnCalculo.Location = new System.Drawing.Point(6, 493);
+            this.btnCalculo.Location = new System.Drawing.Point(6, 460);
             this.btnCalculo.Name = "btnCalculo";
             this.btnCalculo.Size = new System.Drawing.Size(279, 62);
             this.btnCalculo.TabIndex = 7;
@@ -175,7 +213,7 @@
             this.btnCli.ForeColor = System.Drawing.Color.Gainsboro;
             this.btnCli.Image = ((System.Drawing.Image)(resources.GetObject("btnCli.Image")));
             this.btnCli.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnCli.Location = new System.Drawing.Point(6, 357);
+            this.btnCli.Location = new System.Drawing.Point(6, 324);
             this.btnCli.Name = "btnCli";
             this.btnCli.Size = new System.Drawing.Size(279, 62);
             this.btnCli.TabIndex = 6;
@@ -205,7 +243,7 @@
             this.btnElectricidad.ForeColor = System.Drawing.Color.Gainsboro;
             this.btnElectricidad.Image = ((System.Drawing.Image)(resources.GetObject("btnElectricidad.Image")));
             this.btnElectricidad.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnElectricidad.Location = new System.Drawing.Point(3, 425);
+            this.btnElectricidad.Location = new System.Drawing.Point(3, 392);
             this.btnElectricidad.Name = "btnElectricidad";
             this.btnElectricidad.Size = new System.Drawing.Size(279, 62);
             this.btnElectricidad.TabIndex = 4;
@@ -224,7 +262,7 @@
             this.button3.ForeColor = System.Drawing.Color.Gainsboro;
             this.button3.Image = ((System.Drawing.Image)(resources.GetObject("button3.Image")));
             this.button3.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button3.Location = new System.Drawing.Point(3, 288);
+            this.button3.Location = new System.Drawing.Point(3, 255);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(282, 62);
             this.button3.TabIndex = 2;
@@ -243,7 +281,7 @@
             this.button2.ForeColor = System.Drawing.Color.Gainsboro;
             this.button2.Image = ((System.Drawing.Image)(resources.GetObject("button2.Image")));
             this.button2.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button2.Location = new System.Drawing.Point(3, 220);
+            this.button2.Location = new System.Drawing.Point(3, 187);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(282, 62);
             this.button2.TabIndex = 1;
@@ -262,7 +300,7 @@
             this.button1.ForeColor = System.Drawing.Color.Gainsboro;
             this.button1.Image = ((System.Drawing.Image)(resources.GetObject("button1.Image")));
             this.button1.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button1.Location = new System.Drawing.Point(0, 152);
+            this.button1.Location = new System.Drawing.Point(3, 119);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(282, 62);
             this.button1.TabIndex = 0;
@@ -338,25 +376,6 @@
             this.btnCerrar.TabStop = false;
             this.btnCerrar.Click += new System.EventHandler(this.btnCerrar_Click);
             // 
-            // btnfactura
-            // 
-            this.btnfactura.FlatAppearance.BorderSize = 0;
-            this.btnfactura.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(50)))), ((int)(((byte)(70)))));
-            this.btnfactura.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(12)))), ((int)(((byte)(61)))), ((int)(((byte)(92)))));
-            this.btnfactura.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnfactura.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnfactura.ForeColor = System.Drawing.Color.Gainsboro;
-            this.btnfactura.Image = ((System.Drawing.Image)(resources.GetObject("btnfactura.Image")));
-            this.btnfactura.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnfactura.Location = new System.Drawing.Point(6, 648);
-            this.btnfactura.Name = "btnfactura";
-            this.btnfactura.Size = new System.Drawing.Size(279, 62);
-            this.btnfactura.TabIndex = 9;
-            this.btnfactura.Text = "FACTURAS";
-            this.btnfactura.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.btnfactura.UseVisualStyleBackColor = true;
-            this.btnfactura.Click += new System.EventHandler(this.btnfactura_Click);
-            // 
             // FormPrincipal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
@@ -405,6 +424,7 @@
         private System.Windows.Forms.Button btnCalculo;
         private System.Windows.Forms.Button btnConsulta;
         private System.Windows.Forms.Button btnfactura;
+        private System.Windows.Forms.Button btnexit;
     }
 }
 

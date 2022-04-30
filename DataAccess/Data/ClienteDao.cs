@@ -20,9 +20,9 @@ namespace DataAccess.Data
                 {
                     comando.Connection = conexion;
                     comando.CommandText = "Insert into Clientes (nombre, dni, direccion, activo,tipo) values(@nombre,@dni,@dir,@act,@tp)";
-                    comando.Parameters.AddWithValue("@nombre",nom);
-                    comando.Parameters.AddWithValue("@dni", dni);
-                    comando.Parameters.AddWithValue("@dir", dir);
+                    comando.Parameters.AddWithValue("@nombre",nom.ToUpper());
+                    comando.Parameters.AddWithValue("@dni", dni.ToUpper());
+                    comando.Parameters.AddWithValue("@dir", dir.ToUpper());
                     comando.Parameters.AddWithValue("@act", activo);
                     comando.Parameters.AddWithValue("@tp", tipo);
                     comando.CommandType = CommandType.Text;
@@ -45,9 +45,9 @@ namespace DataAccess.Data
                     if (opcion)
                     {
                         comando.CommandText = "Update Clientes set nombre=@no, dni=@dni, direccion=@dir, activo=@act, tipo=@tp where idCliente=@id";
-                        comando.Parameters.AddWithValue("@no", nombre);
-                        comando.Parameters.AddWithValue("@dni", dni);
-                        comando.Parameters.AddWithValue("@dir", dire);
+                        comando.Parameters.AddWithValue("@no", nombre.ToUpper());
+                        comando.Parameters.AddWithValue("@dni", dni.ToUpper());
+                        comando.Parameters.AddWithValue("@dir", dire.ToUpper());
                         comando.Parameters.AddWithValue("@act", activo);
                         comando.Parameters.AddWithValue("@tp", tip);
                         comando.Parameters.AddWithValue("@id", id);
@@ -55,8 +55,8 @@ namespace DataAccess.Data
                     else
                     {
                         comando.CommandText = "Update Clientes set nombre=@no, direccion=@dir, activo=@act, tipo=@tp where idCliente=@id";
-                        comando.Parameters.AddWithValue("@no", nombre);
-                        comando.Parameters.AddWithValue("@dir", dire);
+                        comando.Parameters.AddWithValue("@no", nombre.ToUpper());
+                        comando.Parameters.AddWithValue("@dir", dire.ToUpper());
                         comando.Parameters.AddWithValue("@act", activo);
                         comando.Parameters.AddWithValue("@tp", tip);
                         comando.Parameters.AddWithValue("@id", id);

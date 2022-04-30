@@ -113,6 +113,7 @@
             // 
             this.btnLimpia.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnLimpia.BackColor = System.Drawing.Color.White;
+            this.btnLimpia.ForeColor = System.Drawing.Color.Black;
             this.btnLimpia.Location = new System.Drawing.Point(872, 181);
             this.btnLimpia.Name = "btnLimpia";
             this.btnLimpia.Size = new System.Drawing.Size(139, 51);
@@ -139,6 +140,7 @@
             // 
             this.btnBuscar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnBuscar.BackColor = System.Drawing.Color.White;
+            this.btnBuscar.ForeColor = System.Drawing.Color.Black;
             this.btnBuscar.Location = new System.Drawing.Point(872, 68);
             this.btnBuscar.Name = "btnBuscar";
             this.btnBuscar.Size = new System.Drawing.Size(110, 55);
@@ -272,6 +274,7 @@
             // 
             this.btnIndiv.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnIndiv.BackColor = System.Drawing.Color.White;
+            this.btnIndiv.ForeColor = System.Drawing.Color.Black;
             this.btnIndiv.Location = new System.Drawing.Point(721, 305);
             this.btnIndiv.Name = "btnIndiv";
             this.btnIndiv.Size = new System.Drawing.Size(154, 55);
@@ -343,6 +346,7 @@
             // 
             this.btnZona.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnZona.BackColor = System.Drawing.Color.White;
+            this.btnZona.ForeColor = System.Drawing.Color.Black;
             this.btnZona.Location = new System.Drawing.Point(816, 292);
             this.btnZona.Name = "btnZona";
             this.btnZona.Size = new System.Drawing.Size(154, 55);
@@ -431,6 +435,8 @@
             // 
             this.btnCerrar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnCerrar.BackColor = System.Drawing.Color.White;
+            this.btnCerrar.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnCerrar.ForeColor = System.Drawing.Color.Black;
             this.btnCerrar.Location = new System.Drawing.Point(1168, 3);
             this.btnCerrar.Name = "btnCerrar";
             this.btnCerrar.Size = new System.Drawing.Size(102, 45);

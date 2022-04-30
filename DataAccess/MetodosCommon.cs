@@ -149,36 +149,7 @@ namespace DataAccess
             }
         }
 
-
-        //public bool ObtenerBooleano(string sql, int posicion)
-        //{
-        //    bool estado=false;
-        //    try
-        //    {
-        //        using(var conexion= GetConnection())
-        //        {
-        //            conexion.Open();
-        //            using(var comando= new SqlCommand())
-        //            {
-        //                comando.Connection = conexion;
-        //                comando.CommandText = sql;
-        //                comando.CommandType = CommandType.Text;
-        //                SqlDataReader reader = comando.ExecuteReader();
-
-        //                while (reader.Read())
-        //                { estado = reader.GetBoolean(posicion); }
-        //            }
-        //        }
-        //    }
-        //    catch(Exception ex)
-        //    {
-        //        MessageBox.Show("Error: " + ex.Message);
-        //    }
-
-        //    return estado;
-        //}
-
-
+     
 
         public DataTable CargarGridoCmb(string sql)
         {
@@ -219,11 +190,7 @@ namespace DataAccess
             return decimal.TryParse(txtbox, out decimal valor);
         }
 
-        //public bool isnumeric(string txtbox)
-        //{
-        //    return int.TryParse(txtbox, out int valor);
-
-        //}
+      
 
         public bool esNumero(string txtbox)
         {

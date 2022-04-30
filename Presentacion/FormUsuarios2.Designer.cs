@@ -127,6 +127,7 @@
             // linklblperfil
             // 
             this.linklblperfil.AutoSize = true;
+            this.linklblperfil.LinkColor = System.Drawing.Color.White;
             this.linklblperfil.Location = new System.Drawing.Point(102, 443);
             this.linklblperfil.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.linklblperfil.Name = "linklblperfil";

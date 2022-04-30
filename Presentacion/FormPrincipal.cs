@@ -79,10 +79,18 @@ namespace Presentacion
             ControlPaint.DrawSizeGrip(e.Graphics, Color.Transparent, sizeGripRectangle);
         }
 
+
+
+        private void btnexit_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
+
         private void btnCerrar_Click(object sender, EventArgs e)
         {
             Application.Exit();
         }
+
         //Capturar posicion y tamaño antes de maximizar para restaurar
         int lx, ly;
         int sw, sh;
@@ -177,6 +185,8 @@ namespace Presentacion
         private extern static void SendMessage(System.IntPtr hWnd, int wMsg, int wParam, int lParam);
 
       
+
+
 
 
 
