@@ -26,7 +26,7 @@ namespace Presentacion
             InitializeComponent();
             cargarComboLugar();
             CrearControl(1);
-           
+            btnacumulado.Visible = false; btnIndAcum.Visible = false;
         }
 
 
@@ -55,14 +55,14 @@ namespace Presentacion
                 case 2:
                     tabControl1.TabPages.Add(tabpg2);
                     tabControl1.TabPages.Remove(tabPage3);
-                    datagridListado.DataSource = electricidad.CargaListadoElectricidad(zona, idCliente, 1);
+                    datagridListado.DataSource = electricidad.CargaListadoElectricidad(zona, idCliente,0, 1);
                     datagridListado.Columns[0].Visible = false;
                     break;
 
                 case 3:
                     tabControl1.TabPages.Add(tabPage3);
                     tabControl1.TabPages.Remove(tabpg2);
-                    dataGridZona.DataSource = electricidad.CargaListadoElectricidad(zona, 0, 2);
+                    dataGridZona.DataSource = electricidad.CargaListadoElectricidad(zona, 0,0, 2);
                     dataGridZona.Columns[0].Visible = false;
                     break;
             }
@@ -121,6 +121,8 @@ namespace Presentacion
             CrearControl(1);
         }
 
+      
+
         private void btnBuscar_Click_1(object sender, EventArgs e)
         {
             Recargar();
@@ -143,7 +145,7 @@ namespace Presentacion
                 {
                     btnZona.Enabled = false;
             
-                    if (electricidad.CargaListadoElectricidad(zona, 0, 2).Rows.Count != 0) 
+                    if (electricidad.CargaListadoElectricidad(zona, 0,0, 2).Rows.Count != 0) 
                     {
                         datagridLocalCli.DataSource = "";
                         btnZona.Enabled = true; 
@@ -152,12 +154,17 @@ namespace Presentacion
 
                     }
 
-              
+                    if (electricidad.botonesAcumulados(0, 0, 0, zona, 2) && electricidad.NumeroEstados(zona, 0, 1) > 1)
+                    {
+                        btnacumulado.Visible = true;
+                    }
+                    else { btnacumulado.Visible = false; }
+
                 }
             }
         }
 
-     
+      
 
         private void cargarComboLugar()
         {
@@ -183,13 +190,13 @@ namespace Presentacion
                     numero = int.Parse(datagridLocalCli.CurrentRow.Cells[2].Value.ToString());
                     idCliente = int.Parse(datagridLocalCli.CurrentRow.Cells[3].Value.ToString());
 
-                    if(electricidad.CargaListadoElectricidad(zona, idCliente, 1).Rows.Count != 0)
+                    if(electricidad.CargaListadoElectricidad(zona, idCliente,0, 1).Rows.Count != 0)
                     { 
                       btnIndiv.Enabled = true;
                       CrearControl(2);
                       LlamarTab(tabpg2);
                     }
-                                
+                    if (electricidad.botonesAcumulados(idLocal, idCliente, 0, "", 1)) { btnIndAcum.Visible = true; } else { btnIndAcum.Visible = false; }
                 }
                 else
                 {
@@ -202,11 +209,7 @@ namespace Presentacion
      
 
 
-        private string Calculos( decimal consum)
-        {
-            var Localmd = new LocalModel(idLocal: idLocal, acumulado: consum);
-            return Localmd.ActualizarAcumulado();
-        }
+     
 
         private void btnIndiv_Click(object sender, EventArgs e)
         {
@@ -214,9 +217,15 @@ namespace Presentacion
             { 
                 decimal import = electricidad.ImporteTotalPot(fecha1, fecha2, idLocal, idCliente, milugar, consumo) + electricidad.ImporteTotalEnerg(fecha1, fecha2, idLocal, idCliente, consumo);
                 string mensaje = electricidad.EditarImporteIndividual(idElectrico, import);
-                MessageBox.Show(mensaje);
-                string mensaje2 = Calculos(consumo);
-                MessageBox.Show(mensaje2);
+                if (mensaje.Substring(0, 1) == "I")
+                {
+                    MessageBox.Show(mensaje);
+                    btnIndAcum.Visible = true; LlamarTab(tabPage1);
+                }
+                else
+                {
+                    MessageBox.Show(mensaje);
+                }
             }
             else
             { MessageBox.Show("Selecciona un registro"); }
@@ -234,7 +243,7 @@ namespace Presentacion
                     fecha2 = DateTime.Parse(datagridListado.CurrentRow.Cells[6].Value.ToString());
                     consumo = decimal.Parse(datagridListado.CurrentRow.Cells[10].Value.ToString());
                     miImporte = decimal.Parse(datagridListado.CurrentRow.Cells[9].Value.ToString());
-                    if (miImporte != 0) { btnIndiv.Enabled = false; }
+                    if (miImporte != 0) { btnIndiv.Enabled = false; btnIndAcum.Visible = true; }
                     
                 }
                 else
@@ -251,12 +260,51 @@ namespace Presentacion
             if (cmbLugar.SelectedIndex == -1) { MessageBox.Show("Selecciona un lugar"); cmbLugar.Focus(); return; }
 
             string mensaje=electricidad.EditarImporteZona(zona);
-            MessageBox.Show(mensaje);
-            electricidad.EditarAcumuladoZona(zona);
+
+            if (mensaje.Substring(0, 1) == "A")
+            {
+                MessageBox.Show(mensaje);
+                btnacumulado.Visible = true; LlamarTab(tabPage1);
+            }
+            else
+            {
+                MessageBox.Show(mensaje);
+            }
+            
             Recargar();
         }
 
 
+        private string Calculos(decimal consum)
+        {
+            var Localmd = new LocalModel(idLocal: idLocal, acumulado: consum);
+            return Localmd.ActualizarAcumulado();
+        }
+
+        private void btnIndAcum_Click(object sender, EventArgs e)
+        {
+            decimal consumo = localModel.GetConsumo(idLocal, idCliente);
+            string mensaje2 = Calculos(consumo);
+            MessageBox.Show(mensaje2);
+            if (mensaje2.Substring(0, 1) == "A")
+            {
+                btnIndAcum.Visible = false;
+            }
+            else { btnIndAcum.Visible = true; }
+        }
+
+
+        private void btnacumulado_Click(object sender, EventArgs e)
+        {
+            string mensaje = electricidad.EditarAcumuladoZona(zona);
+
+            MessageBox.Show(mensaje);
+            if (mensaje.Substring(0, 1) == "A")
+            {
+                btnacumulado.Visible = false;
+            }
+            else { btnacumulado.Visible = true; }
+        }
 
     }
 }

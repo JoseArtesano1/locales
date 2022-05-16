@@ -161,7 +161,7 @@ namespace Domain
 
         public List<string> CargaConsulta2()
         {
-            return metodos.CreaLista<string>( "VACIOS", "CARTERA");
+            return metodos.CreaLista<string>( "VACIOS", "CARTERA", "ELECTRICIDAD");
         }
 
 

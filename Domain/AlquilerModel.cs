@@ -180,7 +180,7 @@ namespace Domain
 
         public DateTime FechaContrato(int idlo, int idc)
         {
-            return metodos.GetFecha("select fechaIni from Alquiler where idLoc=" + idlo + "and idCl=" + idc + ";", 0);
+            return metodos.GetFecha("select fechaIni from Alquiler where idLoc=" + idlo + " and idCl=" + idc + ";", 0);
         }
 
         public int GetNumero(int id)
@@ -253,7 +253,7 @@ namespace Domain
 
         public DataTable ConsultaElectricidad(int cliente, int lugar)
         {
-           return metodos.CargarGridoCmb("select idElectricidad as id,  numero as Trastero,  fechaInicio as Inicio, fechaFin as Fin, DATEDIFF(day, fechaInicio, fechaFin)/30 as Meses, (consumo-acumulado) as Gasto,  consumo, importe as Importe from Electricidad,Locales,Clientes where idLocal=idLoca  and idCliente=idCli and idLug=" + lugar + "and idCli=" + cliente + ";");
+           return metodos.CargarGridoCmb("select idElectricidad as id,  numero as Trastero,  fechaInicio as Inicio, fechaFin as Fin, DATEDIFF(day, fechaInicio,fechaFin)/30 as Meses, (consumo-acumulado) as Gasto,  consumo, importe as Importe from Electricidad,Locales,Clientes where idLocal=idLoca  and idCliente=idCli and idLug=" + lugar + "and idCli=" + cliente + ";");
         }
 
         public DataTable ConsultaTelefono(int id)
@@ -284,13 +284,13 @@ namespace Domain
         }
 
 
-        public string NuevaFactura(string carpeta, string archivo, string nombre, string dir, string dni, string lugar, double importe, DateTime fecha, int numero)
+        public string NuevaFactura(string carpeta, string archivo, string nombre, string dir, string dni, string lugar, double importe, DateTime fecha, int numero, int nlocal)
         {
             try
             {
                 if (System.IO.File.Exists(carpeta + archivo))
                 {
-                    excels.GenerarExcelIndividual(carpeta, archivo, nombre,dir,dni, lugar, importe, fecha, numero);
+                    excels.GenerarExcelIndividual(carpeta, archivo, nombre,dir,dni, lugar, importe, fecha, numero, nlocal);
                     return "factura generada";
                 }
                 else

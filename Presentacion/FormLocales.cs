@@ -130,12 +130,12 @@ namespace Presentacion
             }
         }
 
-        private void btnlugar_Click(object sender, EventArgs e)
+        private void  btnlugar_Click(object sender, EventArgs e)
         {
             if (txtlugar.Text == "") { MessageBox.Show("Introducce un número"); txtlugar.Focus(); return; }
 
             var lugar = new LugarModel(nombreLugar: txtlugar.Text);
-            string mensaje = lugar.NuevoLugarlocal();
+            string mensaje =  lugar.NuevoLugarlocal();
             MessageBox.Show(mensaje);
            
             cargarCmbLugar(); txtlugar.Clear();

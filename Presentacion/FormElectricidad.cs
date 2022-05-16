@@ -26,7 +26,7 @@ namespace Presentacion
             InitializeComponent();
             cargarComboLugar();
             tabControl1.TabPages.Remove(tabPage2);
-          
+            btnActualiZona.Visible = false;
         }
 
         private void txtConsumo_Validating(object sender, CancelEventArgs e)
@@ -73,7 +73,7 @@ namespace Presentacion
         {
             if (e.RowIndex != -1)
             {
-               
+                btnActualiZona.Visible = false;
                 tabControl1.TabPages.Remove(tabPage2);
                 if (datagridLocalCli.CurrentRow.Cells[0].Value.ToString() != "")
                 {
@@ -104,7 +104,7 @@ namespace Presentacion
             if (checkboxEstado.Checked) { MessageBox.Show("No se debe cambiar el estado"); checkboxEstado.Focus(); return; }
             if (DateTime.Compare(dateTimeInicio.Value.Date, dateTimeFin.Value.Date) > 0) 
             { MessageBox.Show("la fecha del inicio debe ser inferior a la fecha final");dateTimeInicio.Focus(); return; }
-            if (DateTime.Compare(alquiler.FechaContrato(idLocal,idCliente), dateTimeInicio.Value.Date) < 0)
+            if (DateTime.Compare(alquiler.FechaContrato(idLocal,idCliente), dateTimeInicio.Value.Date) > 0)
             { MessageBox.Show("la fecha del inicio debe ser mayor a la fecha contrato"); dateTimeInicio.Focus(); return; }
 
             var NuevaElectricidad = new ElectricidadModel(fechaInicio: dateTimeInicio.Value, fechaFin: dateTimeFin.Value, idLoca: idLocal, idCli: idCliente, consumo: decimal.Parse(txtConsumo.Text), estado: checkboxEstado.Checked, importe: 0);
@@ -124,13 +124,10 @@ namespace Presentacion
             {
                 datagridLocalCli.DataSource = electricidad.CargaLocalesClientes("", 0, "", 3, int.Parse(cmbLugar.SelectedValue.ToString()));
                 datagridLocalCli.Columns[0].Visible = false; datagridLocalCli.Columns[3].Visible = false;
+                tabControl1.TabPages.Remove(tabPage2);
 
-                if (electricidad.CargaLocalesClientes("", 0, "", 3, int.Parse(cmbLugar.SelectedValue.ToString())).Rows.Count == 0)
-                {
-                   tabControl1.TabPages.Remove(tabPage2);
-                }
-            
-                    
+                CargarBoton();
+
             }
         }
 
@@ -142,6 +139,8 @@ namespace Presentacion
             dateTimeFin.Value = DateTime.Today;
             btnAlta.Enabled = true;
         }
+
+       
 
         private void btnCerrar_Click(object sender, EventArgs e)
         {
@@ -208,7 +207,37 @@ namespace Presentacion
         }
 
 
+        private void btnActualiZona_Click(object sender, EventArgs e)
+        {
+            if (cmbLugar.SelectedIndex != -1)
+            {
+                string mensaje = electricidad.EditarEstadoZona(int.Parse(cmbLugar.SelectedValue.ToString()));
+                MessageBox.Show(mensaje);
+                if (mensaje.Substring(0, 1) == "A")
+                {
+                    btnActualiZona.Visible = false;
+                }
+                else { btnActualiZona.Visible = true; }
+                Recarga();
+            }
+            else
+            {
+                MessageBox.Show("selecciona un Lugar"); cmbLugar.Focus(); return;
+            }
+        }
 
 
+
+        private void CargarBoton()
+        {
+            if (electricidad.botonesAcumulados(0, 0, int.Parse(cmbLugar.SelectedValue.ToString()), "", 3) && electricidad.NumeroEstados("", int.Parse(cmbLugar.SelectedValue.ToString()), 2) > 1)
+            {
+                btnActualiZona.Visible = true;
+            }
+            else
+            {
+                btnActualiZona.Visible = false;
+            }
+        }
     }
 }

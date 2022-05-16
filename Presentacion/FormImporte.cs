@@ -113,7 +113,7 @@ namespace Presentacion
 
             string carpeta = Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + "/DocumentosLocales/";
             string ruta = "\\FRAS.xlsx";
-            string mensaje = alquiler.NuevaFactura(carpeta, ruta, nombre, direccion, dni, cmbLugar.SelectedValue.ToString(), importe, dateTimePicker1.Value, int.Parse(textBox1.Text));
+            string mensaje = alquiler.NuevaFactura(carpeta, ruta, nombre, direccion, dni, cmbLugar.SelectedValue.ToString(), importe, dateTimePicker1.Value, int.Parse(textBox1.Text),numero);
             MessageBox.Show(mensaje);
             limpiar(); btnIndividual.Visible = false; btnzona.Enabled = true;
         }

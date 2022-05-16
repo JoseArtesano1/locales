@@ -61,6 +61,7 @@
             this.btnCancelar = new System.Windows.Forms.Button();
             this.btneliminar = new System.Windows.Forms.Button();
             this.btnModificar = new System.Windows.Forms.Button();
+            this.btnActualiZona = new System.Windows.Forms.Button();
             this.panel3.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel6.SuspendLayout();
@@ -164,6 +165,7 @@
             // tabPage1
             // 
             this.tabPage1.BackColor = System.Drawing.Color.IndianRed;
+            this.tabPage1.Controls.Add(this.btnActualiZona);
             this.tabPage1.Controls.Add(this.label8);
             this.tabPage1.Controls.Add(this.cmbLugar);
             this.tabPage1.Controls.Add(this.lblAutoriza);
@@ -466,6 +468,19 @@
             this.btnModificar.UseVisualStyleBackColor = false;
             this.btnModificar.Click += new System.EventHandler(this.btnModificar_Click);
             // 
+            // btnActualiZona
+            // 
+            this.btnActualiZona.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnActualiZona.BackColor = System.Drawing.Color.White;
+            this.btnActualiZona.ForeColor = System.Drawing.Color.Black;
+            this.btnActualiZona.Location = new System.Drawing.Point(1190, 106);
+            this.btnActualiZona.Name = "btnActualiZona";
+            this.btnActualiZona.Size = new System.Drawing.Size(168, 73);
+            this.btnActualiZona.TabIndex = 61;
+            this.btnActualiZona.Text = "ESTADO ZONA";
+            this.btnActualiZona.UseVisualStyleBackColor = false;
+            this.btnActualiZona.Click += new System.EventHandler(this.btnActualiZona_Click);
+            // 
             // FormElectricidad
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
@@ -521,5 +536,6 @@
         private System.Windows.Forms.Button btnCancelar;
         private System.Windows.Forms.Button btneliminar;
         private System.Windows.Forms.Button btnModificar;
+        private System.Windows.Forms.Button btnActualiZona;
     }
 }

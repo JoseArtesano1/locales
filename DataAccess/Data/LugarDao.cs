@@ -11,11 +11,12 @@ namespace DataAccess.Data
   public class LugarDao: ConnectionToSql
     {
 
-        public void NuevoLugar(string lugares)
+        public async void  NuevoLugar(string lugares)
         {
             using(var conexion = GetConnection())
             {
-                conexion.Open();
+              //  conexion.Open();
+                await conexion.OpenAsync();
 
                 using(var comando= new SqlCommand())
                 {
@@ -23,7 +24,8 @@ namespace DataAccess.Data
                     comando.CommandText = "Insert into Lugares (nombreLugar) values(@lugar)";
                     comando.Parameters.AddWithValue("@lugar", lugares.ToUpper());
                     comando.CommandType= CommandType.Text;
-                    comando.ExecuteNonQuery();
+                   // comando.ExecuteNonQuery();
+                    await comando.ExecuteNonQueryAsync();
                 }
             }
         }

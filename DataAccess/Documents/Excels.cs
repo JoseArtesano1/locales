@@ -53,7 +53,7 @@ namespace DataAccess.Documents
 
 
         public void GenerarExcelIndividual(string carpeta, string archivo, string nombre, string dire, string dni, string lugar, double importe,
-            DateTime fecha, int numero)
+            DateTime fecha, int numero, int nlocal)
         {
             if (!Directory.Exists(carpeta)) { Directory.CreateDirectory(carpeta); }
 
@@ -70,7 +70,7 @@ namespace DataAccess.Documents
             x.Cells[3, 7] = nombre;
             x.Cells[4, 7] = dire;
             x.Cells[7, 7] = dni;
-            x.Cells[20, 3] = "ALQUILER TRASTERO Nº: " + numero + " EN " + lugar;
+            x.Cells[20, 3] = "ALQUILER TRASTERO Nº: " + nlocal + " EN " + lugar;
             x.Cells[13, 6] = fecha;
             x.Cells[13, 9] = numero + "/" + fecha.ToString("yy"); ;
             x.Cells[20, 10] = importe/iva;

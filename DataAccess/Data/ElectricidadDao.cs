@@ -96,6 +96,24 @@ namespace DataAccess.Data
         }
 
 
+        public void EditarEstadoZona(int idloc)
+        {
+            using (var conexion = GetConnection())
+            {
+                conexion.Open();
+
+                using (var comando = new SqlCommand())
+                {
+                    comando.Connection = conexion;
+                    comando.CommandText = "update Electricidad set estado=1 where idLoca=@idlocal";
+                    comando.Parameters.AddWithValue("@idlocal", idloc);
+                    comando.CommandType = CommandType.Text;
+                    comando.ExecuteNonQuery();
+
+                }
+            }
+        }
+
         public void EditarIndividuoElectricidad(int id, decimal importe)
         {
             using (var conexion = GetConnection())

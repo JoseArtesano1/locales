@@ -122,13 +122,17 @@ namespace Presentacion
           string mensaje=  cliente.NuevoCliente();
             if (mensaje.Substring(0, 1) == "G")
             {
-                CrearControl(2);
+                MessageBox.Show(mensaje);
+                CrearControl(2); LlamarTab(tabPage2);
             }
-            MessageBox.Show(mensaje);
-
+            else
+            {
+                MessageBox.Show(mensaje);
+            }
+  
             Recarga();
             dataGridcontacto.DataSource = "";
-            LlamarTab(tabPage2);
+           
         }
 
 
@@ -293,11 +297,14 @@ namespace Presentacion
             string mensaje = correoMovil.NuevoTelefono();
             if (mensaje.Substring(0, 1) == "C")
             {
-                CrearControl(3);
+                MessageBox.Show(mensaje);
+                CrearControl(3); LlamarTab(tabPage3);
             }
-            MessageBox.Show(mensaje);
+            else { MessageBox.Show(mensaje); }
+
+          
             RecargaTelefono(idCliente);
-            LlamarTab(tabPage3);
+           
         }
 
 

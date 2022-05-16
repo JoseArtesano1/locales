@@ -38,7 +38,7 @@ namespace Domain
             {
                 if (!metodos.Existe("select * from Lugares where nombreLugar='" + nombreLugar + "';"))
                 {
-                    lugarDao.NuevoLugar(nombreLugar);
+                      lugarDao.NuevoLugar(nombreLugar);
                     return "Guardado";
                 }
                 else

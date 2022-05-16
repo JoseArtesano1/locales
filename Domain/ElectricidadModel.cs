@@ -60,7 +60,7 @@ namespace Domain
             {  //comprobamos el acumulado
                 if(metodos.ObtenerNumero("select * from Locales where idLocal=" + idLoca + ";", 2)!= 0){
 
-                    if (!metodos.Existe("select * from Electricidad where fechaInicio <= '" + fechaInicio + "'and idLoca=" + idLoca + ";") && !(metodos.ObtenerNumero("select * from Locales where idLocal=" + idLoca + ";", 2) > consumo))
+                    if (!metodos.Existe("select * from Electricidad where fechaInicio >= '" + fechaInicio + "'and idLoca=" + idLoca + ";") && !(metodos.ObtenerNumero("select * from Locales where idLocal=" + idLoca + ";", 2) > consumo))
                     {
                         electricidadDao.NuevoElectricidad(fechaInicio, fechaFin, idLoca, idCli, consumo, estado, importe);
 
@@ -165,17 +165,19 @@ namespace Domain
         }
 
 
-        public DataTable CargaListadoElectricidad(string luga, int idcliente, int opcion)
+        public DataTable CargaListadoElectricidad(string luga, int idcliente, int idlug, int opcion)
         {
-            if (opcion == 1)
+            switch (opcion)
             {
-                return metodos.CargarGridoCmb("select idElectricidad as id, nombreLugar as Lugar, numero, nombre, estado, fechaInicio as Inicio, fechaFin as Fin, DATEDIFF(day, fechaInicio, fechaFin)/30 as plazo, (consumo-acumulado) as Gasto, importe, consumo from Electricidad,Locales,Clientes,Lugares where idLocal=idLoca  and idCliente=idCli and idLugar=idLug and activo=1 and importe=0 and nombreLugar='" + luga + "'and idCli=" + idcliente + ";");
+                case 1:
+                    return metodos.CargarGridoCmb("select idElectricidad as id, nombreLugar as Lugar, numero, nombre, estado, fechaInicio as Inicio, fechaFin as Fin, DATEDIFF(day, fechaInicio,fechaFin)/30 as plazo, (consumo-acumulado) as Gasto, importe as Importe, consumo from Electricidad,Locales,Clientes,Lugares where idLocal=idLoca  and idCliente=idCli and idLugar=idLug and activo=1 and importe=0 and nombreLugar='" + luga + "'and idCli=" + idcliente + ";");
+
+                case 2:
+                    return metodos.CargarGridoCmb("select idElectricidad as id, nombreLugar as Lugar, numero, nombre, estado, fechaInicio as Inicio, fechaFin as Fin, DATEDIFF(day, fechaInicio,fechaFin )/30 as plazo, (consumo-acumulado) as Gasto, importe as Importe from Electricidad,Locales,Clientes,Lugares where idLocal=idLoca  and idCliente=idCli and idLugar=idLug and activo=1 and importe=0 and nombreLugar='" + luga + "';");
             }
-            else
-            {
-                return metodos.CargarGridoCmb("select idElectricidad as id, nombreLugar as Lugar, numero, nombre, estado, fechaInicio as Inicio, fechaFin as Fin, DATEDIFF(day, fechaInicio, fechaFin)/30 as plazo, (consumo-acumulado) as Gasto, importe from Electricidad,Locales,Clientes,Lugares where idLocal=idLoca  and idCliente=idCli and idLugar=idLug and activo=1 and importe=0 and nombreLugar='" + luga + "';");
-            }
- 
+
+            return metodos.CargarGridoCmb("select numero as Trastero, nombre as Cliente,  fechaInicio as Inicio, fechaFin as Fin, DATEDIFF(day, fechaInicio,fechaFin) / 30 as Plazo, (consumo - acumulado) as Gasto, importe as Importe, estado from Electricidad, Locales, Clientes where idLocal = idLoca  and idCliente = idCli  and idLug = " + idlug + "; ");
+
         }
 
 
@@ -188,13 +190,16 @@ namespace Domain
 
         //OBTENER TODOS LOS DE UNA ZONA CON IMPORTE 0
 
-        public DataTable CargaParaPotencia(string luga, int opcion)
+        public DataTable CargaParaPotencia(string luga, int idlugar, int opcion)
         {
-            if (opcion == 1)
+            switch(opcion)
             {
+                case 1:
                 return metodos.CargarGridoCmb("select idElectricidad, idLoca, idCli, fechaInicio, fechaFin, consumo,idLug from Electricidad,Locales,Clientes,Lugares where idLocal=idLoca  and idCliente=idCli and idLugar=idLug and activo=1 and importe= 0 and nombreLugar='" + luga + "';");
+                case 2:
+                    return metodos.CargarGridoCmb("select idElectricidad, idLoca, consumo, idLug from Electricidad,Locales, Clientes,Lugares where idLocal=idLoca  and idCliente=idCli and idLugar=idLug and consumo >acumulado and activo=1 and importe >0 and estado=1 and nombreLugar='" + luga + "';");
             }
-            return metodos.CargarGridoCmb("select idElectricidad, idLoca, consumo, idLug from Electricidad,Locales, Clientes,Lugares where idLocal=idLoca  and idCliente=idCli and idLugar=idLug and activo=1 and nombreLugar='" + luga + "';");
+            return metodos.CargarGridoCmb("select idElectricidad, idLoca, idLug, estado from Electricidad, Locales where idLocal=idLocal and importe >0  and estado=0 and idLug=" + idlugar + ";");
 
         }
 
@@ -387,15 +392,23 @@ namespace Domain
 
        //POR ZONA
 
-        public void EditarAcumuladoZona(string lugares)
+        public string EditarAcumuladoZona(string lugares)
         {
-            var tabla = CargaParaPotencia(lugares,2);
-            for (int i = 0; i < tabla.Rows.Count; i++)
+            if (metodos.Existe("select*from Electricidad, Locales, Lugares where idLoca=idLocal and idLug=idLugar and estado=1 and nombreLugar='" + lugares + "';"))
             {
-                int idlocal = int.Parse(tabla.Rows[i]["idLoca"].ToString());
-                int idlug = int.Parse(tabla.Rows[i]["idLug"].ToString());
-                decimal cons = decimal.Parse(tabla.Rows[i]["consumo"].ToString());
-                localDao.EditarLocalAcumladoZona(idlug, cons, idlocal);
+                var tabla = CargaParaPotencia(lugares, 0, 2);
+                for (int i = 0; i < tabla.Rows.Count; i++)
+                {
+                    int idlocal = int.Parse(tabla.Rows[i]["idLoca"].ToString());
+                    int idlug = int.Parse(tabla.Rows[i]["idLug"].ToString());
+                    decimal cons = decimal.Parse(tabla.Rows[i]["consumo"].ToString());
+                    localDao.EditarLocalAcumladoZona(idlug, cons, idlocal);
+                }
+                return "Acumulado actualizado";
+            }
+            else
+            {
+                return "Debe cambiar el estado Electricidad";
             }
             
         }
@@ -404,7 +417,7 @@ namespace Domain
         {
             try
             {    
-                var tabla = CargaParaPotencia(lugares,1);
+                var tabla = CargaParaPotencia(lugares,0,1);
                 for (int i = 0; i < tabla.Rows.Count; i++)
                 {
                    DateTime fecha1= DateTime.Parse( tabla.Rows[i]["fechaInicio"].ToString());
@@ -445,5 +458,50 @@ namespace Domain
             }
         }
 
+
+        public bool botonesAcumulados(int idlocal, int idcliente, int idLug, string zona, int opcion)
+        {
+            switch (opcion)
+            {
+                case 1:
+                    return metodos.Existe("select * from Electricidad,Locales where idLoca=idLocal and consumo >acumulado and importe >0 and estado=1 and idLoca=" + idlocal + " and idCli=" + idcliente + ";");
+                case 2:
+                    return metodos.Existe("select * from Electricidad, Locales, Lugares where idLoca=idLocal and idLug=idLugar and consumo >acumulado and importe >0 and estado=1 and nombreLugar='" + zona + "';");
+            }
+            return metodos.Existe("select * from Electricidad, Locales where idLoca=idLocal  and importe >0 and estado=0 and idLug=" + idLug + ";");
+
+        }
+
+
+        public int NumeroEstados(string zona, int idlug, int opcion)
+        {
+            if (opcion == 1)
+            {
+                return metodos.ObtenerInt("select count(idElectricidad) from Electricidad,Locales, Lugares where idLoca=idLocal and idLug=idLugar and importe >0 and estado=1 and nombreLugar='" + zona + "';", 0);
+            }
+            else
+            {
+                return metodos.ObtenerInt("select count(idElectricidad) from Electricidad,Locales where idLoca=idLocal and importe >0 and estado=0 and idLug=" + idlug + ";", 0);
+            }
+
+        }
+
+        public string EditarEstadoZona(int idLugar)
+        {
+            try
+            {
+                var tabla = CargaParaPotencia("", idLugar, 3);
+                for (int i = 0; i < tabla.Rows.Count; i++)
+                {
+                    int idlocal = int.Parse(tabla.Rows[i]["idLoca"].ToString());
+                    electricidadDao.EditarEstadoZona(idlocal);
+                }
+                return "Actualizado Estado";
+            }
+            catch (Exception ex)
+            {
+                return "Estado sin Actualizar";
+            }
+        }
     }
 }

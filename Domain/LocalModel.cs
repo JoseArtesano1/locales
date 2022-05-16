@@ -58,7 +58,7 @@ namespace Domain
             {
                 if(!metodos.Existe("Select * from Locales where numero= " + numero + "and idLug=" + idLug + ";"))
                 {
-                    localDao.NuevoLocal( numero, acumulado, idLug);
+                   localDao.NuevoLocal( numero, acumulado, idLug);
                     return "Guardado";
                 }
                 else
@@ -153,8 +153,11 @@ namespace Domain
         }
 
 
+        public decimal GetConsumo(int idl, int idc)
+        {
+            return metodos.ObtenerNumero("select consumo from Electricidad where estado=1 and importe>0 and idLoca=" + idl + " and idCli=" + idc + ";", 0);
+        }
 
-       
 
 
     }

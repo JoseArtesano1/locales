@@ -172,7 +172,8 @@
             // 
             // grupboxDatos
             // 
-            this.grupboxDatos.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.grupboxDatos.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.grupboxDatos.Controls.Add(this.btnModificar);
             this.grupboxDatos.Controls.Add(this.btnCancelar);
             this.grupboxDatos.Controls.Add(this.txtConfirm);

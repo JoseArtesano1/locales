@@ -80,7 +80,7 @@ namespace Presentacion
         {
             if (cmbZonas.SelectedIndex != -1)
             {   
-                cmbConsulta2.SelectedIndex = -1; dataGridDatos.DataSource = "";
+                cmbConsulta2.SelectedIndex = -1; dataGridDatos.DataSource = ""; idCliente = 0; cmbConsulta.SelectedIndex = -1;
                
                 if (rdbtnZona.Checked == true) { cmbConsulta2.Visible = true; lblInfZona.Visible = true;  }
                 datagridConsultas.DataSource = alquiler.ConsultaCliente(int.Parse(cmbZonas.SelectedValue.ToString()));
@@ -151,6 +151,10 @@ namespace Presentacion
                     dataGridDatos.DataSource = alquiler.ConsultaCartera(int.Parse(cmbZonas.SelectedValue.ToString()));
                     dataGridDatos.Columns[0].Visible = false;
                     break;
+
+                case 2:
+                    dataGridDatos.DataSource = electricidad.CargaListadoElectricidad("", 0, int.Parse(cmbZonas.SelectedValue.ToString()), 3);
+                    break;
             }
         }
 
@@ -169,6 +173,7 @@ namespace Presentacion
                 Recarga(); 
                 datagridConsultas.Visible = false; lblconsulta.Visible = false;
                 dataGridDatos.Location = new Point(55, 80); lbldato.Location = new Point(32, 58);
+                dataGridDatos.Height = 325;
                 dataGridDatos.Visible = true; lbldato.Visible = true;
                 EditCtl(cmbZonas, true, cmbConsulta, false, lblzona, lblInformar);
                
@@ -176,7 +181,7 @@ namespace Presentacion
             else
             {
                 datagridConsultas.Visible = true; lblconsulta.Visible = true;
-
+                dataGridDatos.Height = 100;
             }
         }
 
@@ -188,14 +193,14 @@ namespace Presentacion
             {
                 Recarga();
                 datagridConsultas.Visible = true; lblconsulta.Visible = true;
+                datagridConsultas.Height = 250; dataGridDatos.Height = 100;
                 dataGridDatos.Location = new Point(90, 410); lbldato.Location = new Point(65, 385);
                 dataGridDatos.Visible = true; lbldato.Visible = true; lbldato.Text = "DATOS";
                 EditCtl(cmbZonas, true, cmbConsulta2, false, lblzona, lblInfZona);
                
             }
             else
-            {
-              
+            {              
                 datagridConsultas.Visible = false; lblconsulta.Visible = false;
             }
         }

@@ -146,7 +146,7 @@ namespace DataAccess
 
         public void InsertStartData()
         {
-            string valor = GetSHA256("");
+            string valor = GetSHA256("123ja$");
             using (SqlConnection conexion = GetConnection())
             {
                 conexion.Open();

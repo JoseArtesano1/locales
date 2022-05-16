@@ -241,6 +241,7 @@
             this.btnlugar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnlugar.BackColor = System.Drawing.Color.White;
             this.btnlugar.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnlugar.ForeColor = System.Drawing.Color.Black;
             this.btnlugar.Location = new System.Drawing.Point(465, 136);
             this.btnlugar.Name = "btnlugar";
             this.btnlugar.Size = new System.Drawing.Size(168, 46);
