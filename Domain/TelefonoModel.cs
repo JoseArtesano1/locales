@@ -45,7 +45,7 @@ namespace Domain
             {
                 if (!metodos.Existe("select * from Telefono where movil=" + movil + ";"))
                 {
-                    if(!metodos.Existe("select * from Telefono where email='" + email + "';"))
+                    if(!metodos.Existe("select * from Telefono where email!='' and email='" + email + "';"))
                     {                      
                             clienteDao.NuevoTelefonoEmail(movil, idClient, email );
                             return "Creado";

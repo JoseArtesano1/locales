@@ -630,7 +630,7 @@
             this.datagridLocales.Size = new System.Drawing.Size(563, 510);
             this.datagridLocales.TabIndex = 6;
             this.datagridLocales.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.datagridLocales_CellClick);
-            this.datagridLocales.SelectionChanged += new System.EventHandler(this.datagridLocales_SelectionChanged);
+          
             // 
             // btnModificar
             // 

@@ -39,6 +39,8 @@ namespace Presentacion
             else
             {
                 tabControl1.TabPages.Add(tabPage2);
+                dataGridpotencia.DataSource = energiaModel.CargaPotenciaEnergia(idLugar);
+                dataGridpotencia.Columns[0].Visible = false;
             }
         }
 
@@ -130,13 +132,13 @@ namespace Presentacion
             }
         }
 
-        private void  btnlugar_Click(object sender, EventArgs e)
+        private  void  btnlugar_Click(object sender, EventArgs e)
         {
             if (txtlugar.Text == "") { MessageBox.Show("Introducce un número"); txtlugar.Focus(); return; }
 
             var lugar = new LugarModel(nombreLugar: txtlugar.Text);
-            string mensaje =  lugar.NuevoLugarlocal();
-            MessageBox.Show(mensaje);
+          string mensaje =  lugar.NuevoLugarlocal();
+            MessageBox.Show( mensaje);
            
             cargarCmbLugar(); txtlugar.Clear();
             cargarGrupbox();
@@ -237,14 +239,7 @@ namespace Presentacion
                 
         }
 
-        private void datagridLocales_SelectionChanged(object sender, EventArgs e)
-        {
-            if (datagridLocales.SelectedRows != null)
-            {
-                dataGridpotencia.DataSource = energiaModel.CargaPotenciaEnergia(idLugar);
-                dataGridpotencia.Columns[0].Visible = false;
-            }
-        }
+       
 
         private void btnCancelarAlta_Click(object sender, EventArgs e)
         {

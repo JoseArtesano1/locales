@@ -46,12 +46,16 @@ namespace Presentacion
                 case 2:
                     tabControl1.TabPages.Add(tabPage2);
                     tabControl1.TabPages.Remove(tabPage3);
+                    dataGridcontacto.DataSource = telefonoModel.CargarTablaTef(idCliente);
+                    dataGridcontacto.Columns[0].Visible = false;
                     break;
 
                 case 3:
                    
                     tabControl1.TabPages.Add(tabPage3);
                     cargarComboLugar();
+                    dataGridAlquiler.DataSource = alquiler.CargarTablaAlquiler(idCliente);
+                    dataGridAlquiler.Columns[0].Visible = false; dataGridAlquiler.Columns[5].Visible = false;
                     break;
 
                 case 4:
@@ -176,20 +180,7 @@ namespace Presentacion
         }
 
 
-        private void datagridClientes_SelectionChanged(object sender, EventArgs e)
-        {
-            if (datagridClientes.SelectedRows != null)
-            {
-                dataGridcontacto.DataSource = telefonoModel.CargarTablaTef(idCliente);
-                dataGridcontacto.Columns[0].Visible = false;
-                dataGridAlquiler.DataSource = alquiler.CargarTablaAlquiler(idCliente);
-                dataGridAlquiler.Columns[0].Visible = false; dataGridAlquiler.Columns[5].Visible = false;
-              
-             
-            }
-
-        }
-
+      
 
         private void btnModificar_Click(object sender, EventArgs e)
         {
@@ -283,7 +274,7 @@ namespace Presentacion
             {
                 if (!telefonoModel.emailOk(txtcorreo.Text))
                 {
-                    MessageBox.Show("Introduce un correo"); e.Cancel = true;
+                    MessageBox.Show("Introduce un correo"); //e.Cancel = true;
                 }
             }
         }

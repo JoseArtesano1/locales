@@ -239,7 +239,7 @@
             this.datagridClientes.Size = new System.Drawing.Size(567, 540);
             this.datagridClientes.TabIndex = 6;
             this.datagridClientes.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.datagridClientes_CellClick);
-            this.datagridClientes.SelectionChanged += new System.EventHandler(this.datagridClientes_SelectionChanged);
+            
             // 
             // btnModificar
             // 
