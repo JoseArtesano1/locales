@@ -200,6 +200,8 @@ namespace Domain
                     decimal acumulado= metodos.ObtenerNumero("select * from Locales where idLocal=" + idlocal + ";", 2);
 
                     texto.GenerarWordContrato(nombre, direccion, dni, lugar, numero, fechaIni, fianza, importe, telefono, correo, acumulado,ruta);
+                   
+
                     return "contrato creado";
                 }
                 else

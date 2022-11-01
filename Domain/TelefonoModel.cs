@@ -39,14 +39,15 @@ namespace Domain
             this.email = email;
         }
 
-        public string NuevoTelefono()
+        public string NuevoTelefono(string dni)
         {
             try
             {
                 if (!metodos.Existe("select * from Telefono where movil=" + movil + ";"))
                 {
                     if(!metodos.Existe("select * from Telefono where email!='' and email='" + email + "';"))
-                    {                      
+                    {
+                        int idCliente = metodos.ObtenerInt("select* from Clientes where dni='" + dni + "';", 0);
                             clienteDao.NuevoTelefonoEmail(movil, idClient, email );
                             return "Creado";
                     }

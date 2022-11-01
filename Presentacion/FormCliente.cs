@@ -53,7 +53,7 @@ namespace Presentacion
                 case 3:
                    
                     tabControl1.TabPages.Add(tabPage3);
-                    cargarComboLugar();
+                    cargarComboLugar(); cmbNumero.SelectedIndex = -1;
                     dataGridAlquiler.DataSource = alquiler.CargarTablaAlquiler(idCliente);
                     dataGridAlquiler.Columns[0].Visible = false; dataGridAlquiler.Columns[5].Visible = false;
                     break;
@@ -127,7 +127,7 @@ namespace Presentacion
             if (mensaje.Substring(0, 1) == "G")
             {
                 MessageBox.Show(mensaje);
-                CrearControl(2); LlamarTab(tabPage2);
+                CrearControl(2); LlamarTab(tabPage2); lblCliente.Text = txtnombre.Text;
             }
             else
             {
@@ -174,6 +174,7 @@ namespace Presentacion
                 }
                 else
                 {
+                    CrearControl(1); Recarga(); btnAltaCliente.Enabled = true;
                     MessageBox.Show("Selecciona un cliente");
                 }
             }
@@ -285,7 +286,7 @@ namespace Presentacion
    
             var correoMovil = new TelefonoModel(movil: int.Parse(textmovil.Text), idClient: idCliente, email: txtcorreo.Text);
 
-            string mensaje = correoMovil.NuevoTelefono();
+            string mensaje = correoMovil.NuevoTelefono(txtdni.Text);
             if (mensaje.Substring(0, 1) == "C")
             {
                 MessageBox.Show(mensaje);
@@ -476,9 +477,10 @@ namespace Presentacion
 
             string carpeta = Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + "/DocumentosLocales/";
             if (!Directory.Exists(carpeta)) { Directory.CreateDirectory(carpeta); }
-            string ruta1 = carpeta + "\\contrato1.docx";
-            string ruta2 = carpeta + "\\contrato2.docx";
-            
+            string ruta1 = carpeta + "\\contrato1.docx"; 
+            string ruta2 = carpeta + "\\contrato2.docx"; 
+           
+
             var NuevoAlquiler = new AlquilerModel(fechaIni: datepickerFechaIn.Value.Date, fianza: int.Parse (txtfianza.Text), importe: decimal.Parse(txtImporte.Text), observaciones: richtextObserv.Text, idLoc:  cmbNumero.SelectedValue.GetHashCode(), idCl: idCliente, modelo: checkImp.Checked);
 
               string mensaje = NuevoAlquiler.NuevoAlquiler();
@@ -499,6 +501,7 @@ namespace Presentacion
                 MessageBox.Show(resultado1);
             }
             RecargaAlquiler(idCliente);
+            CrearControl(1);
         }
 
 
@@ -572,6 +575,7 @@ namespace Presentacion
                 MessageBox.Show(mensaje);
                 RecargaAlquiler(idCliente);
                 btnaltaAlq.Enabled = true;
+                CrearControl(1);
             }
         }
 

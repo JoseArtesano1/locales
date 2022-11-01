@@ -7,6 +7,7 @@ using System.IO;
 using objWord = Microsoft.Office.Interop.Word;
 using Common.Cache;
 
+
 namespace DataAccess.Documents
 {
    public class Texto 

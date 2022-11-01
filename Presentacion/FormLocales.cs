@@ -228,10 +228,12 @@ namespace Presentacion
                     Recarga2(idLugar);
                     btnAltaLocal.Enabled = false;
                     btnlugar.Enabled = false;
+                    btnAltaPot.Enabled = true;
                     CrearPag(2);
                 }
                 else
                 {
+                    CrearPag(1); Recarga(); btnlugar.Enabled = true;
                     MessageBox.Show("Selecciona un local");
                 }
             
