@@ -8,6 +8,24 @@ using System.Threading.Tasks;
 
 namespace DataAccess.Data
 {
+    //clase para compensar periodos
+    public class ObjetoAuxiliar
+    {
+        public DateTime fecha;
+        public decimal gasto;
+
+        public ObjetoAuxiliar(DateTime fecha, decimal gasto)
+        {
+            this.fecha = fecha;
+            this.gasto = gasto;
+        }
+
+        public ObjetoAuxiliar()
+        {
+
+        }
+    }
+
     public class ElectricidadDao: ConnectionToSql
     {
 
@@ -147,6 +165,50 @@ namespace DataAccess.Data
                     comando.ExecuteNonQuery();
                 }
             }
+        }
+
+
+        public decimal listaCompensacion(string lugar, DateTime f1, DateTime f2, int posicion, decimal tiempo)
+        {
+            ObjetoAuxiliar objetoList = new ObjetoAuxiliar();
+            List<ObjetoAuxiliar> listado = new List<ObjetoAuxiliar>();
+            decimal comp = 0;
+            using (var conexion = GetConnection())
+            {
+                conexion.Open();
+
+                using (var comando = new SqlCommand())
+                {
+                    comando.Connection = conexion;
+
+                    comando.CommandText = "select (consumo - acumulado) as energia, fechaInicio from Locales, Electricidad, Lugares where idLocal = idLoca and idLug = idLugar and estado=0 and importe>0 and nombreLugar =@lug and fechaInicio!=@fe1  and fechaFin=@fe2";
+                    comando.Parameters.AddWithValue("@lug", lugar);
+                    comando.Parameters.AddWithValue("@fe2", f2);
+                    comando.Parameters.AddWithValue("@fe1", f1);
+
+                    comando.CommandType = CommandType.Text;
+                    SqlDataReader reader = comando.ExecuteReader();
+
+                    while (reader.Read())
+                    {
+                        ObjetoAuxiliar objeto = new ObjetoAuxiliar();
+
+                        objeto.fecha = reader.GetDateTime(1);
+                        objeto.gasto = reader.GetDecimal(posicion);
+                        listado.Add(objeto);
+                    }
+                }
+
+            }
+
+            decimal dias = 30; 
+            foreach (var i in listado)
+            {
+                decimal annos = (((f2 - i.fecha).Days) / dias) / 12;
+                comp += (i.gasto / annos) * Decimal.Round(tiempo, 00);
+            }
+
+            return Math.Round(comp, 2);
         }
 
     }

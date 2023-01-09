@@ -2,7 +2,6 @@ D:\LOCALES\Locales\Domain\bin\Debug\Domain.dll
 D:\LOCALES\Locales\Domain\bin\Debug\Domain.pdb
 D:\LOCALES\Locales\Domain\bin\Debug\DataAccess.dll
 D:\LOCALES\Locales\Domain\bin\Debug\DataAccess.pdb
-D:\LOCALES\Locales\Domain\obj\Debug\Domain.csprojAssemblyReference.cache
 D:\LOCALES\Locales\Domain\obj\Debug\Domain.csproj.CoreCompileInputs.cache
 D:\LOCALES\Locales\Domain\obj\Debug\Domain.csproj.CopyComplete
 D:\LOCALES\Locales\Domain\obj\Debug\Domain.dll
@@ -49,3 +48,4 @@ D:\LOCALES\Locales\Domain\bin\Debug\System.Memory.xml
 D:\LOCALES\Locales\Domain\bin\Debug\System.Runtime.CompilerServices.Unsafe.xml
 D:\LOCALES\Locales\Domain\bin\Debug\System.Buffers.xml
 D:\LOCALES\Locales\Domain\bin\Debug\System.Numerics.Vectors.xml
+D:\LOCALES\Locales\Domain\obj\Debug\Domain.csproj.AssemblyReference.cache

@@ -215,12 +215,12 @@ namespace Presentacion
         {
             if (idElectrico!=0)
             { 
-                decimal import = electricidad.ImporteTotalPot(fecha1, fecha2, idLocal, idCliente, milugar, consumo) + electricidad.ImporteTotalEnerg(fecha1, fecha2, idLocal, idCliente, consumo);
+                decimal import = electricidad.ImporteTotalPot(fecha1, fecha2, idLocal, idCliente, milugar, consumo) + electricidad.ImporteTotalEnerg(fecha1, fecha2, idLocal, idCliente, consumo,milugar);
                 string mensaje = electricidad.EditarImporteIndividual(idElectrico, import);
                 if (mensaje.Substring(0, 1) == "I")
                 {
                     MessageBox.Show(mensaje);
-                    btnIndAcum.Visible = true; LlamarTab(tabPage1);
+                    btnIndAcum.Visible = true; LlamarTab(tabPage1); CrearControl(1);
                 }
                 else
                 {
@@ -238,6 +238,7 @@ namespace Presentacion
             {
                 if (datagridListado.CurrentRow.Cells[0].Value.ToString() != "")
                 {
+                    btnIndAcum.Visible = false;
                     idElectrico = int.Parse(datagridListado.CurrentRow.Cells[0].Value.ToString());
                     fecha1 = DateTime.Parse(datagridListado.CurrentRow.Cells[5].Value.ToString());
                     fecha2 = DateTime.Parse(datagridListado.CurrentRow.Cells[6].Value.ToString());

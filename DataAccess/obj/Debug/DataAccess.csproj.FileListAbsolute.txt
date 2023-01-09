@@ -1,6 +1,5 @@
 D:\LOCALES\Locales\DataAccess\bin\Debug\DataAccess.dll
 D:\LOCALES\Locales\DataAccess\bin\Debug\DataAccess.pdb
-D:\LOCALES\Locales\DataAccess\obj\Debug\DataAccess.csprojAssemblyReference.cache
 D:\LOCALES\Locales\DataAccess\obj\Debug\DataAccess.csproj.CoreCompileInputs.cache
 D:\LOCALES\Locales\DataAccess\obj\Debug\DataAccess.dll
 D:\LOCALES\Locales\DataAccess\obj\Debug\DataAccess.pdb
@@ -59,3 +58,4 @@ D:\LOCALES\Locales\DataAccess\bin\Debug\System.Numerics.Vectors.xml
 D:\LOCALES\Locales\DataAccess\bin\Debug\System.Runtime.CompilerServices.Unsafe.xml
 D:\LOCALES\Locales\DataAccess\bin\Debug\System.Threading.Tasks.Extensions.xml
 D:\LOCALES\Locales\DataAccess\bin\Debug\System.ValueTuple.xml
+D:\LOCALES\Locales\DataAccess\obj\Debug\DataAccess.csproj.AssemblyReference.cache

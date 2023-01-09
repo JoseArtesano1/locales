@@ -238,66 +238,92 @@ namespace Domain
 
         #region CALCULO IMPORTE
 
-        public decimal ImporteTotalPot(DateTime fecha1, DateTime fecha2, int idl, int idcl, string lugar, decimal consumo)
+
+        public decimal TotalEnergyCompensar(string lugar, DateTime fecha1, DateTime fecha2, decimal tiempo)
         {
-            //listado de fechas finales para contar meses si son distintos años fecha inicial y final
-            DateTime[] fechasFinales = new DateTime[] { new DateTime(2018, 12, 31), new DateTime(2019, 12, 31), new DateTime(2020, 12, 31), new DateTime(2021, 12, 31), new DateTime(2022, 12, 31), new DateTime(2023, 12, 31), new DateTime(2024, 12, 31), new DateTime(2025, 12, 31), new DateTime(2026, 12, 31), new DateTime(2027, 12, 31), new DateTime(2028, 12, 31) };
-           
-            decimal valor = 0;
-            decimal importeFinal = 0, potencia1 = 0, importeInicial = 0, porcentaje = 1;
-
-            //OBTENER EL % DE POTENCIA FINAL DEL CLIENTE, SEGUN EL TOTAL DE ENERGIA DE CADA LUGAR Y LA ENERGIA DE CADA CLIENTE
-            decimal EnergiaTotalLugar = TotalEnergiaActualizado(lugar, fecha1, fecha2);
-            porcentaje = (GastoIndividual(idl, idcl, fecha1, fecha2, consumo) / EnergiaTotalLugar) * 100;
-           // int numerolocales = NumeroLocales(lugar);
-            //LA POTENCIA DEL AÑO DE LA FECHA INICIAL
-                potencia1 = (PotenciaIndividual(lugar, fecha1) * porcentaje)/100;
-        
-           // int diasTotales = metodos.ObtenerDias(fecha1, fecha2, idl, idcl,2);
-           decimal diasTotales= (fecha2 - fecha1).Days;
-            
-            decimal meses = 0; int i=0;
-            decimal mesesFinales = fecha2.Month;
-            //RECORRER FECHAS FINALES COMPARANDO CON LA INICIAL + 1 AÑO PARA OBTENER LOS MESES
-            foreach (var item in fechasFinales)
+            if (metodos.ObtenerNumero("select count(idElectricidad)  from electricidad, Lugares, locales where idLocal=idLoca and idLugar= idLug and estado=0 and nombreLugar='" + lugar + "'and fechaFin=='" + fecha2 + "' and fechaInicio=='" + fecha1 + "';", 0) > 2)
             {
-                if (fecha2 > item && fecha1.Year == item.Year)
-                {
-                    decimal diasInicio = (item - fecha1).Days; 
-                     meses = (diasTotales - diasInicio) / 30;  //meses restantes años intermedios y meses año fecha final
-                    meses = decimal.Round(meses, 2);
-                    if (meses != 0)
-                    {  importeInicial = potencia1 * (diasInicio / 30); }
-                    else { importeInicial = 0; }
+                return electricidadDao.listaCompensacion(lugar, fecha1, fecha2, 0, tiempo);
 
-                }
-             }
-            //PARA AÑOS INTERMEDIOS ENTRE EL AÑO DE FECHA INICIAL Y EL AÑO DE FECHA FINAL
-            decimal mess = decimal.Round(meses, 0);
-            while (mess > 12)
-            {
-                i++;
-                fecha1 = fecha1.AddYears(i);
-                decimal potencia2 = (PotenciaIndividual(lugar, fecha1) * porcentaje)/100;
-                valor += potencia2 * 12;
-                mess -= 12;
-                i--;
             }
 
-            decimal potencia3 = (PotenciaIndividual(lugar, fecha2) * porcentaje)/100;
-            importeFinal = potencia3 * mesesFinales;
+            return 0;
+
+        }
+
+
+            public decimal ImporteTotalPot(DateTime fecha1, DateTime fecha2, int idl, int idcl, string lugar, decimal consumo)
+        {
+            //listado de fechas finales para contar meses si son distintos años fecha inicial y final
+            DateTime[] fechasFinales = new DateTime[] { new DateTime(2018, 12, 31), new DateTime(2019, 12, 31), new DateTime(2020, 12, 31), new DateTime(2021, 12, 31), new DateTime(2022, 12, 31), new DateTime(2023, 12, 31), new DateTime(2024, 12, 31), new DateTime(2025, 12, 31), new DateTime(2026, 12, 31), new DateTime(2027, 12, 31), new DateTime(2028, 12, 31), new DateTime(2029, 12, 31) };
+           
+            decimal importeIntermedio = 0;
+            decimal importeFinal = 0, potencia = 0, importeInicial = 0, porcentaje = 1;
+            decimal diasTotales = (fecha2 - fecha1).Days, mesesFinales;
+            decimal meses = 0; int i = 0;
+
+            //OBTENER EL % DE POTENCIA FINAL DEL CLIENTE, SEGUN EL TOTAL DE ENERGIA DE CADA LUGAR Y LA ENERGIA DE CADA CLIENTE
+            decimal compensar = TotalEnergyCompensar(lugar, fecha1, fecha2, (diasTotales / 30) / 12);
+            decimal EnergiaTotalLugar = TotalEnergiaActualizado(lugar, fecha1, fecha2) +compensar;
+            porcentaje = (GastoIndividual(idl, idcl, fecha1, fecha2, consumo) / EnergiaTotalLugar) * 100;
+           
+            //LA POTENCIA DEL AÑO DE LA FECHA INICIAL
+                potencia = (PotenciaIndividual(lugar, fecha1) * Math.Round(porcentaje, 2)) / 100;
+
+            //==========================================PERIODOS================================================
+            
+            //PERIODO INFERIOR AL AÑO
+            if (fecha1.Year == fecha2.Year)
+            {
+                mesesFinales = ((fecha2 - fecha1).Days) / 30.00m;
+
+            }
+            else
+            {
+                //PERIODO INICIAL
+                //RECORRER FECHAS FINALES COMPARANDO CON LA INICIAL + 1 AÑO PARA OBTENER LOS MESES
+                foreach (var item in fechasFinales)
+                {
+                    if (fecha2 > item && fecha1.Year == item.Year)
+                    {
+                        decimal diasInicio = (item - fecha1).Days;
+                        meses = (diasTotales - diasInicio) / 30;  //meses restantes años intermedios y meses año fecha final
+                        meses = decimal.Round(meses, 2);
+                        if (meses != 0)
+                        { importeInicial = potencia * (diasInicio / 30); }
+                        else { importeInicial = 0; }
+                        break;
+                    }
+                }
+
+                //PERIODO INTERMEDIO
+                //PARA AÑOS INTERMEDIOS ENTRE EL AÑO DE FECHA INICIAL Y EL AÑO DE FECHA FINAL
+                decimal mess = decimal.Round(meses, 0);
+                while (mess > 12)
+                {
+                    i++;
+                    fecha1 = fecha1.AddYears(i);
+                    importeIntermedio += (PotenciaIndividual(lugar, fecha1)) * 12;
+                    mess -= 12;
+                    i--;
+                }
+
+                //PERIODO FINAL
+                mesesFinales = fecha2.Month;
+            }
+            
+            importeFinal = PotenciaIndividual(lugar, fecha2) * mesesFinales;
  
-            return importeInicial + valor + importeFinal;
+            return importeInicial + importeIntermedio + importeFinal;
         }
 
 
 
-        public decimal ImporteTotalEnerg(DateTime fecha1, DateTime fecha2, int idloc, int idcli,decimal consumo)
-        {           
-            decimal meses = ((fecha2 - fecha1).Days) / 30;
+        public decimal ImporteTotalEnerg(DateTime fecha1, DateTime fecha2, int idloc, int idcli,decimal consumo,string lugar)
+        {  
             decimal energiaIndividual = GastoIndividual(idloc, idcli, fecha1, fecha2, consumo);
-            decimal promedioValorEnergia = metodos.ObtenerNumero("select avg(importeEnergia) from PotEnerg where anno between '" + fecha1.Year + "'and '" + fecha2.Year + "';", 0);
-            return (promedioValorEnergia*energiaIndividual)*meses;
+            decimal promedioValorEnergia = metodos.ObtenerNumero("select avg(importeEnergia) from PotEnerg, Lugares where idLu=idLugar and nombreLugar='" + lugar + "' and anno between '" + fecha1.Year + "'and '" + fecha2.Year + "';", 0);
+            return (promedioValorEnergia*energiaIndividual);
         }
 
 
@@ -316,26 +342,45 @@ namespace Domain
 
         public decimal TotalEnergiaYears(string lugar, DateTime fecha1, DateTime fecha2)
         { 
-            int mesesFinales, i=0; decimal valor1=0, valor2=0, valor3=0;
+            int mesesFinales, i=0; decimal valor1=0, valor2=0, valor3= 0, energia = 0;
             int meses = ((fecha2 - fecha1).Days)/30;
-            int mesesIniciales = 13-fecha1.Month;
-            valor1 = metodos.ObtenerNumero("select Energia from PotEnerg, Lugares where idLu=idLugar and nombreLugar= '" + lugar + "'and anno='" + fecha1.Year + "';", 0)*mesesIniciales;
+            int mesesIniciales; //= 13-fecha1.Month;
 
-            if (fecha1.Year == fecha2.Year) { mesesFinales = 0; } else {  mesesFinales = fecha2.Month;}
-            
-            int mesesIntermedios = meses - mesesIniciales;
+            energia = metodos.ObtenerNumero("select Energia  from PotEnerg, Lugares where idLu=idLugar and nombreLugar= '" + lugar + "'and anno='" + fecha1.Year + "';", 0);
 
-            while (mesesIntermedios > 12)
-            {
-                i++;
-                fecha1 = fecha1.AddYears(i);
-                decimal energia =metodos.ObtenerNumero("select Energia  from PotEnerg, Lugares where idLu=idLugar and nombreLugar= '" + lugar + "'and anno='"+fecha1.Year + "';", 0); 
-                valor2 += energia * 12;
-                mesesIntermedios -= 12;
-                i--;
+            //==============================================PERIODOS==========================================
+
+            if (fecha1.Year == fecha2.Year)
+            { mesesFinales = 0;
+                if (meses == 0)
+                { mesesIniciales = 1; } 
+                else { mesesIniciales = meses; }
+                valor1 = energia * mesesIniciales;
+
             }
+            else 
+            {
+                //PERIODO INICIAL
+                mesesIniciales = 13 - fecha1.Month;
+                valor1 = energia * mesesIniciales;
 
-           valor3 = metodos.ObtenerNumero("select Energia from PotEnerg, Lugares where idLu=idLugar and nombreLugar= '" + lugar + "'and anno between '" + fecha1.Year + "'and '" + fecha2.Year + "';", 0)*mesesFinales;
+                //PERIODO INTERMEDIO
+                int mesesIntermedios = meses - mesesIniciales;
+
+                while (mesesIntermedios > 12)
+                {
+                    i++;
+                    fecha1 = fecha1.AddYears(i);
+                  decimal energia2=  metodos.ObtenerNumero("select Energia  from PotEnerg, Lugares where idLu=idLugar and nombreLugar= '" + lugar + "'and anno='" + fecha1.Year + "';", 0);
+                    valor2 += energia2 * 12;
+                    mesesIntermedios -= 12;
+                    i--;
+                }
+
+                //PERIODO FINAL
+                mesesFinales = fecha2.Month;
+                valor3 = metodos.ObtenerNumero("select Energia  from PotEnerg, Lugares where idLu=idLugar and nombreLugar= '" + lugar + "'and anno='" + fecha2.Year + "';", 0) * mesesFinales;
+            }
      
             return valor1+valor2+valor3;
         }
@@ -426,7 +471,7 @@ namespace Domain
                     int idlocal = int.Parse(tabla.Rows[i]["idLoca"].ToString());
                     int idlug= int.Parse(tabla.Rows[i]["idLug"].ToString());
                     decimal cons = decimal.Parse(tabla.Rows[i]["consumo"].ToString());
-                    decimal importeEnerg = ImporteTotalEnerg(fecha1, fecha2,idlocal,idcliente,cons);
+                    decimal importeEnerg = ImporteTotalEnerg(fecha1, fecha2,idlocal,idcliente,cons,lugares);
                     decimal importePot = ImporteTotalPot(fecha1, fecha2, idlocal, idcliente, lugares, cons);
                     decimal importe = importeEnerg + importePot;
                     electricidadDao.EditarTotalElectricidad( importe, idlocal);
