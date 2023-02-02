@@ -35,6 +35,7 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormLocales));
             this.panel6 = new System.Windows.Forms.Panel();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
@@ -69,13 +70,13 @@
             this.panel2 = new System.Windows.Forms.Panel();
             this.btnCerrar = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.btneliminar = new System.Windows.Forms.Button();
             this.datagridLocales = new System.Windows.Forms.DataGridView();
-            this.btnModificar = new System.Windows.Forms.Button();
             this.panel4 = new System.Windows.Forms.Panel();
             this.panel3 = new System.Windows.Forms.Panel();
             this.label6 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
+            this.Edit = new System.Windows.Forms.DataGridViewImageColumn();
+            this.Borrar = new System.Windows.Forms.DataGridViewImageColumn();
             this.panel6.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -93,27 +94,24 @@
             this.panel6.Controls.Add(this.tabControl1);
             this.panel6.Controls.Add(this.panel2);
             this.panel6.Controls.Add(this.panel1);
-            this.panel6.Controls.Add(this.btneliminar);
             this.panel6.Controls.Add(this.datagridLocales);
-            this.panel6.Controls.Add(this.btnModificar);
             this.panel6.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel6.Location = new System.Drawing.Point(0, 60);
             this.panel6.Name = "panel6";
-            this.panel6.Size = new System.Drawing.Size(1323, 720);
+            this.panel6.Size = new System.Drawing.Size(1339, 720);
             this.panel6.TabIndex = 26;
             // 
             // tabControl1
             // 
-            this.tabControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+            this.tabControl1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage2);
             this.tabControl1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tabControl1.Location = new System.Drawing.Point(618, 46);
+            this.tabControl1.Location = new System.Drawing.Point(534, 46);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(677, 602);
+            this.tabControl1.Size = new System.Drawing.Size(799, 602);
             this.tabControl1.TabIndex = 30;
             // 
             // tabPage1
@@ -128,7 +126,7 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 35);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(669, 563);
+            this.tabPage1.Size = new System.Drawing.Size(791, 563);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "LOCAL";
             // 
@@ -309,7 +307,7 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 35);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(669, 563);
+            this.tabPage2.Size = new System.Drawing.Size(791, 563);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "POTENCIA Y ENERGÍA";
             // 
@@ -317,9 +315,9 @@
             // 
             this.txtImpEnerg.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.txtImpEnerg.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtImpEnerg.Location = new System.Drawing.Point(390, 328);
+            this.txtImpEnerg.Location = new System.Drawing.Point(524, 328);
             this.txtImpEnerg.Name = "txtImpEnerg";
-            this.txtImpEnerg.Size = new System.Drawing.Size(234, 30);
+            this.txtImpEnerg.Size = new System.Drawing.Size(222, 30);
             this.txtImpEnerg.TabIndex = 57;
             this.txtImpEnerg.Validating += new System.ComponentModel.CancelEventHandler(this.txtImpEnerg_Validating);
             // 
@@ -329,7 +327,7 @@
             this.label8.AutoSize = true;
             this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label8.ForeColor = System.Drawing.Color.White;
-            this.label8.Location = new System.Drawing.Point(385, 300);
+            this.label8.Location = new System.Drawing.Point(519, 300);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(194, 25);
             this.label8.TabIndex = 58;
@@ -341,7 +339,7 @@
             this.lblLugarNum.AutoSize = true;
             this.lblLugarNum.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblLugarNum.ForeColor = System.Drawing.Color.White;
-            this.lblLugarNum.Location = new System.Drawing.Point(277, 21);
+            this.lblLugarNum.Location = new System.Drawing.Point(399, 21);
             this.lblLugarNum.Name = "lblLugarNum";
             this.lblLugarNum.Size = new System.Drawing.Size(0, 29);
             this.lblLugarNum.TabIndex = 56;
@@ -409,7 +407,7 @@
             this.dataGridpotencia.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.dataGridpotencia.EnableHeadersVisualStyles = false;
             this.dataGridpotencia.GridColor = System.Drawing.Color.SteelBlue;
-            this.dataGridpotencia.Location = new System.Drawing.Point(23, 113);
+            this.dataGridpotencia.Location = new System.Drawing.Point(6, 113);
             this.dataGridpotencia.Name = "dataGridpotencia";
             this.dataGridpotencia.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
             dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
@@ -430,7 +428,7 @@
             this.dataGridpotencia.RowsDefaultCellStyle = dataGridViewCellStyle3;
             this.dataGridpotencia.RowTemplate.Height = 28;
             this.dataGridpotencia.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridpotencia.Size = new System.Drawing.Size(333, 381);
+            this.dataGridpotencia.Size = new System.Drawing.Size(503, 381);
             this.dataGridpotencia.TabIndex = 52;
             this.dataGridpotencia.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridpotencia_CellClick);
             // 
@@ -440,7 +438,7 @@
             this.btnCancelarPot.BackColor = System.Drawing.Color.White;
             this.btnCancelarPot.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnCancelarPot.ForeColor = System.Drawing.Color.Black;
-            this.btnCancelarPot.Location = new System.Drawing.Point(510, 478);
+            this.btnCancelarPot.Location = new System.Drawing.Point(649, 478);
             this.btnCancelarPot.Name = "btnCancelarPot";
             this.btnCancelarPot.Size = new System.Drawing.Size(126, 46);
             this.btnCancelarPot.TabIndex = 51;
@@ -454,7 +452,7 @@
             this.btnAltaPot.BackColor = System.Drawing.Color.White;
             this.btnAltaPot.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnAltaPot.ForeColor = System.Drawing.Color.Black;
-            this.btnAltaPot.Location = new System.Drawing.Point(389, 478);
+            this.btnAltaPot.Location = new System.Drawing.Point(524, 478);
             this.btnAltaPot.Name = "btnAltaPot";
             this.btnAltaPot.Size = new System.Drawing.Size(84, 46);
             this.btnAltaPot.TabIndex = 50;
@@ -468,7 +466,7 @@
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label5.ForeColor = System.Drawing.Color.White;
-            this.label5.Location = new System.Drawing.Point(385, 122);
+            this.label5.Location = new System.Drawing.Point(515, 122);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(210, 25);
             this.label5.TabIndex = 49;
@@ -478,9 +476,9 @@
             // 
             this.textpot.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.textpot.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textpot.Location = new System.Drawing.Point(390, 150);
+            this.textpot.Location = new System.Drawing.Point(524, 150);
             this.textpot.Name = "textpot";
-            this.textpot.Size = new System.Drawing.Size(234, 30);
+            this.textpot.Size = new System.Drawing.Size(222, 30);
             this.textpot.TabIndex = 48;
             this.textpot.Validating += new System.ComponentModel.CancelEventHandler(this.textpot_Validating);
             // 
@@ -488,9 +486,9 @@
             // 
             this.txtenerg.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.txtenerg.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtenerg.Location = new System.Drawing.Point(389, 240);
+            this.txtenerg.Location = new System.Drawing.Point(524, 240);
             this.txtenerg.Name = "txtenerg";
-            this.txtenerg.Size = new System.Drawing.Size(234, 30);
+            this.txtenerg.Size = new System.Drawing.Size(221, 30);
             this.txtenerg.TabIndex = 46;
             this.txtenerg.Validating += new System.ComponentModel.CancelEventHandler(this.txtenerg_Validating);
             // 
@@ -500,7 +498,7 @@
             this.lblconfir.AutoSize = true;
             this.lblconfir.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblconfir.ForeColor = System.Drawing.Color.White;
-            this.lblconfir.Location = new System.Drawing.Point(384, 212);
+            this.lblconfir.Location = new System.Drawing.Point(515, 212);
             this.lblconfir.Name = "lblconfir";
             this.lblconfir.Size = new System.Drawing.Size(270, 25);
             this.lblconfir.TabIndex = 47;
@@ -511,9 +509,9 @@
             this.cmbanno.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.cmbanno.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cmbanno.FormattingEnabled = true;
-            this.cmbanno.Location = new System.Drawing.Point(390, 416);
+            this.cmbanno.Location = new System.Drawing.Point(524, 416);
             this.cmbanno.Name = "cmbanno";
-            this.cmbanno.Size = new System.Drawing.Size(234, 33);
+            this.cmbanno.Size = new System.Drawing.Size(222, 33);
             this.cmbanno.TabIndex = 45;
             // 
             // lblAutoriza
@@ -522,7 +520,7 @@
             this.lblAutoriza.AutoSize = true;
             this.lblAutoriza.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblAutoriza.ForeColor = System.Drawing.Color.White;
-            this.lblAutoriza.Location = new System.Drawing.Point(385, 388);
+            this.lblAutoriza.Location = new System.Drawing.Point(519, 388);
             this.lblAutoriza.Name = "lblAutoriza";
             this.lblAutoriza.Size = new System.Drawing.Size(56, 25);
             this.lblAutoriza.TabIndex = 44;
@@ -533,9 +531,9 @@
             this.panel2.BackColor = System.Drawing.Color.DarkRed;
             this.panel2.Controls.Add(this.btnCerrar);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel2.Location = new System.Drawing.Point(30, 671);
+            this.panel2.Location = new System.Drawing.Point(24, 671);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(1293, 49);
+            this.panel2.Size = new System.Drawing.Size(1315, 49);
             this.panel2.TabIndex = 29;
             // 
             // btnCerrar
@@ -544,7 +542,7 @@
             this.btnCerrar.BackColor = System.Drawing.Color.White;
             this.btnCerrar.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnCerrar.ForeColor = System.Drawing.Color.Black;
-            this.btnCerrar.Location = new System.Drawing.Point(1130, 4);
+            this.btnCerrar.Location = new System.Drawing.Point(1152, 4);
             this.btnCerrar.Margin = new System.Windows.Forms.Padding(4);
             this.btnCerrar.Name = "btnCerrar";
             this.btnCerrar.Size = new System.Drawing.Size(117, 41);
@@ -559,27 +557,14 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Left;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(30, 720);
+            this.panel1.Size = new System.Drawing.Size(24, 720);
             this.panel1.TabIndex = 26;
-            // 
-            // btneliminar
-            // 
-            this.btneliminar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btneliminar.BackColor = System.Drawing.Color.White;
-            this.btneliminar.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btneliminar.ForeColor = System.Drawing.Color.Black;
-            this.btneliminar.Location = new System.Drawing.Point(55, 593);
-            this.btneliminar.Name = "btneliminar";
-            this.btneliminar.Size = new System.Drawing.Size(139, 42);
-            this.btneliminar.TabIndex = 9;
-            this.btneliminar.Text = "ELIMINAR";
-            this.btneliminar.UseVisualStyleBackColor = false;
-            this.btneliminar.Click += new System.EventHandler(this.btneliminar_Click);
             // 
             // datagridLocales
             // 
-            this.datagridLocales.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
+            this.datagridLocales.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.datagridLocales.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.datagridLocales.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             this.datagridLocales.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(66)))), ((int)(((byte)(91)))));
@@ -596,6 +581,9 @@
             this.datagridLocales.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
             this.datagridLocales.ColumnHeadersHeight = 34;
             this.datagridLocales.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
+            this.datagridLocales.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.Edit,
+            this.Borrar});
             dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Window;
             dataGridViewCellStyle5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -606,7 +594,7 @@
             this.datagridLocales.DefaultCellStyle = dataGridViewCellStyle5;
             this.datagridLocales.EnableHeadersVisualStyles = false;
             this.datagridLocales.GridColor = System.Drawing.Color.SteelBlue;
-            this.datagridLocales.Location = new System.Drawing.Point(36, 52);
+            this.datagridLocales.Location = new System.Drawing.Point(30, 46);
             this.datagridLocales.Name = "datagridLocales";
             this.datagridLocales.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
             dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
@@ -627,32 +615,17 @@
             this.datagridLocales.RowsDefaultCellStyle = dataGridViewCellStyle7;
             this.datagridLocales.RowTemplate.Height = 28;
             this.datagridLocales.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.datagridLocales.Size = new System.Drawing.Size(563, 510);
+            this.datagridLocales.Size = new System.Drawing.Size(492, 510);
             this.datagridLocales.TabIndex = 6;
             this.datagridLocales.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.datagridLocales_CellClick);
-          
-            // 
-            // btnModificar
-            // 
-            this.btnModificar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnModificar.BackColor = System.Drawing.Color.White;
-            this.btnModificar.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnModificar.ForeColor = System.Drawing.Color.Black;
-            this.btnModificar.Location = new System.Drawing.Point(251, 593);
-            this.btnModificar.Name = "btnModificar";
-            this.btnModificar.Size = new System.Drawing.Size(150, 42);
-            this.btnModificar.TabIndex = 8;
-            this.btnModificar.Text = "MODIFICAR";
-            this.btnModificar.UseVisualStyleBackColor = false;
-            this.btnModificar.Click += new System.EventHandler(this.btnModificar_Click);
             // 
             // panel4
             // 
             this.panel4.BackColor = System.Drawing.Color.DarkRed;
             this.panel4.Dock = System.Windows.Forms.DockStyle.Right;
-            this.panel4.Location = new System.Drawing.Point(1323, 60);
+            this.panel4.Location = new System.Drawing.Point(1339, 60);
             this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(47, 720);
+            this.panel4.Size = new System.Drawing.Size(31, 720);
             this.panel4.TabIndex = 25;
             // 
             // panel3
@@ -691,6 +664,21 @@
             this.label1.TabIndex = 9;
             this.label1.Text = "LISTADO LOCALES";
             // 
+            // Edit
+            // 
+            this.Edit.HeaderText = "Edit";
+            this.Edit.Image = global::Presentacion.Properties.Resources.editar;
+            this.Edit.MinimumWidth = 8;
+            this.Edit.Name = "Edit";
+            // 
+            // Borrar
+            // 
+            this.Borrar.HeaderText = "Borrar";
+            this.Borrar.Image = ((System.Drawing.Image)(resources.GetObject("Borrar.Image")));
+            this.Borrar.MinimumWidth = 8;
+            this.Borrar.Name = "Borrar";
+            this.Borrar.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            // 
             // FormLocales
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
@@ -723,9 +711,7 @@
         private System.Windows.Forms.Panel panel6;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.Button btneliminar;
         private System.Windows.Forms.DataGridView datagridLocales;
-        private System.Windows.Forms.Button btnModificar;
         private System.Windows.Forms.Panel panel4;
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.Label label6;
@@ -761,5 +747,7 @@
         private System.Windows.Forms.Button btnlugar;
         private System.Windows.Forms.TextBox txtImpEnerg;
         private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.DataGridViewImageColumn Edit;
+        private System.Windows.Forms.DataGridViewImageColumn Borrar;
     }
 }

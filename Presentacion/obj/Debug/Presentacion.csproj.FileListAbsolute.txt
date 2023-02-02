@@ -72,3 +72,5 @@ D:\LOCALES\Locales\Presentacion\bin\Debug\GestionLocales.application
 D:\LOCALES\Locales\Presentacion\obj\Debug\GestionLocales.exe.manifest
 D:\LOCALES\Locales\Presentacion\obj\Debug\GestionLocales.application
 D:\LOCALES\Locales\Presentacion\obj\Debug\Presentacion.csproj.AssemblyReference.cache
+D:\LOCALES\Locales\Presentacion\obj\Debug\Presentacion.FormEdit.resources
+D:\LOCALES\Locales\Presentacion\obj\Debug\Presentacion.FormModLc.resources

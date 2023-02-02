@@ -118,6 +118,12 @@
     <Compile Include="FormConsulta.Designer.cs">
       <DependentUpon>FormConsulta.cs</DependentUpon>
     </Compile>
+    <Compile Include="FormEdit.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormEdit.Designer.cs">
+      <DependentUpon>FormEdit.cs</DependentUpon>
+    </Compile>
     <Compile Include="FormElectricidad.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -135,6 +141,12 @@
     </Compile>
     <Compile Include="FormLocales.Designer.cs">
       <DependentUpon>FormLocales.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormModLc.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormModLc.Designer.cs">
+      <DependentUpon>FormModLc.cs</DependentUpon>
     </Compile>
     <Compile Include="FormUsuario.cs">
       <SubType>Form</SubType>
@@ -171,6 +183,9 @@
     <EmbeddedResource Include="FormConsulta.resx">
       <DependentUpon>FormConsulta.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="FormEdit.resx">
+      <DependentUpon>FormEdit.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FormElectricidad.resx">
       <DependentUpon>FormElectricidad.cs</DependentUpon>
     </EmbeddedResource>
@@ -179,6 +194,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FormLocales.resx">
       <DependentUpon>FormLocales.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormModLc.resx">
+      <DependentUpon>FormModLc.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormPrincipal.resx">
       <DependentUpon>FormPrincipal.cs</DependentUpon>
@@ -191,19 +209,20 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
     <None Include="packages.config" />
     <None Include="Presentacion_TemporaryKey.pfx" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Settings.settings</DependentUpon>
@@ -237,6 +256,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Gestion.ico" />
+    <None Include="Resources\editar.png" />
+    <None Include="Resources\basura.png" />
+    <Content Include="tarea.png" />
     <None Include="readme.md" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

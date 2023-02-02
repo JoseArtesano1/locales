@@ -79,38 +79,38 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="DataAccess.dll" size="43520">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="DataAccess.dll" size="44544">
       <assemblyIdentity name="DataAccess" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>SVTGBBZYliJst72I2c2UZSDkHYSaSl7LyFAQyUjPqfU=</dsig:DigestValue>
+        <dsig:DigestValue>Zw6j5wgoCN4YwfNczaqEgL+jtYE+Bbrvs8MNSozoCsQ=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Domain.dll" size="45056">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Domain.dll" size="47104">
       <assemblyIdentity name="Domain" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>nddqe/NyQJHNToDbOoNaOokQD7Ya52MrHgn3BOkXXsI=</dsig:DigestValue>
+        <dsig:DigestValue>I2RyjONjN/Tifm+j6QLlIWHgH2tUPkHkoVE1XH63rN8=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="GestionLocales.exe" size="277440">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="GestionLocales.exe" size="294848">
       <assemblyIdentity name="GestionLocales" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>vfKTSXVNXxmxG2pOebzOWhGjoLhbmruTDARGhG3ZCxs=</dsig:DigestValue>
+        <dsig:DigestValue>a/kZmCobUz74AfHqS/CLeZzhkyYbaeuLFoX0yDf9wLk=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -358,6 +358,15 @@
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
       <dsig:DigestValue>L42l/5W1RI8EErG9FCUpaQ4ve11ushVBnU8bL5uPy8I=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="tarea.png" size="721">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>J76sY11mDt1fYxqCm+DFUrgdbq84bk4YK63s0Vflhog=</dsig:DigestValue>
     </hash>
   </file>
 </asmv1:assembly>

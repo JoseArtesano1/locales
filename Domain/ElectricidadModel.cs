@@ -90,7 +90,7 @@ namespace Domain
             {
                 if(metodos.Existe("select * from Electricidad where importe=0 and idElectricidad=" +idElectricidad + ";"))
                 {
-                    if (!metodos.Existe("select * from Electricidad where fechaInicio='" + fechaInicio + "' and fechaFin= '" + fechaFin + "';"))
+                    if (!metodos.Existe("select * from Electricidad where idElectricidad=" + idElectricidad + " and fechaInicio='" + fechaInicio + "' and fechaFin= '" + fechaFin + "';"))
                     {
                         electricidadDao.EditarElectricidad(fechaInicio, fechaFin, consumo, estado, idElectricidad, importe, 0);
                         return "Modificado";
@@ -160,7 +160,7 @@ namespace Domain
         public DataTable CargaElectricidad(int idCliente)
         {            
 
-            return metodos.CargarGridoCmb("select idElectricidad as id, nombreLugar as Lugar, numero as Nº, nombre, estado, fechaInicio as Inicio, fechaFin as Fin, consumo from Electricidad,Locales,Clientes,Lugares where idLocal=idLoca  and idCliente=idCli and idLugar=idLug and idCliente=" + idCliente + ";");
+            return metodos.CargarGridoCmb("select idElectricidad as id, nombreLugar as Lugar, numero as Nº, nombre, estado, fechaInicio as Inicio, fechaFin as Fin, consumo from Electricidad,Locales,Clientes,Lugares where idLocal=idLoca  and idCliente=idCli and idLugar=idLug and activo=1 and estado=0 and idCliente=" + idCliente + ";");
 
         }
 
@@ -176,7 +176,7 @@ namespace Domain
                     return metodos.CargarGridoCmb("select idElectricidad as id, nombreLugar as Lugar, numero, nombre, estado, fechaInicio as Inicio, fechaFin as Fin, DATEDIFF(day, fechaInicio,fechaFin )/30 as plazo, (consumo-acumulado) as Gasto, importe as Importe from Electricidad,Locales,Clientes,Lugares where idLocal=idLoca  and idCliente=idCli and idLugar=idLug and activo=1 and importe=0 and nombreLugar='" + luga + "';");
             }
 
-            return metodos.CargarGridoCmb("select numero as Trastero, nombre as Cliente,  fechaInicio as Inicio, fechaFin as Fin, DATEDIFF(day, fechaInicio,fechaFin) / 30 as Plazo, (consumo - acumulado) as Gasto, importe as Importe, estado from Electricidad, Locales, Clientes where idLocal = idLoca  and idCliente = idCli  and idLug = " + idlug + "; ");
+            return metodos.CargarGridoCmb("select numero as Trastero, nombre as Cliente,  fechaInicio as Inicio, fechaFin as Fin, DATEDIFF(day, fechaInicio,fechaFin) / 30 as Plazo, (consumo - acumulado) as Gasto, importe as Importe, estado from Electricidad, Locales, Clientes where idLocal = idLoca  and idCliente = idCli and estado=0  and idLug = " + idlug + "; ");
 
         }
 
@@ -189,7 +189,6 @@ namespace Domain
 
 
         //OBTENER TODOS LOS DE UNA ZONA CON IMPORTE 0
-
         public DataTable CargaParaPotencia(string luga, int idlugar, int opcion)
         {
             switch(opcion)
@@ -215,7 +214,6 @@ namespace Domain
         }
 
 
-
         public bool ComprobarString(string valor)
         {
             if (metodos.Esnum(valor))
@@ -238,13 +236,11 @@ namespace Domain
 
         #region CALCULO IMPORTE
 
-
         public decimal TotalEnergyCompensar(string lugar, DateTime fecha1, DateTime fecha2, decimal tiempo)
         {
-            if (metodos.ObtenerNumero("select count(idElectricidad)  from electricidad, Lugares, locales where idLocal=idLoca and idLugar= idLug and estado=0 and nombreLugar='" + lugar + "'and fechaFin=='" + fecha2 + "' and fechaInicio=='" + fecha1 + "';", 0) > 2)
+            if (metodos.ObtenerInt("select count(idElectricidad)  from electricidad, Lugares, locales where idLocal=idLoca and idLugar= idLug and estado=0 and nombreLugar='" + lugar + "'and fechaFin='" + fecha2 + "' and fechaInicio='" + fecha1 + "';", 0) > 2)
             {
                 return electricidadDao.listaCompensacion(lugar, fecha1, fecha2, 0, tiempo);
-
             }
 
             return 0;
@@ -252,8 +248,8 @@ namespace Domain
         }
 
 
-            public decimal ImporteTotalPot(DateTime fecha1, DateTime fecha2, int idl, int idcl, string lugar, decimal consumo)
-        {
+        public decimal ImporteTotalPot(DateTime fecha1, DateTime fecha2, int idl, int idcl, string lugar, decimal consumo)
+         {
             //listado de fechas finales para contar meses si son distintos años fecha inicial y final
             DateTime[] fechasFinales = new DateTime[] { new DateTime(2018, 12, 31), new DateTime(2019, 12, 31), new DateTime(2020, 12, 31), new DateTime(2021, 12, 31), new DateTime(2022, 12, 31), new DateTime(2023, 12, 31), new DateTime(2024, 12, 31), new DateTime(2025, 12, 31), new DateTime(2026, 12, 31), new DateTime(2027, 12, 31), new DateTime(2028, 12, 31), new DateTime(2029, 12, 31) };
            
@@ -276,7 +272,6 @@ namespace Domain
             if (fecha1.Year == fecha2.Year)
             {
                 mesesFinales = ((fecha2 - fecha1).Days) / 30.00m;
-
             }
             else
             {
@@ -309,7 +304,7 @@ namespace Domain
                 }
 
                 //PERIODO FINAL
-                mesesFinales = fecha2.Month;
+                mesesFinales = mess;
             }
             
             importeFinal = PotenciaIndividual(lugar, fecha2) * mesesFinales;
@@ -356,7 +351,6 @@ namespace Domain
                 { mesesIniciales = 1; } 
                 else { mesesIniciales = meses; }
                 valor1 = energia * mesesIniciales;
-
             }
             else 
             {
@@ -438,8 +432,7 @@ namespace Domain
        //POR ZONA
 
         public string EditarAcumuladoZona(string lugares)
-        {
-            if (metodos.Existe("select*from Electricidad, Locales, Lugares where idLoca=idLocal and idLug=idLugar and estado=1 and nombreLugar='" + lugares + "';"))
+        {  try
             {
                 var tabla = CargaParaPotencia(lugares, 0, 2);
                 for (int i = 0; i < tabla.Rows.Count; i++)
@@ -451,11 +444,10 @@ namespace Domain
                 }
                 return "Acumulado actualizado";
             }
-            else
+            catch (Exception ex)
             {
-                return "Debe cambiar el estado Electricidad";
+                return "No se ha podido Actualizar el acumulado" + ex;
             }
-            
         }
 
         public string EditarImporteZona(string lugares)
@@ -493,7 +485,7 @@ namespace Domain
         public string GenerarInforme( int idl)
         {
             try
-            {               
+            {              
                 pdf.GenerarPdf( idl);
                 return "Informe generado";
             }
@@ -512,8 +504,11 @@ namespace Domain
                     return metodos.Existe("select * from Electricidad,Locales where idLoca=idLocal and consumo >acumulado and importe >0 and estado=1 and idLoca=" + idlocal + " and idCli=" + idcliente + ";");
                 case 2:
                     return metodos.Existe("select * from Electricidad, Locales, Lugares where idLoca=idLocal and idLug=idLugar and consumo >acumulado and importe >0 and estado=1 and nombreLugar='" + zona + "';");
+
+                case 3:
+                    return metodos.Existe("select * from Electricidad, Locales where idLoca=idLocal  and importe >0 and estado=0 and idLug=" + idLug + ";");
             }
-            return metodos.Existe("select * from Electricidad, Locales where idLoca=idLocal  and importe >0 and estado=0 and idLug=" + idLug + ";");
+            return metodos.Existe("select * from Electricidad,Locales where idLoca=idLocal  and importe =0 and estado=0 and idLoca=" + idlocal + " and idCli=" + idcliente + ";");
 
         }
 

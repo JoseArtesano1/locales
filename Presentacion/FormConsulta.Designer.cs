@@ -172,7 +172,7 @@
             this.cmbConsulta2.FormattingEnabled = true;
             this.cmbConsulta2.Location = new System.Drawing.Point(1139, 436);
             this.cmbConsulta2.Name = "cmbConsulta2";
-            this.cmbConsulta2.Size = new System.Drawing.Size(133, 28);
+            this.cmbConsulta2.Size = new System.Drawing.Size(168, 28);
             this.cmbConsulta2.TabIndex = 74;
             this.cmbConsulta2.SelectionChangeCommitted += new System.EventHandler(this.cmbConsulta2_SelectionChangeCommitted);
             // 
@@ -262,6 +262,8 @@
             this.dataGridDatos.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridDatos.Size = new System.Drawing.Size(1103, 165);
             this.dataGridDatos.TabIndex = 70;
+            this.dataGridDatos.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridDatos_CellClick);
+            this.dataGridDatos.CellPainting += new System.Windows.Forms.DataGridViewCellPaintingEventHandler(this.dataGridDatos_CellPainting);
             // 
             // cmbZonas
             // 

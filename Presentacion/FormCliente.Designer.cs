@@ -111,7 +111,7 @@
             this.lblCliente.AutoSize = true;
             this.lblCliente.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblCliente.ForeColor = System.Drawing.Color.White;
-            this.lblCliente.Location = new System.Drawing.Point(314, 21);
+            this.lblCliente.Location = new System.Drawing.Point(430, 21);
             this.lblCliente.Name = "lblCliente";
             this.lblCliente.Size = new System.Drawing.Size(79, 29);
             this.lblCliente.TabIndex = 56;
@@ -133,9 +133,9 @@
             // 
             this.panel4.BackColor = System.Drawing.Color.DarkRed;
             this.panel4.Dock = System.Windows.Forms.DockStyle.Right;
-            this.panel4.Location = new System.Drawing.Point(1364, 60);
+            this.panel4.Location = new System.Drawing.Point(1380, 60);
             this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(31, 690);
+            this.panel4.Size = new System.Drawing.Size(15, 690);
             this.panel4.TabIndex = 28;
             // 
             // panel3
@@ -187,9 +187,10 @@
             // 
             // datagridClientes
             // 
-            this.datagridClientes.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
-            this.datagridClientes.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells;
+            this.datagridClientes.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.datagridClientes.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.datagridClientes.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.DisplayedCells;
             this.datagridClientes.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(66)))), ((int)(((byte)(91)))));
             this.datagridClientes.BorderStyle = System.Windows.Forms.BorderStyle.None;
@@ -215,7 +216,7 @@
             this.datagridClientes.DefaultCellStyle = dataGridViewCellStyle2;
             this.datagridClientes.EnableHeadersVisualStyles = false;
             this.datagridClientes.GridColor = System.Drawing.Color.SteelBlue;
-            this.datagridClientes.Location = new System.Drawing.Point(30, 110);
+            this.datagridClientes.Location = new System.Drawing.Point(30, 78);
             this.datagridClientes.Name = "datagridClientes";
             this.datagridClientes.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
             dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
@@ -236,18 +237,17 @@
             this.datagridClientes.RowsDefaultCellStyle = dataGridViewCellStyle4;
             this.datagridClientes.RowTemplate.Height = 28;
             this.datagridClientes.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.datagridClientes.Size = new System.Drawing.Size(567, 540);
+            this.datagridClientes.Size = new System.Drawing.Size(443, 540);
             this.datagridClientes.TabIndex = 6;
             this.datagridClientes.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.datagridClientes_CellClick);
-            
             // 
             // btnModificar
             // 
-            this.btnModificar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnModificar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnModificar.BackColor = System.Drawing.Color.White;
             this.btnModificar.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnModificar.ForeColor = System.Drawing.Color.Black;
-            this.btnModificar.Location = new System.Drawing.Point(402, 653);
+            this.btnModificar.Location = new System.Drawing.Point(323, 653);
             this.btnModificar.Name = "btnModificar";
             this.btnModificar.Size = new System.Drawing.Size(150, 42);
             this.btnModificar.TabIndex = 8;
@@ -364,7 +364,7 @@
             this.dataGridcontacto.RowsDefaultCellStyle = dataGridViewCellStyle7;
             this.dataGridcontacto.RowTemplate.Height = 28;
             this.dataGridcontacto.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridcontacto.Size = new System.Drawing.Size(312, 342);
+            this.dataGridcontacto.Size = new System.Drawing.Size(428, 342);
             this.dataGridcontacto.TabIndex = 52;
             this.dataGridcontacto.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridcontacto_CellClick);
             // 
@@ -374,7 +374,7 @@
             this.btnCancelarMovil.BackColor = System.Drawing.Color.White;
             this.btnCancelarMovil.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnCancelarMovil.ForeColor = System.Drawing.Color.Black;
-            this.btnCancelarMovil.Location = new System.Drawing.Point(530, 428);
+            this.btnCancelarMovil.Location = new System.Drawing.Point(646, 428);
             this.btnCancelarMovil.Name = "btnCancelarMovil";
             this.btnCancelarMovil.Size = new System.Drawing.Size(126, 46);
             this.btnCancelarMovil.TabIndex = 51;
@@ -388,7 +388,7 @@
             this.btnAltaMovil.BackColor = System.Drawing.Color.White;
             this.btnAltaMovil.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnAltaMovil.ForeColor = System.Drawing.Color.Black;
-            this.btnAltaMovil.Location = new System.Drawing.Point(396, 428);
+            this.btnAltaMovil.Location = new System.Drawing.Point(512, 428);
             this.btnAltaMovil.Name = "btnAltaMovil";
             this.btnAltaMovil.Size = new System.Drawing.Size(84, 46);
             this.btnAltaMovil.TabIndex = 50;
@@ -413,17 +413,16 @@
             // 
             // tabControl1
             // 
-            this.tabControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+            this.tabControl1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage2);
             this.tabControl1.Controls.Add(this.tabPage3);
             this.tabControl1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tabControl1.Location = new System.Drawing.Point(619, 66);
+            this.tabControl1.Location = new System.Drawing.Point(493, 66);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(739, 629);
+            this.tabControl1.Size = new System.Drawing.Size(881, 629);
             this.tabControl1.TabIndex = 30;
             // 
             // tabPage1
@@ -443,7 +442,7 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 35);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(731, 590);
+            this.tabPage1.Size = new System.Drawing.Size(847, 590);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "CLIENTE";
             // 
@@ -475,7 +474,7 @@
             this.btnCancelarAlta.BackColor = System.Drawing.Color.White;
             this.btnCancelarAlta.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnCancelarAlta.ForeColor = System.Drawing.Color.Black;
-            this.btnCancelarAlta.Location = new System.Drawing.Point(331, 454);
+            this.btnCancelarAlta.Location = new System.Drawing.Point(447, 454);
             this.btnCancelarAlta.Name = "btnCancelarAlta";
             this.btnCancelarAlta.Size = new System.Drawing.Size(164, 46);
             this.btnCancelarAlta.TabIndex = 53;
@@ -489,7 +488,7 @@
             this.btnAltaCliente.BackColor = System.Drawing.Color.White;
             this.btnAltaCliente.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnAltaCliente.ForeColor = System.Drawing.Color.Black;
-            this.btnAltaCliente.Location = new System.Drawing.Point(37, 454);
+            this.btnAltaCliente.Location = new System.Drawing.Point(153, 454);
             this.btnAltaCliente.Name = "btnAltaCliente";
             this.btnAltaCliente.Size = new System.Drawing.Size(168, 46);
             this.btnAltaCliente.TabIndex = 52;
@@ -504,7 +503,7 @@
             this.txtdireccion.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtdireccion.Location = new System.Drawing.Point(103, 331);
             this.txtdireccion.Name = "txtdireccion";
-            this.txtdireccion.Size = new System.Drawing.Size(498, 30);
+            this.txtdireccion.Size = new System.Drawing.Size(614, 30);
             this.txtdireccion.TabIndex = 34;
             this.txtdireccion.Validating += new System.ComponentModel.CancelEventHandler(this.txtdireccion_Validating);
             // 
@@ -515,7 +514,7 @@
             this.txtnombre.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtnombre.Location = new System.Drawing.Point(103, 144);
             this.txtnombre.Name = "txtnombre";
-            this.txtnombre.Size = new System.Drawing.Size(492, 30);
+            this.txtnombre.Size = new System.Drawing.Size(608, 30);
             this.txtnombre.TabIndex = 32;
             this.txtnombre.Validating += new System.ComponentModel.CancelEventHandler(this.txtnombre_Validating);
             // 
@@ -552,7 +551,7 @@
             this.txtdni.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtdni.Location = new System.Drawing.Point(103, 238);
             this.txtdni.Name = "txtdni";
-            this.txtdni.Size = new System.Drawing.Size(109, 30);
+            this.txtdni.Size = new System.Drawing.Size(225, 30);
             this.txtdni.TabIndex = 33;
             this.txtdni.Validating += new System.ComponentModel.CancelEventHandler(this.txtdni_Validating);
             // 
@@ -586,7 +585,7 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 35);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(731, 590);
+            this.tabPage2.Size = new System.Drawing.Size(847, 590);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "CONTACTO";
             // 
@@ -596,7 +595,7 @@
             this.lblmovil.AutoSize = true;
             this.lblmovil.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblmovil.ForeColor = System.Drawing.Color.White;
-            this.lblmovil.Location = new System.Drawing.Point(391, 145);
+            this.lblmovil.Location = new System.Drawing.Point(507, 145);
             this.lblmovil.Name = "lblmovil";
             this.lblmovil.Size = new System.Drawing.Size(120, 25);
             this.lblmovil.TabIndex = 49;
@@ -606,7 +605,7 @@
             // 
             this.textmovil.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.textmovil.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textmovil.Location = new System.Drawing.Point(396, 173);
+            this.textmovil.Location = new System.Drawing.Point(512, 173);
             this.textmovil.Name = "textmovil";
             this.textmovil.Size = new System.Drawing.Size(234, 30);
             this.textmovil.TabIndex = 48;
@@ -616,7 +615,7 @@
             // 
             this.txtcorreo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.txtcorreo.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtcorreo.Location = new System.Drawing.Point(396, 273);
+            this.txtcorreo.Location = new System.Drawing.Point(512, 273);
             this.txtcorreo.Name = "txtcorreo";
             this.txtcorreo.Size = new System.Drawing.Size(276, 30);
             this.txtcorreo.TabIndex = 46;
@@ -628,7 +627,7 @@
             this.lblcorreo.AutoSize = true;
             this.lblcorreo.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblcorreo.ForeColor = System.Drawing.Color.White;
-            this.lblcorreo.Location = new System.Drawing.Point(391, 245);
+            this.lblcorreo.Location = new System.Drawing.Point(507, 245);
             this.lblcorreo.Name = "lblcorreo";
             this.lblcorreo.Size = new System.Drawing.Size(83, 25);
             this.lblcorreo.TabIndex = 47;
@@ -659,7 +658,7 @@
             this.tabPage3.Location = new System.Drawing.Point(4, 35);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(731, 590);
+            this.tabPage3.Size = new System.Drawing.Size(873, 590);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "ALQUILER";
             // 
@@ -669,7 +668,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.checkImp.AutoSize = true;
             this.checkImp.ForeColor = System.Drawing.Color.White;
-            this.checkImp.Location = new System.Drawing.Point(595, 114);
+            this.checkImp.Location = new System.Drawing.Point(737, 114);
             this.checkImp.Name = "checkImp";
             this.checkImp.Size = new System.Drawing.Size(133, 30);
             this.checkImp.TabIndex = 74;
@@ -683,7 +682,7 @@
             this.label14.AutoSize = true;
             this.label14.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label14.ForeColor = System.Drawing.Color.White;
-            this.label14.Location = new System.Drawing.Point(458, 380);
+            this.label14.Location = new System.Drawing.Point(600, 380);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(186, 25);
             this.label14.TabIndex = 73;
@@ -693,7 +692,7 @@
             // 
             this.richtextObserv.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.richtextObserv.Location = new System.Drawing.Point(463, 408);
+            this.richtextObserv.Location = new System.Drawing.Point(605, 408);
             this.richtextObserv.Name = "richtextObserv";
             this.richtextObserv.Size = new System.Drawing.Size(257, 124);
             this.richtextObserv.TabIndex = 72;
@@ -707,7 +706,7 @@
             this.lblocal.AutoSize = true;
             this.lblocal.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblocal.ForeColor = System.Drawing.Color.White;
-            this.lblocal.Location = new System.Drawing.Point(463, 81);
+            this.lblocal.Location = new System.Drawing.Point(605, 81);
             this.lblocal.Name = "lblocal";
             this.lblocal.Size = new System.Drawing.Size(105, 25);
             this.lblocal.TabIndex = 71;
@@ -720,7 +719,7 @@
             this.lbllugar.AutoSize = true;
             this.lbllugar.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbllugar.ForeColor = System.Drawing.Color.White;
-            this.lbllugar.Location = new System.Drawing.Point(463, 9);
+            this.lbllugar.Location = new System.Drawing.Point(605, 9);
             this.lbllugar.Name = "lbllugar";
             this.lbllugar.Size = new System.Drawing.Size(79, 25);
             this.lbllugar.TabIndex = 70;
@@ -733,7 +732,7 @@
             this.label11.AutoSize = true;
             this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label11.ForeColor = System.Drawing.Color.White;
-            this.label11.Location = new System.Drawing.Point(458, 156);
+            this.label11.Location = new System.Drawing.Point(600, 156);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(145, 25);
             this.label11.TabIndex = 69;
@@ -743,7 +742,7 @@
             // 
             this.datepickerFechaIn.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.datepickerFechaIn.Location = new System.Drawing.Point(463, 184);
+            this.datepickerFechaIn.Location = new System.Drawing.Point(605, 184);
             this.datepickerFechaIn.Name = "datepickerFechaIn";
             this.datepickerFechaIn.Size = new System.Drawing.Size(262, 32);
             this.datepickerFechaIn.TabIndex = 68;
@@ -753,7 +752,7 @@
             this.cmbNumero.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.cmbNumero.FormattingEnabled = true;
-            this.cmbNumero.Location = new System.Drawing.Point(463, 109);
+            this.cmbNumero.Location = new System.Drawing.Point(605, 109);
             this.cmbNumero.Name = "cmbNumero";
             this.cmbNumero.Size = new System.Drawing.Size(105, 34);
             this.cmbNumero.TabIndex = 67;
@@ -763,7 +762,7 @@
             this.cmblugar.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.cmblugar.FormattingEnabled = true;
-            this.cmblugar.Location = new System.Drawing.Point(463, 38);
+            this.cmblugar.Location = new System.Drawing.Point(605, 38);
             this.cmblugar.Name = "cmblugar";
             this.cmblugar.Size = new System.Drawing.Size(262, 34);
             this.cmblugar.TabIndex = 66;
@@ -853,7 +852,7 @@
             this.dataGridAlquiler.RowsDefaultCellStyle = dataGridViewCellStyle10;
             this.dataGridAlquiler.RowTemplate.Height = 28;
             this.dataGridAlquiler.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridAlquiler.Size = new System.Drawing.Size(446, 408);
+            this.dataGridAlquiler.Size = new System.Drawing.Size(588, 408);
             this.dataGridAlquiler.TabIndex = 62;
             this.dataGridAlquiler.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridAlquiler_CellClick);
             // 
@@ -863,7 +862,7 @@
             this.btnCancelarAlq.BackColor = System.Drawing.Color.White;
             this.btnCancelarAlq.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnCancelarAlq.ForeColor = System.Drawing.Color.Black;
-            this.btnCancelarAlq.Location = new System.Drawing.Point(592, 538);
+            this.btnCancelarAlq.Location = new System.Drawing.Point(734, 538);
             this.btnCancelarAlq.Name = "btnCancelarAlq";
             this.btnCancelarAlq.Size = new System.Drawing.Size(126, 46);
             this.btnCancelarAlq.TabIndex = 61;
@@ -877,7 +876,7 @@
             this.btnaltaAlq.BackColor = System.Drawing.Color.White;
             this.btnaltaAlq.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnaltaAlq.ForeColor = System.Drawing.Color.Black;
-            this.btnaltaAlq.Location = new System.Drawing.Point(457, 538);
+            this.btnaltaAlq.Location = new System.Drawing.Point(599, 538);
             this.btnaltaAlq.Name = "btnaltaAlq";
             this.btnaltaAlq.Size = new System.Drawing.Size(84, 46);
             this.btnaltaAlq.TabIndex = 60;
@@ -892,7 +891,7 @@
             this.label9.AutoSize = true;
             this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label9.ForeColor = System.Drawing.Color.White;
-            this.label9.Location = new System.Drawing.Point(458, 231);
+            this.label9.Location = new System.Drawing.Point(600, 231);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(83, 25);
             this.label9.TabIndex = 59;
@@ -903,7 +902,7 @@
             this.txtfianza.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtfianza.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtfianza.Location = new System.Drawing.Point(463, 259);
+            this.txtfianza.Location = new System.Drawing.Point(605, 259);
             this.txtfianza.Name = "txtfianza";
             this.txtfianza.Size = new System.Drawing.Size(148, 30);
             this.txtfianza.TabIndex = 58;
@@ -914,7 +913,7 @@
             this.txtImporte.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtImporte.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtImporte.Location = new System.Drawing.Point(463, 332);
+            this.txtImporte.Location = new System.Drawing.Point(605, 332);
             this.txtImporte.Name = "txtImporte";
             this.txtImporte.Size = new System.Drawing.Size(154, 30);
             this.txtImporte.TabIndex = 56;
@@ -927,7 +926,7 @@
             this.label10.AutoSize = true;
             this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label10.ForeColor = System.Drawing.Color.White;
-            this.label10.Location = new System.Drawing.Point(458, 304);
+            this.label10.Location = new System.Drawing.Point(600, 304);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(102, 25);
             this.label10.TabIndex = 57;

@@ -53,7 +53,7 @@ namespace Presentacion
                 case 3:
                    
                     tabControl1.TabPages.Add(tabPage3);
-                    cargarComboLugar(); cmbNumero.SelectedIndex = -1;
+                    cargarComboLugar(); 
                     dataGridAlquiler.DataSource = alquiler.CargarTablaAlquiler(idCliente);
                     dataGridAlquiler.Columns[0].Visible = false; dataGridAlquiler.Columns[5].Visible = false;
                     break;
@@ -310,6 +310,7 @@ namespace Presentacion
             MessageBox.Show(mensaje);
             RecargaTelefono(idCliente);
             btnAltaMovil.Enabled = true;
+            CrearControl(4);
         }
 
 
@@ -425,7 +426,8 @@ namespace Presentacion
       
 
         private void cargarComboNumero()
-        {               
+        {
+            cmbNumero.SelectedIndex = -1;
             cmbNumero.DataSource = alquiler.CargarComboLocal(cmblugar.SelectedValue.ToString());
             cmbNumero.DisplayMember = "numero";
             cmbNumero.ValueMember = "idLocal";

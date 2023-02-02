@@ -22,14 +22,29 @@ namespace Presentacion
         public FormLocales()
         {
             InitializeComponent();
-            datagridLocales.DataSource=localModel.CargaLocales();
-            datagridLocales.Columns[0].Visible = false; datagridLocales.Columns[3].Visible = false; 
-            datagridLocales.Columns[4].Visible = false;
+            CargaGridBtn();
             CargaCmbox(); cargarCmbLugar();  cargarGrupbox();
             CrearPag(1);
         }
 
-    
+        private void CargaGridBtn()
+        {
+            datagridLocales.DataSource = localModel.CargaLocales();
+           
+                datagridLocales.Columns["idLocal"].DisplayIndex = 0; datagridLocales.Columns["numero"].DisplayIndex = 1;
+                datagridLocales.Columns["acumulado"].DisplayIndex = 2; datagridLocales.Columns["idLug"].DisplayIndex = 3;
+                datagridLocales.Columns["idLugar"].DisplayIndex = 4;datagridLocales.Columns["nombreLugar"].DisplayIndex = 5;
+                datagridLocales.Columns["Edit"].DisplayIndex = 6; datagridLocales.Columns["Borrar"].DisplayIndex = 7;
+                datagridLocales.Columns["idLocal"].Visible = false;
+                datagridLocales.Columns["idLug"].Visible = false;
+                datagridLocales.Columns["idLugar"].Visible = false;
+                datagridLocales.Columns["Edit"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+                datagridLocales.Columns["Borrar"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+                datagridLocales.Columns["numero"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+                datagridLocales.Columns["acumulado"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+        }
+
+
         private void CrearPag(int pag)
         {
             if (pag == 1)
@@ -40,7 +55,7 @@ namespace Presentacion
             {
                 tabControl1.TabPages.Add(tabPage2);
                 dataGridpotencia.DataSource = energiaModel.CargaPotenciaEnergia(idLugar);
-                dataGridpotencia.Columns[0].Visible = false;
+                dataGridpotencia.Columns[0].Visible = false; 
             }
         }
 
@@ -158,85 +173,73 @@ namespace Presentacion
             Recarga();
         }
 
-        private void btnModificar_Click(object sender, EventArgs e)
-        {
-            if (MessageBox.Show("¿Quiere modificar el lugar?", "CUIDADO", MessageBoxButtons.YesNo) == DialogResult.Yes)
-            {
-                if (txtlugar.Text == "") { MessageBox.Show("Introducce una Dirección"); txtlugar.Focus(); return; }
-                var lugar = new LugarModel(idLugar: idLugar, nombreLugar: txtlugar.Text);
-                string mensaje = lugar.EditarLugarlocal();
-                MessageBox.Show(mensaje);
-                cargarCmbLugar(); CrearPag(1);
-            }
-           
-            if (MessageBox.Show("¿Quiere modificar el local?", "CUIDADO", MessageBoxButtons.YesNo) == DialogResult.Yes)
-               {
-                   if (txtnumero.Text == "") { MessageBox.Show("Introducce un número"); txtnumero.Focus(); return; }
-                   if (txtacumulado.Text == "") { MessageBox.Show("Introducce Energía acumulada"); txtacumulado.Focus(); return; }
-                   if (cmbLugar.SelectedIndex == -1) { MessageBox.Show("Debe seleccionar un lugar"); cmbLugar.Focus(); return; }
-
-                   var local = new LocalModel(idLocal: idLocal, idLug:int.Parse(cmbLugar.SelectedValue.ToString()), numero: int.Parse(txtnumero.Text), acumulado: decimal.Parse(txtacumulado.Text));
-
-                   string mensaje = local.EditarLocal();
-                   MessageBox.Show(mensaje); CrearPag(1);
-            }
-           
-            Recarga(); 
-            btnAltaLocal.Enabled = true;
-            btnlugar.Enabled = true;
-        }
-
-        private void btneliminar_Click(object sender, EventArgs e)
-        {
-            if (MessageBox.Show("Este proceso borra el lugar "  + dato.ToUpper() +
-               " de la bd, lo quieres hacer S/N", "CUIDADO", MessageBoxButtons.YesNo) == DialogResult.Yes)
-            {
-                string mensaje = lugar.EliminarLugar(idLugar);
-                MessageBox.Show(mensaje);
-                Recarga(); cargarCmbLugar();
-                btnlugar.Enabled = true; CrearPag(1);
-            }
-
-
-            if (MessageBox.Show("Este proceso borra el local " + numero + " de " + dato.ToUpper()  +
-                " de la bd, lo quieres hacer S/N", "CUIDADO", MessageBoxButtons.YesNo) == DialogResult.Yes)
-            {
-                string mensaje = localModel.EliminarLocal(idLocal);
-                MessageBox.Show(mensaje);
-                Recarga();
-                btnAltaLocal.Enabled = true; CrearPag(1);
-            }
-
-        }
-
+        
         private void datagridLocales_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex != -1)
             {
-                CrearPag(1); 
-                if (datagridLocales.CurrentRow.Cells[0].Value.ToString() != "")
+                CrearPag(1); btnAltaLocal.Enabled = false;
+                btnlugar.Enabled = false;
+
+                if (datagridLocales.CurrentRow.Cells[2].Value.ToString() != "")
                 {
-                   idLocal = int.Parse( datagridLocales.CurrentRow.Cells[0].Value.ToString());
-                    idLugar = int.Parse(datagridLocales.CurrentRow.Cells[4].Value.ToString());
-                    dato = datagridLocales.CurrentRow.Cells[5].Value.ToString();
-                    numero = int.Parse(datagridLocales.CurrentRow.Cells[1].Value.ToString());
-                    lblLugarNum.Text = "Trastero: " + dato + " Nº " + numero;
-                    txtlugar.Text = dato.ToString();
-                    txtnumero.Text = numero.ToString();
-                    txtacumulado.Text = datagridLocales.CurrentRow.Cells[2].Value.ToString();
-                    cmbLugar.SelectedValue = idLugar;
-                    Recarga2(idLugar);
-                    btnAltaLocal.Enabled = false;
-                    btnlugar.Enabled = false;
-                    btnAltaPot.Enabled = true;
-                    CrearPag(2);
+                    dato = datagridLocales.CurrentRow.Cells[7].Value.ToString();
+                    lblLugarNum.Text = "Trastero: " + dato;
+                    idLugar = int.Parse(datagridLocales.CurrentRow.Cells[5].Value.ToString()); 
+                    if (datagridLocales.Columns[e.ColumnIndex].Name == "Edit" || datagridLocales.Columns[e.ColumnIndex].Name == "Borrar")
+                    {
+                        if (datagridLocales.Columns[e.ColumnIndex].Name == "Edit")
+                        {
+                            idLocal = int.Parse(datagridLocales.CurrentRow.Cells[2].Value.ToString()); 
+                            idLugar = int.Parse(datagridLocales.CurrentRow.Cells[5].Value.ToString()); 
+                            numero = int.Parse(datagridLocales.CurrentRow.Cells[3].Value.ToString());
+                            decimal acumldo = decimal.Parse(datagridLocales.CurrentRow.Cells[4].Value.ToString());
+                            FormModLc formedit = new FormModLc(idLugar, idLocal, dato, numero, acumldo);
+                            formedit.ShowDialog();
+                            CargaGridBtn();
+                           btnAltaLocal.Enabled = true;
+                           btnlugar.Enabled = true;
+                          
+                        }
+
+                        if (datagridLocales.Columns[e.ColumnIndex].Name == "Borrar")
+                        {
+                            if (MessageBox.Show("Este proceso borra el lugar " + dato.ToUpper() +
+                               " de la bd, lo quieres hacer S/N", "CUIDADO", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                            {
+                                string mensaje = lugar.EliminarLugar(idLugar);
+                                MessageBox.Show(mensaje);
+                                Recarga(); cargarCmbLugar();
+                                btnlugar.Enabled = true; CrearPag(1);
+                            }
+
+                            if (MessageBox.Show("Este proceso borra el local " + numero + " de " + dato.ToUpper() +
+                                " de la bd, lo quieres hacer S/N", "CUIDADO", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                            {
+                                string mensaje = localModel.EliminarLocal(idLocal);
+                                MessageBox.Show(mensaje);
+                                Recarga();
+                                btnAltaLocal.Enabled = true; CrearPag(1);
+                            }
+
+                            btnAltaLocal.Enabled = true; btnlugar.Enabled = true;
+
+                        }
+                    }
+                    else
+                    {
+                        btnAltaLocal.Enabled = true; btnlugar.Enabled = true;  btnAltaPot.Enabled = true;
+                        Recarga2(idLugar);
+                        CrearPag(2);
+                    }
+       
                 }
                 else
                 {
-                    CrearPag(1); Recarga(); btnlugar.Enabled = true;
+                    CrearPag(1); Recarga(); btnlugar.Enabled = true; btnAltaLocal.Enabled = true;
                     MessageBox.Show("Selecciona un local");
                 }
-            
+               
             }
                 
         }
@@ -252,9 +255,7 @@ namespace Presentacion
 
         private void Recarga()
         {
-            datagridLocales.DataSource = localModel.CargaLocales();
-            datagridLocales.Columns[0].Visible = false; datagridLocales.Columns[3].Visible = false;
-            datagridLocales.Columns[4].Visible = false;
+            CargaGridBtn();
             Limpiar();
         }
 
@@ -278,9 +279,8 @@ namespace Presentacion
             var potEnerg = new PotenciaEnergiaModel(anno: int.Parse(cmbanno.SelectedItem.ToString()), Energia:decimal.Parse(txtenerg.Text) , Potencia: decimal.Parse( textpot.Text), idLu: idLugar, importeEnergia:decimal.Parse(txtImpEnerg.Text));
             string mensaje= potEnerg.NuevoPotEng();
             MessageBox.Show(mensaje);
-            Recarga2(idLugar);
+            Recarga2(idLugar); 
         }
-
 
 
         private void btnCancelarPot_Click(object sender, EventArgs e)
@@ -288,7 +288,6 @@ namespace Presentacion
             textpot.Clear(); txtenerg.Clear(); cmbanno.SelectedIndex = -1; txtImpEnerg.Clear();
             btnAltaPot.Enabled = true;
         }
-
 
 
         private void btneliminarPot_Click(object sender, EventArgs e)
@@ -299,7 +298,7 @@ namespace Presentacion
                 string mensaje = energiaModel.EliminarPotEnergia(year,idLugar);
                 MessageBox.Show(mensaje);
                 Recarga2(idLugar);
-                btnAltaPot.Enabled = true;
+                btnAltaPot.Enabled = true; 
             }
 
         }
@@ -317,7 +316,7 @@ namespace Presentacion
            string mensaje=   potEnerg.EditarPotEnergia();
             MessageBox.Show(mensaje);
             Recarga2(idLugar);
-            btnAltaPot.Enabled = true;
+            btnAltaPot.Enabled = true; 
         }
 
 
@@ -345,8 +344,10 @@ namespace Presentacion
 
         private void Recarga2(int id)
         {
+            dataGridpotencia.AutoResizeColumns();
             dataGridpotencia.DataSource = energiaModel.CargaPotenciaEnergia(id);
             textpot.Clear(); txtenerg.Clear(); cmbanno.SelectedIndex = -1; txtImpEnerg.Clear();
+            
         }
 
         public void CargaCmbox()

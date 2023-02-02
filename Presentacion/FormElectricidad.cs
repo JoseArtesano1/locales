@@ -83,9 +83,12 @@ namespace Presentacion
                     idCliente = int.Parse(datagridLocalCli.CurrentRow.Cells[3].Value.ToString());
                     nombre = datagridLocalCli.CurrentRow.Cells[4].Value.ToString();
                   
-                      tabControl1.TabPages.Add(tabPage2);
-                      LlamarTab(tabPage2);
-       
+                    if(electricidad.botonesAcumulados(idLocal, idCliente, 0, "", 4))
+                    {
+                        tabControl1.TabPages.Add(tabPage2);
+                        LlamarTab(tabPage2);
+                    }
+                            
                 }
                 else
                 {

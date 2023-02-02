@@ -36,27 +36,27 @@ namespace Presentacion
 
 
         #region Funcionalidades del formulario
-        //RESIZE METODO PARA REDIMENCIONAR/CAMBIAR TAMAÑO A FORMULARIO EN TIEMPO DE EJECUCION ----------------------------------------------------------
+        //RESIZE METODO PARA REDIMENSIONAR/CAMBIAR TAMAÑO A FORMULARIO EN TIEMPO DE EJECUCION ----------------------------------------------------------
         private int tolerance = 12;
         private const int WM_NCHITTEST = 132;
         private const int HTBOTTOMRIGHT = 17;
         private Rectangle sizeGripRectangle;
 
-        protected override void WndProc(ref Message m)
-        {
-            switch (m.Msg)
-            {
-                case WM_NCHITTEST:
-                    base.WndProc(ref m);
-                    var hitPoint = this.PointToClient(new Point(m.LParam.ToInt32() & 0xffff, m.LParam.ToInt32() >> 16));
-                    if (sizeGripRectangle.Contains(hitPoint))
-                        m.Result = new IntPtr(HTBOTTOMRIGHT);
-                    break;
-                default:
-                    base.WndProc(ref m);
-                    break;
-            }
-        }
+        //protected override void WndProc(ref Message m)
+        //{
+        //    switch (m.Msg)
+        //    {
+        //        case WM_NCHITTEST:
+        //            base.WndProc(ref m);
+        //            var hitPoint = this.PointToClient(new Point(m.LParam.ToInt32() & 0xffff, m.LParam.ToInt32() >> 16));
+        //            if (sizeGripRectangle.Contains(hitPoint))
+        //                m.Result = new IntPtr(HTBOTTOMRIGHT);
+        //            break;
+        //        default:
+        //            base.WndProc(ref m);
+        //            break;
+        //    }
+        //}
         //----------------DIBUJAR RECTANGULO / EXCLUIR ESQUINA PANEL 
         protected override void OnSizeChanged(EventArgs e)
         {
@@ -184,7 +184,23 @@ namespace Presentacion
         [DllImport("user32.DLL", EntryPoint = "SendMessage")]
         private extern static void SendMessage(System.IntPtr hWnd, int wMsg, int wParam, int lParam);
 
-      
+
+        //MENU DESLIZANTE
+        private void btnMenu_Click(object sender, EventArgs e)
+        {
+            if (panelMenu.Width >= 180)
+            {
+                panelMenu.Width = 59;
+
+            }
+            else if (panelMenu.Width == 59)
+            {
+                panelMenu.Width = 180;
+            }
+
+        }
+
+
 
 
 

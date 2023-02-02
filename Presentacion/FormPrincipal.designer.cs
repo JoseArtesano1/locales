@@ -34,12 +34,12 @@
             this.label1 = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.panelMenu = new System.Windows.Forms.Panel();
+            this.btnMenu = new System.Windows.Forms.PictureBox();
             this.btnexit = new System.Windows.Forms.Button();
             this.btnfactura = new System.Windows.Forms.Button();
             this.btnConsulta = new System.Windows.Forms.Button();
             this.btnCalculo = new System.Windows.Forms.Button();
             this.btnCli = new System.Windows.Forms.Button();
-            this.lblnombre = new System.Windows.Forms.Label();
             this.btnElectricidad = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
@@ -49,10 +49,12 @@
             this.btnMinimizar = new System.Windows.Forms.PictureBox();
             this.btnMaximizar = new System.Windows.Forms.PictureBox();
             this.btnCerrar = new System.Windows.Forms.PictureBox();
+            this.lblnombre = new System.Windows.Forms.Label();
             this.panelContenedor.SuspendLayout();
             this.panelformularios.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.panelMenu.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.btnMenu)).BeginInit();
             this.panelBarraTitulo.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.btnRestaurar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnMinimizar)).BeginInit();
@@ -112,12 +114,12 @@
             // panelMenu
             // 
             this.panelMenu.BackColor = System.Drawing.Color.DarkRed;
+            this.panelMenu.Controls.Add(this.btnMenu);
             this.panelMenu.Controls.Add(this.btnexit);
             this.panelMenu.Controls.Add(this.btnfactura);
             this.panelMenu.Controls.Add(this.btnConsulta);
             this.panelMenu.Controls.Add(this.btnCalculo);
             this.panelMenu.Controls.Add(this.btnCli);
-            this.panelMenu.Controls.Add(this.lblnombre);
             this.panelMenu.Controls.Add(this.btnElectricidad);
             this.panelMenu.Controls.Add(this.button3);
             this.panelMenu.Controls.Add(this.button2);
@@ -129,8 +131,22 @@
             this.panelMenu.Size = new System.Drawing.Size(291, 777);
             this.panelMenu.TabIndex = 1;
             // 
+            // btnMenu
+            // 
+            this.btnMenu.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnMenu.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.btnMenu.Image = ((System.Drawing.Image)(resources.GetObject("btnMenu.Image")));
+            this.btnMenu.Location = new System.Drawing.Point(235, 3);
+            this.btnMenu.Name = "btnMenu";
+            this.btnMenu.Size = new System.Drawing.Size(53, 51);
+            this.btnMenu.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.btnMenu.TabIndex = 2;
+            this.btnMenu.TabStop = false;
+            this.btnMenu.Click += new System.EventHandler(this.btnMenu_Click);
+            // 
             // btnexit
             // 
+            this.btnexit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btnexit.FlatAppearance.BorderSize = 0;
             this.btnexit.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(50)))), ((int)(((byte)(70)))));
             this.btnexit.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(12)))), ((int)(((byte)(61)))), ((int)(((byte)(92)))));
@@ -138,9 +154,10 @@
             this.btnexit.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnexit.ForeColor = System.Drawing.Color.Gainsboro;
             this.btnexit.Image = ((System.Drawing.Image)(resources.GetObject("btnexit.Image")));
-            this.btnexit.Location = new System.Drawing.Point(106, 715);
+            this.btnexit.Location = new System.Drawing.Point(12, 703);
             this.btnexit.Name = "btnexit";
-            this.btnexit.Size = new System.Drawing.Size(74, 62);
+            this.btnexit.Padding = new System.Windows.Forms.Padding(0, 0, 15, 0);
+            this.btnexit.Size = new System.Drawing.Size(66, 62);
             this.btnexit.TabIndex = 10;
             this.btnexit.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnexit.UseVisualStyleBackColor = true;
@@ -160,7 +177,7 @@
             this.btnfactura.Name = "btnfactura";
             this.btnfactura.Size = new System.Drawing.Size(279, 62);
             this.btnfactura.TabIndex = 9;
-            this.btnfactura.Text = "FACTURAS";
+            this.btnfactura.Text = "    FACTURAS";
             this.btnfactura.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnfactura.UseVisualStyleBackColor = true;
             this.btnfactura.Click += new System.EventHandler(this.btnfactura_Click);
@@ -179,7 +196,7 @@
             this.btnConsulta.Name = "btnConsulta";
             this.btnConsulta.Size = new System.Drawing.Size(279, 62);
             this.btnConsulta.TabIndex = 8;
-            this.btnConsulta.Text = "CONSULTAS";
+            this.btnConsulta.Text = "    CONSULTAS";
             this.btnConsulta.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnConsulta.UseVisualStyleBackColor = true;
             this.btnConsulta.Click += new System.EventHandler(this.btnConsulta_Click);
@@ -198,7 +215,7 @@
             this.btnCalculo.Name = "btnCalculo";
             this.btnCalculo.Size = new System.Drawing.Size(279, 62);
             this.btnCalculo.TabIndex = 7;
-            this.btnCalculo.Text = "IMPORTE LUZ";
+            this.btnCalculo.Text = "    IMPORTE LUZ";
             this.btnCalculo.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnCalculo.UseVisualStyleBackColor = true;
             this.btnCalculo.Click += new System.EventHandler(this.btnCalculo_Click);
@@ -217,21 +234,10 @@
             this.btnCli.Name = "btnCli";
             this.btnCli.Size = new System.Drawing.Size(279, 62);
             this.btnCli.TabIndex = 6;
-            this.btnCli.Text = "CLIENTES";
+            this.btnCli.Text = "    CLIENTES";
             this.btnCli.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnCli.UseVisualStyleBackColor = true;
             this.btnCli.Click += new System.EventHandler(this.btnCli_Click);
-            // 
-            // lblnombre
-            // 
-            this.lblnombre.AutoSize = true;
-            this.lblnombre.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblnombre.ForeColor = System.Drawing.Color.White;
-            this.lblnombre.Location = new System.Drawing.Point(101, 58);
-            this.lblnombre.Name = "lblnombre";
-            this.lblnombre.Size = new System.Drawing.Size(79, 29);
-            this.lblnombre.TabIndex = 5;
-            this.lblnombre.Text = "label2";
             // 
             // btnElectricidad
             // 
@@ -247,7 +253,7 @@
             this.btnElectricidad.Name = "btnElectricidad";
             this.btnElectricidad.Size = new System.Drawing.Size(279, 62);
             this.btnElectricidad.TabIndex = 4;
-            this.btnElectricidad.Text = "ELECTRICIDAD";
+            this.btnElectricidad.Text = "    ELECTRICIDAD";
             this.btnElectricidad.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnElectricidad.UseVisualStyleBackColor = true;
             this.btnElectricidad.Click += new System.EventHandler(this.btnElectricidad_Click);
@@ -266,7 +272,7 @@
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(282, 62);
             this.button3.TabIndex = 2;
-            this.button3.Text = "LOCALES";
+            this.button3.Text = "    LOCALES";
             this.button3.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.button3.UseVisualStyleBackColor = true;
             this.button3.Click += new System.EventHandler(this.button3_Click);
@@ -285,7 +291,7 @@
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(282, 62);
             this.button2.TabIndex = 1;
-            this.button2.Text = "USUARIO";
+            this.button2.Text = "    USUARIO";
             this.button2.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click);
@@ -304,7 +310,7 @@
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(282, 62);
             this.button1.TabIndex = 0;
-            this.button1.Text = "USUARIOS";
+            this.button1.Text = "    USUARIOS";
             this.button1.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
@@ -316,6 +322,7 @@
             this.panelBarraTitulo.Controls.Add(this.btnMinimizar);
             this.panelBarraTitulo.Controls.Add(this.btnMaximizar);
             this.panelBarraTitulo.Controls.Add(this.btnCerrar);
+            this.panelBarraTitulo.Controls.Add(this.lblnombre);
             this.panelBarraTitulo.Dock = System.Windows.Forms.DockStyle.Top;
             this.panelBarraTitulo.Location = new System.Drawing.Point(0, 0);
             this.panelBarraTitulo.Name = "panelBarraTitulo";
@@ -376,6 +383,17 @@
             this.btnCerrar.TabStop = false;
             this.btnCerrar.Click += new System.EventHandler(this.btnCerrar_Click);
             // 
+            // lblnombre
+            // 
+            this.lblnombre.AutoSize = true;
+            this.lblnombre.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblnombre.ForeColor = System.Drawing.Color.White;
+            this.lblnombre.Location = new System.Drawing.Point(84, 9);
+            this.lblnombre.Name = "lblnombre";
+            this.lblnombre.Size = new System.Drawing.Size(79, 29);
+            this.lblnombre.TabIndex = 5;
+            this.lblnombre.Text = "label2";
+            // 
             // FormPrincipal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
@@ -393,8 +411,9 @@
             this.panelformularios.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.panelMenu.ResumeLayout(false);
-            this.panelMenu.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.btnMenu)).EndInit();
             this.panelBarraTitulo.ResumeLayout(false);
+            this.panelBarraTitulo.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.btnRestaurar)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnMinimizar)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnMaximizar)).EndInit();
@@ -425,6 +444,7 @@
         private System.Windows.Forms.Button btnConsulta;
         private System.Windows.Forms.Button btnfactura;
         private System.Windows.Forms.Button btnexit;
+        private System.Windows.Forms.PictureBox btnMenu;
     }
 }
 

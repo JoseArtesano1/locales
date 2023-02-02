@@ -136,14 +136,14 @@ namespace Domain
         public string EliminarClientes(int idC)
         {
             try
-            { if(!metodos.Existe("select * from Telefono where idClient=" + idC + ";"))
+            { if(!metodos.Existe("select * from Telefono where idClient=" + idC + ";") && !metodos.Existe("select * from Electricidad where idCli=" + idC + ";") && !metodos.Existe("select * from Alquiler where idCl=" + idC + ";"))
                 {
                     clienteDao.EliminarCliente(idC);
                     return "Cliente eliminado";
                 }
                 else
                 {
-                    return "El cliente tiene vinculaciones";
+                    return "El cliente tiene vinculaciones, electricidad, alquiler y contactos";
                 }
 
             }catch(Exception ex)
@@ -161,7 +161,7 @@ namespace Domain
 
         public List<string> CargaConsulta2()
         {
-            return metodos.CreaLista<string>( "VACIOS", "CARTERA", "ELECTRICIDAD");
+            return metodos.CreaLista<string>( "VACIOS", "CARTERA", "ELECTRICIDAD", "OBSERVACIONES");
         }
 
 

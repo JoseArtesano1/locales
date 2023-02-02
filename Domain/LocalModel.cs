@@ -99,9 +99,17 @@ namespace Domain
         public string ActualizarAcumulado()
         {
             try
-            {               
-                localDao.EditarLocal(idLocal, idLug, numero, acumulado, false);
-                return "Acumulado Actualizado";
+            {
+                if (metodos.Existe("select * from Electricidad, Locales where idLoca=idLocal and consumo>acumulado and estado=1 and importe>0 and idLoca=" + idLocal + ";"))
+                {
+                    localDao.EditarLocal(idLocal, idLug, numero, acumulado, false);
+                    return "Acumulado Actualizado";
+                }
+                else
+                {
+                    return "Debe cambiar el estado o consumo es igual al acumulado";
+                }
+               
             }
             catch(Exception ex)
             {

@@ -162,6 +162,52 @@ namespace DataAccess.Data
         }
 
 
+        public string ClienteMail(string dni, string mensaje, bool opcion)
+        {
+            string dato = "", dato1 = "";
+            using (var conexion = GetConnection())
+            {
+                conexion.Open();
+
+                using (var comando = new SqlCommand())
+                {
+                    comando.Connection = conexion;
+                    comando.CommandText = "select nombre, email from Clientes, Telefono where idCliente=idClient and activo=1 and dni=@dni";
+                    comando.Parameters.AddWithValue("@dni", dni);
+                    comando.CommandType = CommandType.Text;
+                    SqlDataReader reader = comando.ExecuteReader();
+
+                    while (reader.Read())
+                    {
+                        dato = reader.GetString(0);
+                        dato1 = reader.GetString(1);
+                        if (opcion)
+                        {
+                            List<String> listEmail = new List<string>();
+                            listEmail.Add(dato1);
+                            foreach (var item in listEmail)
+                            {
+                                var mail = new MailServicios.SystemMail();
+                                mail.EnvioMail(subject: "TRASTEROS", body: mensaje, destinatarios: new List<string>() { item });
+                            }
+
+                        }
+                        else
+                        {
+                            var mail = new MailServicios.SystemMail();
+                            mail.EnvioMail(subject: "TRASTEROS", body: mensaje, destinatarios: new List<string>() { dato1 });
+                        }
+
+                        return "Correo Enviado";
+
+                    }
+
+                    return "Correo sin Enviar";
+                }
+            }
+
+
+        }
 
 
     }

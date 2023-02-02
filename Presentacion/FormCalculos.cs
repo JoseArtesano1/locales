@@ -112,6 +112,12 @@ namespace Presentacion
             {
                 zona = cmbLugar.SelectedValue.ToString();
                 CrearControl(1);
+                datagridLocalCli.DataSource = ""; txtNumero.Clear(); txtnombre.Clear();
+                if (electricidad.botonesAcumulados(0, 0, 0, zona, 2) && electricidad.NumeroEstados(zona, 0, 1) > 1)
+                {
+                    btnacumulado.Visible = true;
+                }
+                else { btnacumulado.Visible = false; }
             }
         }
 
@@ -153,12 +159,6 @@ namespace Presentacion
                          LlamarTab(tabPage3);
 
                     }
-
-                    if (electricidad.botonesAcumulados(0, 0, 0, zona, 2) && electricidad.NumeroEstados(zona, 0, 1) > 1)
-                    {
-                        btnacumulado.Visible = true;
-                    }
-                    else { btnacumulado.Visible = false; }
 
                 }
             }
@@ -220,7 +220,7 @@ namespace Presentacion
                 if (mensaje.Substring(0, 1) == "I")
                 {
                     MessageBox.Show(mensaje);
-                    btnIndAcum.Visible = true; LlamarTab(tabPage1); CrearControl(1);
+                     LlamarTab(tabPage1); CrearControl(1);
                 }
                 else
                 {
@@ -244,7 +244,7 @@ namespace Presentacion
                     fecha2 = DateTime.Parse(datagridListado.CurrentRow.Cells[6].Value.ToString());
                     consumo = decimal.Parse(datagridListado.CurrentRow.Cells[10].Value.ToString());
                     miImporte = decimal.Parse(datagridListado.CurrentRow.Cells[9].Value.ToString());
-                    if (miImporte != 0) { btnIndiv.Enabled = false; btnIndAcum.Visible = true; }
+                    if (miImporte != 0) { btnIndiv.Enabled = false;  }
                     
                 }
                 else
@@ -265,7 +265,7 @@ namespace Presentacion
             if (mensaje.Substring(0, 1) == "A")
             {
                 MessageBox.Show(mensaje);
-                btnacumulado.Visible = true; LlamarTab(tabPage1);
+                 LlamarTab(tabPage1);
             }
             else
             {
